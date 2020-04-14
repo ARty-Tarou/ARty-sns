@@ -2,7 +2,7 @@ _SNS用ってことにしとこうかな_
 
 _メンバー_  
 Aman0jaku  
-Rook-Bee(matsu)  
+Rook-Bee  
 <<<<<<< HEAD
 Krenoa
 YusukeI-32
