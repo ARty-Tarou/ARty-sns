@@ -14,20 +14,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func email(_ sender: Any) {
-    }
-    
-    
-    @IBAction func password(_ sender: Any) {
-    }
-    
-    @IBAction func decisin(_ sender: Any) {
-    }
-    
-    
-    @IBAction func signin(_ sender: Any) {
-    }
     
 }
 
