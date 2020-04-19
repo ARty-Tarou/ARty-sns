@@ -222,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mFA-Cy-fW8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3414" y="652"/>
+            <point key="canvasLocation" x="3412" y="-53"/>
         </scene>
         <!--設定-->
         <scene sceneID="i5a-43-BpU">
@@ -238,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJM-nN-xmK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2485" y="1237"/>
+            <point key="canvasLocation" x="3412" y="1284"/>
         </scene>
         <!--検索-->
         <scene sceneID="vT6-A0-V5n">
@@ -254,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fN-TJ-yMz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3412" y="1393"/>
+            <point key="canvasLocation" x="3412" y="639"/>
         </scene>
         <!--タイムライン-->
         <scene sceneID="6sl-Ot-rYV">
@@ -270,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1o-Km-JBm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3412" y="5"/>
+            <point key="canvasLocation" x="3412" y="-739"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="SNA-oW-OsV">
@@ -289,6 +289,12 @@
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLC-Zw-awm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tabBar contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bad-Sc-Ms3">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items/>
+                </tabBar>
             </objects>
             <point key="canvasLocation" x="2490" y="329"/>
         </scene>
