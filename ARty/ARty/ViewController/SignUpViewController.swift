@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import NCMB
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
 // MARK: Properties
-    @IBOutlet weak var userIdTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!
     
 
 // User情報を格納
@@ -33,7 +34,7 @@ override func viewDidLoad() {
     print("password:\(password)")
     
     //テキストフィールドのデリゲートを設定
-    userIdTextField.delegate = self
+    userNameTextField.delegate = self
 }
     
     // MARK: Delegate Method
@@ -42,10 +43,42 @@ override func viewDidLoad() {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         // キーボードを閉じる
-        userIdTextField.resignFirstResponder()
+        userNameTextField.resignFirstResponder()
+        
+        // ユーザーID
         
         return true
     }
+    
+    // MARK: Actions
+    @IBAction func signUpButtonAction(_ sender: Any) {
+        
+        if let userName = userNameTextField.text, let email = user?.getEmail(), let password = user?.getPassword(){
+            // ユーザーインスタンス生成
+            let user = NCMBUser()
+            
+            // ユーザー情報格納
+            user.userName = userName
+            user.mailAddress = email
+            user.password = password
+            
+            // ニフクラに新規会員登録
+            user.signUpInBackground(callback: {result in
+                switch result{
+                case .success:
+                    // 新規登録に成功した場合の処理
+                    print("登録に成功")
+                    
+                case let .failure(error):
+                    // 新規登録に失敗した場合の処理
+                    print("登録失敗:\(error)")
+                }
+            })
+
+        }
+        
+    }
+    
     
 
     /*
