@@ -23,6 +23,7 @@
 		CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E564244D53DD00EF5DED /* Setting.storyboard */; };
 		CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E566244D540300EF5DED /* Timeline.storyboard */; };
 		CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E568244D544C00EF5DED /* Tab.storyboard */; };
+		CCEF9E5C244D915400F6D584 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF9E5B244D915400F6D584 /* SettingViewController.swift */; };
 		F0975A23096E7EDCF5C824A6 /* Pods_ARty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		CC61E564244D53DD00EF5DED /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		CC61E566244D540300EF5DED /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		CC61E568244D544C00EF5DED /* Tab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tab.storyboard; sourceTree = "<group>"; };
+		CCEF9E5B244D915400F6D584 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
+				CCEF9E5B244D915400F6D584 /* SettingViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
+				CCEF9E5C244D915400F6D584 /* SettingViewController.swift in Sources */,
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

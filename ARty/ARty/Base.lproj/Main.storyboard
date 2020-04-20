@@ -54,7 +54,7 @@
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Decisin"/>
+                                <state key="normal" title="Decision"/>
                                 <connections>
                                     <action selector="desisionButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PbZ-AZ-SsG"/>
                                 </connections>
