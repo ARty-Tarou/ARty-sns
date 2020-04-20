@@ -52,15 +52,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="EZX-g7-kNz"/>
                     </view>
-<<<<<<< HEAD
                     <navigationItem key="navigationItem" title="Title" id="k8d-fB-ghW">
                         <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="Dhk-45-Bz7">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="n9I-pK-YUH">
-=======
-                    <navigationItem key="navigationItem" title="Title" id="Jiy-nh-l8g">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="OkA-1E-yBE">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ipa-N6-gMw">
->>>>>>> noa
                                 <rect key="frame" x="20" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
@@ -74,21 +68,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gj-4B-NZ2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
             <point key="canvasLocation" x="1247.8260869565217" y="69.642857142857139"/>
-        </scene>
-        <!--Index-->
-        <scene sceneID="ykF-EO-6bG">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Index" id="VL9-ho-77Z" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Bkh-Jl-iGp"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rio-yb-Usr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1815" y="70"/>
-=======
-            <point key="canvasLocation" x="2156.521739130435" y="69.642857142857139"/>
->>>>>>> noa
         </scene>
     </scenes>
 </document>
