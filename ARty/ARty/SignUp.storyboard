@@ -55,7 +55,7 @@
                     <navigationItem key="navigationItem" title="Title" id="k8d-fB-ghW">
                         <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="Dhk-45-Bz7">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="n9I-pK-YUH">
-                                <rect key="frame" x="-23" y="-15" width="92" height="30"/>
+                                <rect key="frame" x="20" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
                             </button>
@@ -73,7 +73,9 @@
         <!--Index-->
         <scene sceneID="ykF-EO-6bG">
             <objects>
-                <viewControllerPlaceholder storyboardName="Index" id="VL9-ho-77Z" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Index" id="VL9-ho-77Z" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Bkh-Jl-iGp"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rio-yb-Usr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1815" y="70"/>
