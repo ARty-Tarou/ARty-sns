@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f9y-UV-RWZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K8C-Ph-IPk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,7 +40,9 @@
         <scene sceneID="h9q-sK-iUF">
             <objects>
                 <viewControllerPlaceholder storyboardName="Trend" id="CwP-3G-syB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Trend" id="nq3-dA-MtA"/>
+                    <tabBarItem key="tabBarItem" systemItem="topRated" id="nq3-dA-MtA">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kga-tR-fyI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -50,7 +52,7 @@
         <scene sceneID="Pgk-6k-DlW">
             <objects>
                 <viewControllerPlaceholder storyboardName="Search" id="W5q-kg-hCB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="nMO-na-FAT"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="nMO-na-FAT"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BGF-5q-Kvb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -60,7 +62,7 @@
         <scene sceneID="ni8-vi-U9M">
             <objects>
                 <viewControllerPlaceholder storyboardName="Setting" id="Aoe-ep-Kv7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Setting" id="wlz-YR-m9Y"/>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="wlz-YR-m9Y"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxg-ZH-h0M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

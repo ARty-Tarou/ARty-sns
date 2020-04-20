@@ -10,12 +10,20 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
+    @IBOutlet weak var UserImage: UIImageView!
+    
+    @IBOutlet weak var UserName: UILabel!
+    
+    
+    @IBOutlet weak var SelfIntroduction: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
+    
 
     /*
     // MARK: - Navigation
