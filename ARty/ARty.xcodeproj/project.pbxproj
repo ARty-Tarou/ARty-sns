@@ -131,19 +131,10 @@
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
-<<<<<<< HEAD
-
-				089207C2244D940D00699589 /* SettingViewController.swift */,
-				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
-
-=======
-<<<<<<< HEAD
 				CCEF9E5B244D915400F6D584 /* SettingViewController.swift */,
-=======
 				089207C2244D940D00699589 /* SettingViewController.swift */,
 				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
->>>>>>> a8a0140d6d1cd0b2169c266e8ae916dad9db2bbc
->>>>>>> 2afb9dc73e7726092e46968ce54df56e02098279
+
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -283,19 +274,9 @@
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
-<<<<<<< HEAD
-
-				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
-				089207C3244D940D00699589 /* SettingViewController.swift in Sources */,
-
-=======
-<<<<<<< HEAD
 				CCEF9E5C244D915400F6D584 /* SettingViewController.swift in Sources */,
-=======
 				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
 				089207C3244D940D00699589 /* SettingViewController.swift in Sources */,
->>>>>>> a8a0140d6d1cd0b2169c266e8ae916dad9db2bbc
->>>>>>> 2afb9dc73e7726092e46968ce54df56e02098279
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
