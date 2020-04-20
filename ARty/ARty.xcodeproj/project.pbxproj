@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		089207C3244D940D00699589 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C2244D940D00699589 /* SettingViewController.swift */; };
+		089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C4244DA26200699589 /* ChangeSettingViewController.swift */; };
 		5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02C24460F750069FEDD /* AppDelegate.swift */; };
 		5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02E24460F750069FEDD /* SceneDelegate.swift */; };
 		5705E03124460F750069FEDD /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E03024460F750069FEDD /* IndexViewController.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		089207C2244D940D00699589 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		089207C4244DA26200699589 /* ChangeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSettingViewController.swift; sourceTree = "<group>"; };
 		322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35561E5CB536E7EDE99F2207 /* Pods-ARty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARty.debug.xcconfig"; path = "Target Support Files/Pods-ARty/Pods-ARty.debug.xcconfig"; sourceTree = "<group>"; };
 		48DD4E16E8A2989F507179BB /* Pods-ARty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARty.release.xcconfig"; path = "Target Support Files/Pods-ARty/Pods-ARty.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,7 +131,12 @@
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
+<<<<<<< HEAD
 				CCEF9E5B244D915400F6D584 /* SettingViewController.swift */,
+=======
+				089207C2244D940D00699589 /* SettingViewController.swift */,
+				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
+>>>>>>> a8a0140d6d1cd0b2169c266e8ae916dad9db2bbc
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -267,7 +276,12 @@
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
+<<<<<<< HEAD
 				CCEF9E5C244D915400F6D584 /* SettingViewController.swift in Sources */,
+=======
+				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
+				089207C3244D940D00699589 /* SettingViewController.swift in Sources */,
+>>>>>>> a8a0140d6d1cd0b2169c266e8ae916dad9db2bbc
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

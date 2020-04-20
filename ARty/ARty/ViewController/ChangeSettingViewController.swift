@@ -1,5 +1,5 @@
 //
-//  SettingViewController.swift
+//  ChangeSettingViewController.swift
 //  ARty
 //
 //  Created by 石松祐太 on 2020/04/20.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+class ChangeSettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
+    
 
     /*
     // MARK: - Navigation
