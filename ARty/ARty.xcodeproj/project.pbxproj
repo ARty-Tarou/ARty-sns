@@ -10,12 +10,12 @@
 		5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02C24460F750069FEDD /* AppDelegate.swift */; };
 		5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02E24460F750069FEDD /* SceneDelegate.swift */; };
 		5705E03124460F750069FEDD /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E03024460F750069FEDD /* IndexViewController.swift */; };
-		5705E03424460F750069FEDD /* Index.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5705E03224460F750069FEDD /* Index.storyboard */; };
+		5705E03424460F750069FEDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5705E03224460F750069FEDD /* Main.storyboard */; };
 		5705E03624460F770069FEDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5705E03524460F770069FEDD /* Assets.xcassets */; };
 		5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5705E03724460F770069FEDD /* LaunchScreen.storyboard */; };
 		CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */; };
 		CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0CE45A244C2C910047B289 /* SignInViewController.swift */; };
-		CC61E558244D4C4300EF5DED /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E557244D4C4300EF5DED /* SignUp.storyboard */; };
+		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
 		CC61E55D244D4E0900EF5DED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61E55C244D4E0900EF5DED /* User.swift */; };
 		CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E55E244D527A00EF5DED /* SignIn.storyboard */; };
 		CC61E561244D539600EF5DED /* Trend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E560244D539600EF5DED /* Trend.storyboard */; };
@@ -34,13 +34,13 @@
 		5705E02C24460F750069FEDD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5705E02E24460F750069FEDD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5705E03024460F750069FEDD /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
-		5705E03324460F750069FEDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Index.storyboard; sourceTree = "<group>"; };
+		5705E03324460F750069FEDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5705E03524460F770069FEDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5705E03824460F770069FEDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5705E03A24460F770069FEDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CC0CE45A244C2C910047B289 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		CC61E557244D4C4300EF5DED /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		CC61E55C244D4E0900EF5DED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CC61E55E244D527A00EF5DED /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		CC61E560244D539600EF5DED /* Trend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trend.storyboard; sourceTree = "<group>"; };
@@ -106,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				5705E03724460F770069FEDD /* LaunchScreen.storyboard */,
-				5705E03224460F750069FEDD /* Index.storyboard */,
-				CC61E557244D4C4300EF5DED /* SignUp.storyboard */,
+				5705E03224460F750069FEDD /* Main.storyboard */,
+				CC58184F244D6F6E000380D9 /* SignUp.storyboard */,
 				CC61E55E244D527A00EF5DED /* SignIn.storyboard */,
 				CC61E568244D544C00EF5DED /* Tab.storyboard */,
 				CC61E560244D539600EF5DED /* Trend.storyboard */,
@@ -201,11 +201,11 @@
 				CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */,
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
 				CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */,
-				CC61E558244D4C4300EF5DED /* SignUp.storyboard in Resources */,
+				CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */,
 				5705E03624460F770069FEDD /* Assets.xcassets in Resources */,
 				CC61E563244D53A500EF5DED /* Search.storyboard in Resources */,
 				CC61E561244D539600EF5DED /* Trend.storyboard in Resources */,
-				5705E03424460F750069FEDD /* Index.storyboard in Resources */,
+				5705E03424460F750069FEDD /* Main.storyboard in Resources */,
 				CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,12 +271,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5705E03224460F750069FEDD /* Index.storyboard */ = {
+		5705E03224460F750069FEDD /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5705E03324460F750069FEDD /* Base */,
 			);
-			name = Index.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		5705E03724460F770069FEDD /* LaunchScreen.storyboard */ = {

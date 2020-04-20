@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wEb-u9-TXt">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wEb-u9-TXt">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+>>>>>>> noa
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+<<<<<<< HEAD
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+=======
+        <!--Index View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="IndexViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+>>>>>>> noa
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,9 +48,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+<<<<<<< HEAD
                                 <connections>
                                     <action selector="Email:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="hCw-RR-wW1"/>
                                 </connections>
+=======
+>>>>>>> noa
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRc-fA-KM0">
                                 <rect key="frame" x="57" y="522" width="300" height="34"/>
@@ -46,6 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eyn-Gr-4PK">
+<<<<<<< HEAD
                                 <rect key="frame" x="57" y="564" width="300" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -53,6 +71,12 @@
                                 <connections>
                                     <action selector="Password:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="iEJ-He-Vjq"/>
                                 </connections>
+=======
+                                <rect key="frame" x="57" y="568" width="300" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+>>>>>>> noa
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-ha-87s">
                                 <rect key="frame" x="147" y="649" width="120" height="40"/>
@@ -60,10 +84,16 @@
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+<<<<<<< HEAD
                                 <state key="normal" title="Decisin"/>
                                 <connections>
                                     <action selector="decisin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ipo-9J-wbx"/>
                                     <segue destination="vrC-3i-j5l" kind="show" id="kC6-Hy-veA"/>
+=======
+                                <state key="normal" title="Decision"/>
+                                <connections>
+                                    <action selector="desisionButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X2O-T5-5fe"/>
+>>>>>>> noa
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7j-Dn-urp">
@@ -74,8 +104,12 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Sign in"/>
                                 <connections>
+<<<<<<< HEAD
                                     <action selector="signin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fl6-6Q-qWc"/>
                                     <segue destination="A6m-rt-G0s" kind="show" id="rmM-T1-8Ae"/>
+=======
+                                    <action selector="signinButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6k7-8T-cIH"/>
+>>>>>>> noa
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-Ie-NEk">
@@ -87,6 +121,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="bZx-od-4GM"/>
+<<<<<<< HEAD
+=======
+                    <connections>
+                        <outlet property="emailTextField" destination="qRm-Il-TsU" id="SSz-zW-onR"/>
+                        <outlet property="passwordTextField" destination="Eyn-Gr-4PK" id="GnT-e4-QRt"/>
+                        <segue destination="etU-QZ-LLO" kind="show" identifier="decision" id="EXI-YV-AEF"/>
+                        <segue destination="Wc1-0z-j50" kind="show" identifier="signIn" id="E3z-JP-mtQ"/>
+                    </connections>
+>>>>>>> noa
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -110,6 +153,7 @@
             </objects>
             <point key="canvasLocation" x="-513.04347826086962" y="69.642857142857139"/>
         </scene>
+<<<<<<< HEAD
         <!--View Controller-->
         <scene sceneID="Js9-8g-9iS">
             <objects>
@@ -302,4 +346,27 @@
     <inferredMetricsTieBreakers>
         <segue reference="clz-qu-0Ia"/>
     </inferredMetricsTieBreakers>
+=======
+        <!--SignUp-->
+        <scene sceneID="DUr-sd-Ndv">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SignUp" id="etU-QZ-LLO" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="CPD-Gj-zB7"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BgY-jQ-20P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1045" y="32"/>
+        </scene>
+        <!--SignIn-->
+        <scene sceneID="5Yi-KB-87Z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SignIn" id="Wc1-0z-j50" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="T9U-0E-c3B"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gmK-Ou-M1o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1041" y="104"/>
+        </scene>
+    </scenes>
+>>>>>>> noa
 </document>
