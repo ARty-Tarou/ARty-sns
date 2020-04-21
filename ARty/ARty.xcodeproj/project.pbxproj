@@ -25,6 +25,7 @@
 		CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E564244D53DD00EF5DED /* Setting.storyboard */; };
 		CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E566244D540300EF5DED /* Timeline.storyboard */; };
 		CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E568244D544C00EF5DED /* Tab.storyboard */; };
+		CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCDC551244EB98900E4AECE /* LogoutLogic.swift */; };
 		F0975A23096E7EDCF5C824A6 /* Pods_ARty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		CC61E564244D53DD00EF5DED /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		CC61E566244D540300EF5DED /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		CC61E568244D544C00EF5DED /* Tab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tab.storyboard; sourceTree = "<group>"; };
+		CCCDC551244EB98900E4AECE /* LogoutLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
 				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
 				086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */,
+				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
 				5705E03124460F750069FEDD /* IndexViewController.swift in Sources */,
 				CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */,
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
