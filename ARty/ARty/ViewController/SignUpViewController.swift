@@ -45,8 +45,6 @@ override func viewDidLoad() {
         // キーボードを閉じる
         userNameTextField.resignFirstResponder()
         
-        // ユーザーID
-        
         return true
     }
     
@@ -61,6 +59,7 @@ override func viewDidLoad() {
             user.userName = userName
             user.mailAddress = email
             user.password = password
+
             
             // ニフクラに新規会員登録
             user.signUpInBackground(callback: {result in

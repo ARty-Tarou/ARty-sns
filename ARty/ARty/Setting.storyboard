@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--設定-->
+        <!--Setting View Controller-->
         <scene sceneID="afN-xF-xeR">
             <objects>
-                <viewController title="設定" id="N9I-aF-UDC" customClass="SettingViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="N9I-aF-UDC" customClass="SettingViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ouI-Ua-H8I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Rdj-bm-9Yi" kind="show" id="JE1-jp-Zv5"/>
+                                    <action selector="changeButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="zGk-hf-4DM"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9y-Eg-aDA">
@@ -80,11 +80,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="HCR-w8-auG"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="3KJ-Pc-p5E"/>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="Vkn-ao-C3l"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="SelfIntroduction" destination="BfJ-81-e9F" id="m5a-e2-fc0"/>
-                        <outlet property="UserImage" destination="XYP-q6-NCu" id="bcn-e5-mVI"/>
-                        <outlet property="UserName" destination="p9y-Eg-aDA" id="NlA-cg-exv"/>
+                        <outlet property="iconImage" destination="XYP-q6-NCu" id="P8J-JR-gFi"/>
+                        <outlet property="userName" destination="p9y-Eg-aDA" id="zPg-w6-bXP"/>
+                        <segue destination="Rdj-bm-9Yi" kind="presentation" identifier="change" id="gcB-o2-wkk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -96,7 +97,7 @@
             <objects>
                 <viewController id="Rdj-bm-9Yi" customClass="ChangeSettingViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tkj-B8-DHV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ySD-fM-JR4">
@@ -105,7 +106,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="SelfIntroduction:" destination="Rdj-bm-9Yi" eventType="editingDidEnd" id="0Y5-DI-RRR"/>
                                     <action selector="textField:" destination="59N-YA-EIC" eventType="editingDidEnd" id="TGy-zf-Ril"/>
                                 </connections>
                             </textField>
@@ -114,9 +114,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="NewUser:" destination="Rdj-bm-9Yi" eventType="editingDidEnd" id="unS-Dm-YwY"/>
-                                </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iah-UP-L94">
                                 <rect key="frame" x="46" y="73" width="110" height="93"/>
@@ -136,6 +133,9 @@
                                 <state key="normal" title="決定">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="decisionButtonAction:" destination="Rdj-bm-9Yi" eventType="touchUpInside" id="bIG-L9-fwQ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Self-introduction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdx-uI-ly8">
                                 <rect key="frame" x="186" y="145" width="129" height="21"/>
@@ -148,11 +148,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="fNX-xF-xlR"/>
                     </view>
-                    <navigationItem key="navigationItem" id="nRQ-nZ-Dzo"/>
+                    <navigationItem key="navigationItem" id="KfF-9F-OX0"/>
                     <connections>
-                        <outlet property="Appeal" destination="zdx-uI-ly8" id="MEf-tW-K4D"/>
-                        <outlet property="UserImage" destination="iah-UP-L94" id="rZm-l9-Jf6"/>
-                        <outlet property="UserName" destination="oDH-0M-g60" id="cR8-Mr-3R8"/>
+                        <outlet property="selfIntroductionTextField" destination="ySD-fM-JR4" id="Olt-TC-g6q"/>
+                        <outlet property="userNameTextField" destination="zSN-gE-ESa" id="Ojy-q5-uDf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="scP-el-Geu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

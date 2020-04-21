@@ -7,17 +7,13 @@
 //
 
 import UIKit
+import NCMB
 
-class ChangeSettingViewController: UIViewController {
-    @IBOutlet weak var UserName: UILabel!
-    @IBAction func NewUser(_ sender: UITextField) {
-        UserName.text = sender.text
-    }
-    @IBOutlet weak var Appeal: UILabel!
-    @IBAction func SelfIntroduction(_ sender: UITextField) {
-        Appeal.text = sender.text
-    }
-    @IBOutlet weak var UserImage: UIImageView!
+class ChangeSettingViewController: UIViewController, UITextFieldDelegate {
+    
+    // MARK: Properties
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var selfIntroductionTextField: UITextField!
     
     
     
@@ -25,7 +21,64 @@ class ChangeSettingViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        userNameTextField.delegate = self
+        selfIntroductionTextField.delegate = self
+        
+        if let user = NCMBUser.currentUser{
+            userNameTextField.text = user.userName
+            selfIntroductionTextField.text = ""
+        }
+
     }
+    
+    // MARK: Actions
+    @IBAction func decisionButtonAction(_ sender: Any) {
+        if let user = NCMBUser.currentUser{
+            
+            user.userName = userNameTextField.text
+            
+            // ユーザー情報の更新
+            user.signUpInBackground(callback: {result in
+                switch result{
+                case .success:
+                    // 更新成功
+                    print("更新に成功しました")
+                    self.dismissExecute()
+                    
+                case let .failure(error):
+                    // 更新失敗
+                    print("更新に失敗しました\(error)")
+                    self.dismissExecute()
+                }
+            })
+        }
+    }
+    
+    func dismissExecute(){
+        
+        let vc = presentingViewController as? SettingViewController
+        vc?.updateView()
+        
+        
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                // 前画面に戻る
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+ 
+    
+    // MARK: Delegate Method
+    //Returnキーが押され、テキストフィールドの入力が完了する直前に呼ばれる
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+
+        return true
+    }
+    
     
 
     /*

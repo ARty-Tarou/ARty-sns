@@ -1,12 +1,12 @@
 /*
  Copyright 2019 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,6 +26,13 @@ public class NCMBUser : NCMBBase {
     static let FIELDNAME_SESSION_TOKEN : String = "sessionToken"
     static let FIELDNAME_MAIL_ADDRESS_CONFIRM : String = "mailAddressConfirm"
     static let FIELDNAME_TEMPORARY_PASSWORD : String = "temporaryPassword"
+    /*
+
+    ここ変えたよ！！
+
+    */
+    static let FIELDNAME_BIRTHDAY : String = "birthday"
+    static let FIELDNAME_ICON_IMAGE_ID : String = "iconImageId"
 
     /// 現在ログインユーザー
     static var _currentUser : NCMBUser? = nil
@@ -112,6 +119,34 @@ public class NCMBUser : NCMBBase {
         set {
             self[NCMBUser.FIELDNAME_AUTH_DATA] = newValue
         }
+    }
+
+    /*
+
+    ここ変えたよ！！
+
+    */
+    var birthday : String? {
+      get {
+        return self[NCMBUser.FIELDNAME_BIRTHDAY]
+      }
+      set {
+        self[NCMBUser.FIELDNAME_BIRTHDAY] = newValue
+      }
+    }
+
+    /*
+
+    ここ変えたよ！！
+
+    */
+    var iconImageId : String? {
+      get {
+        return self[NCMBUser.FIELDNAME_ICON_IMAGE_ID]
+      }
+      set{
+        self[NCMBUser.FIELDNAME_ICON_IMAGE_ID] = newValue
+      }
     }
 
     /// 会員情報を検索するためのクエリです。
@@ -591,7 +626,7 @@ public class NCMBUser : NCMBBase {
         let tmpuser = NCMBUser(className: NCMBUser.CLASSNAME, fields: fields, modifiedFieldKeys: modifiedFieldKeys)
         return tmpuser
     }
-    
+
     /// appleのauthDataをもとにニフクラ mobile backendへの会員登録(ログイン)を行う
     ///
     /// - Parameter appleParameters: NCMBAppleParameters
@@ -601,7 +636,7 @@ public class NCMBUser : NCMBBase {
         appleInfo.setValue(appleParameters.toObject(), forKey: appleParameters.type.rawValue)
         signUpWithToken(snsInfo: appleInfo, callback: callback)
     }
-    
+
     /// typeで指定したsns情報のauthDataをもとにニフクラ mobile backendへの会員登録(ログイン)を行う
     ///
     /// - Parameter snsInfo: snsの認証に必要なauthData
@@ -626,7 +661,7 @@ public class NCMBUser : NCMBBase {
             }
         })
     }
-    
+
     /// ログイン中のユーザー情報に、Appleの認証情報を紐付ける
     ///
     /// - Parameter appleParameters: NCMBAppleParameters
@@ -636,7 +671,7 @@ public class NCMBUser : NCMBBase {
         appleInfo.setValue(appleParameters.toObject(), forKey: appleParameters.type.rawValue)
         linkWithToken(snsInfo: appleInfo, callback: callback)
     }
-    
+
     /// ログイン中のユーザー情報に、snsの認証情報を紐付ける
     ///
     /// - Parameter snsInfo: NSMutableDictionary
@@ -644,7 +679,7 @@ public class NCMBUser : NCMBBase {
     public func linkWithToken(snsInfo:NSMutableDictionary, callback: @escaping NCMBHandler<Void>) -> Void {
         var localAuthData: [String : Any]? = nil
         localAuthData = self.authData
-        
+
         self.authData = snsInfo as? [String : Any]
         self.saveInBackground { result in
             switch result {
@@ -664,7 +699,7 @@ public class NCMBUser : NCMBBase {
             }
         }
     }
-    
+
     /// 会員情報に、引数で指定したtypeの認証情報が含まれているか確認する
     ///
     /// - Parameter type: 認証情報のtype（googleもしくはtwitter、facebook、apple）
@@ -685,7 +720,7 @@ public class NCMBUser : NCMBBase {
         }
         return isLinkerFlag
     }
-    
+
     /// 会員情報から、引数で指定したtypeの認証情報を削除する
     ///
     /// - Parameter type: 認証情報のtype（googleもしくはtwitter、facebook、apple）
@@ -715,7 +750,7 @@ public class NCMBUser : NCMBBase {
         } else {
             let error = NSError(domain: "NCMBErrorDomain", code: 404003, userInfo: [NSLocalizedDescriptionKey : "token not found"])
             callback(NCMBResult<Void>.failure(error))
-            
+
         }
     }
 }
