@@ -32,36 +32,16 @@ class SettingViewController: UIViewController{
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("WillAppear")
-        
-        if let user = NCMBUser.currentUser{
-            // userの名前を取得
-            if let name = user.userName{
-                userName.text = name
-            }
-        }
-    }
-    
     // MARK: Actions
     
     // changeボタンをタップしたとき
     
     @IBAction func changeButtonAction(_ sender: Any) {
-        
-        let csvc = ChangeSettingViewController()
-        
-        csvc.childCallBack = {self.reload()}
-        present(csvc,animated: true, completion: nil)
+        performSegue(withIdentifier: "change", sender: nil)
         
     }
 
-    // 画面更新
-    func reload(){
-        print("reload")
-    }
+
     
     
     /*

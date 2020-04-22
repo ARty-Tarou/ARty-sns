@@ -70,8 +70,8 @@
                                     <action selector="signinButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NCe-m5-UBa"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-Ie-NEk">
-                                <rect key="frame" x="125" y="140" width="165" height="160"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="むty" translatesAutoresizingMaskIntoConstraints="NO" id="Mal-Ie-NEk">
+                                <rect key="frame" x="107" y="140" width="200" height="204"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -129,4 +129,7 @@
             <point key="canvasLocation" x="-513.04347826086962" y="69.642857142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="むty" width="768" height="768"/>
+    </resources>
 </document>

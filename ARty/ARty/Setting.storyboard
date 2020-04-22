@@ -150,8 +150,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="KfF-9F-OX0"/>
                     <connections>
-                        <outlet property="selfIntroductionTextField" destination="ySD-fM-JR4" id="Olt-TC-g6q"/>
-                        <outlet property="userNameTextField" destination="zSN-gE-ESa" id="Ojy-q5-uDf"/>
+                        <outlet property="selfIntroductionTextField" destination="ySD-fM-JR4" id="nc5-gM-C0X"/>
+                        <outlet property="userNameTextField" destination="zSN-gE-ESa" id="hdK-Hj-UCG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="scP-el-Geu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
