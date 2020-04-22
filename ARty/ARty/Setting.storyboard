@@ -84,8 +84,8 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="iconImage" destination="XYP-q6-NCu" id="P8J-JR-gFi"/>
-                        <outlet property="userName" destination="p9y-Eg-aDA" id="zPg-w6-bXP"/>
-                        <segue destination="Rdj-bm-9Yi" kind="presentation" identifier="change" id="gcB-o2-wkk"/>
+                        <outlet property="userName" destination="p9y-Eg-aDA" id="qxk-KL-BdX"/>
+                        <segue destination="Rdj-bm-9Yi" kind="showDetail" identifier="change" id="gcB-o2-wkk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

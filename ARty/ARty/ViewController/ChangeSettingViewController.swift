@@ -15,7 +15,7 @@ class ChangeSettingViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var selfIntroductionTextField: UITextField!
     
-    
+    var childCallBack: Any?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,15 +56,12 @@ class ChangeSettingViewController: UIViewController, UITextFieldDelegate {
     }
     
     func dismissExecute(){
-        
-        let vc = presentingViewController as? SettingViewController
-        vc?.updateView()
-        
-        
         DispatchQueue.global().async {
             DispatchQueue.main.async {
                 // 前画面に戻る
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true){
+                    self.childCallBack
+                }
             }
         }
     }

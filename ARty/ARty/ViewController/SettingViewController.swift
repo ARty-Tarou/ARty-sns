@@ -35,6 +35,8 @@ class SettingViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print("WillAppear")
+        
         if let user = NCMBUser.currentUser{
             // userの名前を取得
             if let name = user.userName{
@@ -48,14 +50,17 @@ class SettingViewController: UIViewController{
     // changeボタンをタップしたとき
     
     @IBAction func changeButtonAction(_ sender: Any) {
-        // 画面遷移
-        performSegue(withIdentifier: "change", sender: nil)
+        
+        let csvc = ChangeSettingViewController()
+        
+        csvc.childCallBack = {self.reload()}
+        present(csvc,animated: true, completion: nil)
         
     }
 
     // 画面更新
-    func updateView(){
-        
+    func reload(){
+        print("reload")
     }
     
     
