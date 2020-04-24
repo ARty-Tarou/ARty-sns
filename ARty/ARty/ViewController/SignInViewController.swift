@@ -58,7 +58,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         DispatchQueue.global().async {
                             DispatchQueue.main.async {
                                 // 画面遷移
-                                self.performSegue(withIdentifier: "signIn", sender: nil)
+                                self.performSegue(withIdentifier: "success", sender: nil)
                             }
                         }
                     case let .failure(error):
@@ -80,14 +80,21 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         
                         DispatchQueue.global().async {
                             DispatchQueue.main.async {
-                                // 画面遷移
-                                self.performSegue(withIdentifier: "signIn", sender: nil)
+                                // タブビューへ画面遷移
+                                self.performSegue(withIdentifier: "success", sender: nil)
                             }
                         }
                         
                     case let .failure(error):
                         // ログインに失敗した場合の処理
                         print("ログインに失敗しました\(error)")
+                        
+                        DispatchQueue.global().async{
+                            DispatchQueue.main.async {
+                                // 画面遷移
+                                self.performSegue(withIdentifier: "failed", sender: nil)
+                            }
+                        }
                     }
                 })
             }
@@ -96,6 +103,18 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
         }
 
     }
+    
+    // デバッグ用　ログインスルー
+    @IBAction func debugButtonAction(_ sender: Any) {
+        // タブビューへ画面遷移
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                // 画面遷移
+                self.performSegue(withIdentifier: "success", sender: nil)
+            }
+        }
+    }
+    
     
     // 文字列がメールアドレスか判定
     class func isValidEmail(_ string: String) -> Bool {

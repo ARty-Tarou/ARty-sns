@@ -63,12 +63,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ri9-ye-9IB">
-                                <rect key="frame" x="20" y="374" width="374" height="321"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <viewLayoutGuide key="contentLayoutGuide" id="Bxw-Ez-1tC"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="UKt-Kh-opI"/>
-                            </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stamp&amp;Art 's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wF4-9t-jRj">
                                 <rect key="frame" x="20" y="345" width="102" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -76,6 +70,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kok-oo-hbK" userLabel="Stamp">
+                                <rect key="frame" x="49" y="390" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stamp"/>
+                                <connections>
+                                    <action selector="stampTabButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="fZl-c5-iCh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9H-Np-cBM">
+                                <rect key="frame" x="125" y="390" width="33" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Art's"/>
+                                <connections>
+                                    <action selector="artsTabButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="tLH-KP-aPW"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IWn-NS-3Oe">
+                                <rect key="frame" x="32" y="428" width="350" height="350"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userProductCell" rowHeight="44" id="WrN-Q0-bHE" customClass="CustomCell" customModule="ARty" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="350" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WrN-Q0-bHE" id="wnP-cz-YXV">
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="HCR-w8-auG"/>
@@ -83,9 +108,12 @@
                     <tabBarItem key="tabBarItem" systemItem="more" id="Vkn-ao-C3l"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="artsTab" destination="H9H-Np-cBM" id="gH0-sn-F9C"/>
                         <outlet property="iconImage" destination="XYP-q6-NCu" id="P8J-JR-gFi"/>
+                        <outlet property="stampTab" destination="Kok-oo-hbK" id="zwM-hc-D60"/>
                         <outlet property="userName" destination="p9y-Eg-aDA" id="qxk-KL-BdX"/>
-                        <segue destination="Rdj-bm-9Yi" kind="showDetail" identifier="change" id="gcB-o2-wkk"/>
+                        <outlet property="userProductTableView" destination="IWn-NS-3Oe" id="HZN-Mt-7Z7"/>
+                        <segue destination="Rdj-bm-9Yi" kind="show" identifier="change" id="Vzi-AY-hBT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

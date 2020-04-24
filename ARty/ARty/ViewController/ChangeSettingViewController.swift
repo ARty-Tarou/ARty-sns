@@ -28,6 +28,9 @@ class ChangeSettingViewController: UIViewController, UITextFieldDelegate {
             userNameTextField.text = user.userName
             selfIntroductionTextField.text = ""
         }
+        
+        // ナビゲーションバーを非表示にする
+        navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
     
@@ -58,12 +61,11 @@ class ChangeSettingViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.global().async {
             DispatchQueue.main.async {
                 // 前画面に戻る
-                self.dismiss(animated: true){
-                }
+                _ = self.navigationController?.popViewController(animated: true)
             }
         }
     }
- 
+    
     
     // MARK: Delegate Method
     //Returnキーが押され、テキストフィールドの入力が完了する直前に呼ばれる

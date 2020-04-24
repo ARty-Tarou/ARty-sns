@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NCMB.initialize(applicationKey: applicationkey, clientKey: clientkey);
         return true
     }
+    
+
 
     // MARK: UISceneSession Lifecycle
 

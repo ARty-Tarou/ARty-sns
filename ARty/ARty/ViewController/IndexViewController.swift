@@ -64,6 +64,8 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
         performSegue(withIdentifier: "signIn", sender: nil)
     }
     
+    
+    // MARK: Segue
     var user: User?
     // SignUp画面に遷移するときに渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

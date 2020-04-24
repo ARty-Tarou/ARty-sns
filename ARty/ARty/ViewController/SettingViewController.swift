@@ -9,17 +9,27 @@
 import UIKit
 import NCMB
 
-class SettingViewController: UIViewController{
-
+class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    @IBOutlet weak var userNameLabel: UILabel!
+    
     // MARK: Properties
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var stampTab: UIButton!
+    @IBOutlet weak var artsTab: UIButton!
+    @IBOutlet weak var userProductTableView: UITableView!
     
+    // スタンプリスト
+    var stamps: [(Stamp)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // Table Viewの設定
+         userProductTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        userProductTableView.delegate = self
+        userProductTableView.dataSource = self
         
         // カレントユーザーの情報を取得
         if let user = NCMBUser.currentUser{
@@ -28,56 +38,115 @@ class SettingViewController: UIViewController{
                 userName.text = name
             }
             
-            // ファイルストアに画像があるか検索            
+            // ファイルストアに画像があるか検索
+        }
+        
+        // Stampタブを選択状態にする
+        stampTab.isEnabled = false
+        
+        // UserProductを表示する
+        userProduct()
+        
+        // TODO: テスト用
+//        configreSV()
+    }
+    
+    // MARK: Methods
+    
+    // UserProduct
+    func userProduct(){
+        if stampTab.isEnabled == false{
+            // スタンプリストを表示する処理
+            print("stampListを表示する")
+            
+            // TODO: テスト
+            // スタンプリストを初期化
+            stamps = []
+            
+            // スタンプリストを取得
+            // スタンプインスタンスを生成
+            let stamp1: Stamp! = Stamp(name: "ure", image: UIImage(named: "urety"))
+            stamps.append(stamp1)
+            
+            let stamp2: Stamp! = Stamp(name: "kana", image: UIImage(named: "kanaty"))
+            stamps.append(stamp2)
+            
+            let stamp3: Stamp! = Stamp(name: "mu", image: UIImage(named: "muty"))
+            stamps.append(stamp3)
+            
+            var count = 1
+            for stamp in stamps{
+                print("stamp\(count):\(stamp.name)")
+                count += 1
+            }
+            
+            // テーブルビューを更新
+            self.userProductTableView.reloadData()
+
+            
+        }else{
+            // アートリストを表示する処理
+            print("artListを表示する")
+            stamps = []
+            // テーブルViewを更新
+            self.userProductTableView.reloadData()
         }
     }
     
-    // MARK: Actions
     
+    // セルの総数を返す
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // スタンプリストの総数
+        return stamps.count
+    }
+    
+    // セルの高さ
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 350
+    }
+    
+    // セルに値を設定する
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // 表示するCellを取得
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
+        
+        cell.userNameLabel.text = stamps[indexPath.row].name
+        if let image = stamps[indexPath.row].image{
+            cell.productImageView.image = image
+        }
+        
+        return cell
+    }
+    
+    
+    // MARK: Actions
     // changeボタンをタップしたとき
     
     @IBAction func changeButtonAction(_ sender: Any) {
+        // 変更画面へ遷移
         performSegue(withIdentifier: "change", sender: nil)
         
     }
-
-
     
-    
-    /*
-    @IBAction func iconChangeButtonAction(_ sender: Any) {
-        let imagePickerController = UIImagePickerController()
+    @IBAction func stampTabButtonAction(_ sender: Any) {
+        print("スタンプタブが押されたよ")
+        // アートタブを未選択状態、スタンプタブを選択状態にする
+        stampTab.isEnabled = false
+        artsTab.isEnabled = true
         
-        //フォトライブラリから読み込み
-        imagePickerController.sourceType = .photoLibrary
-        
-        //モーダルを開く
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
-    }
- */
-    
-    // MARK: Delegate method
-    /*
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // モーダルのViewControllerを閉じる
-        dismiss(animated: true, completion: nil)
+        // テーブルViewを更新
+        userProduct()
     }
     
-    //画像を選択した後の処理
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // The info dictionary may contain multiple representations of the image. You want to use the original.
-        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
-          fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
-        }
+    @IBAction func artsTabButtonAction(_ sender: Any) {
+        print("アートタブが押されたよ")
+        // スタンプタブを未選択状態、アートタブを選択状態にする
+        stampTab.isEnabled = true
+        artsTab.isEnabled = false
         
-        //選択した画像をスタンプ画像に反映
-        iconImage.image = selectedImage
-        
-        //Pickerを閉じる
-        dismiss(animated: true, completion: nil)
+        // テーブルViewを更新
+        userProduct()
     }
-    */
 
     /*
     // MARK: - Navigation

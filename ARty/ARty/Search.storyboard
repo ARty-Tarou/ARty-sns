@@ -7,38 +7,47 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--検索-->
+        <!--Search View Controller-->
         <scene sceneID="rvj-8R-DfR">
             <objects>
-                <viewController title="検索" id="WKS-lf-T82" sceneMemberID="viewController">
+                <viewController id="WKS-lf-T82" customClass="SearchViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gc6-h2-HoI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-Zu-ieq">
-                                <rect key="frame" x="90" y="113" width="235" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍検索" textAlignment="justified" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-Zu-ieq">
+                                <rect key="frame" x="16" y="52" width="382" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WMf-6c-eAv">
-                                <rect key="frame" x="209" y="176" width="200" height="622"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMf-6c-eAv" userLabel="Right Scroll View">
+                                <rect key="frame" x="213" y="94" width="193" height="711"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="GJ6-dz-aUa"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="GM0-2h-cpS"/>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="65V-G2-3ed">
-                                <rect key="frame" x="2" y="176" width="200" height="622"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65V-G2-3ed" userLabel="Left Scroll View">
+                                <rect key="frame" x="8" y="94" width="193" height="711"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="hDJ-9v-Pfi"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="0tU-xr-FYI"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="h4q-cD-2NF" firstAttribute="trailing" secondItem="8mq-Zu-ieq" secondAttribute="trailing" constant="16" id="H3x-dJ-16e"/>
+                            <constraint firstItem="8mq-Zu-ieq" firstAttribute="leading" secondItem="h4q-cD-2NF" secondAttribute="leading" constant="16" id="JmY-Mu-4ph"/>
+                            <constraint firstItem="8mq-Zu-ieq" firstAttribute="top" secondItem="h4q-cD-2NF" secondAttribute="top" constant="8" id="aJN-4n-1xV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="h4q-cD-2NF"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="Max-Fw-OWK"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="RightScrollView" destination="WMf-6c-eAv" id="D6v-h9-lC6"/>
+                        <outlet property="leftScrollView" destination="65V-G2-3ed" id="oFD-Ws-6zc"/>
+                        <outlet property="searchTextField" destination="8mq-Zu-ieq" id="heR-Cv-LlH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TS6-83-KGg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
