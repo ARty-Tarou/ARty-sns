@@ -101,6 +101,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzS-kI-8ds">
+                                <rect key="frame" x="323" y="45" width="46" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Menu">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="menuButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="3Ng-wM-s1E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="HCR-w8-auG"/>
@@ -114,6 +124,7 @@
                         <outlet property="userName" destination="p9y-Eg-aDA" id="qxk-KL-BdX"/>
                         <outlet property="userProductTableView" destination="IWn-NS-3Oe" id="HZN-Mt-7Z7"/>
                         <segue destination="Rdj-bm-9Yi" kind="show" identifier="change" id="Vzi-AY-hBT"/>
+                        <segue destination="MRk-hP-nIy" kind="show" identifier="logout" id="V9L-3V-Pac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -185,7 +196,17 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="scP-el-Geu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="59N-YA-EIC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1895.6521739130437" y="1106.9196428571429"/>
+            <point key="canvasLocation" x="2070" y="1107"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="yo7-4s-9Ke">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="MRk-hP-nIy" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="S8R-JW-aUX"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g29-Oo-gOG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1557" y="858"/>
         </scene>
     </scenes>
 </document>

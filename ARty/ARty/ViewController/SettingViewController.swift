@@ -9,7 +9,7 @@
 import UIKit
 import NCMB
 
-class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate{
     @IBOutlet weak var userNameLabel: UILabel!
     
     // MARK: Properties
@@ -26,8 +26,11 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // ナビゲーションバーを非表示にする
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
         // Table Viewの設定
-         userProductTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        userProductTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
         userProductTableView.delegate = self
         userProductTableView.dataSource = self
         
@@ -93,7 +96,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    
+    // MARK: TableView
     // セルの総数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // スタンプリストの総数
@@ -120,8 +123,16 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     // MARK: Actions
-    // changeボタンをタップしたとき
     
+    @IBAction func menuButtonAction(_ sender: Any) {
+        // TODO: ログアウト処理
+        LogoutLogic().logout()
+        // トップ画面に遷移
+        performSegue(withIdentifier: "logout", sender: nil)
+        
+    }
+    
+    // changeボタンをタップしたとき
     @IBAction func changeButtonAction(_ sender: Any) {
         // 変更画面へ遷移
         performSegue(withIdentifier: "change", sender: nil)

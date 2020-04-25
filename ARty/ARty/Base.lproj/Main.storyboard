@@ -84,6 +84,7 @@
                         <outlet property="passwordTextField" destination="Eyn-Gr-4PK" id="STn-Mm-Y6b"/>
                         <segue destination="7tc-9M-2Gt" kind="show" identifier="decision" id="NSy-i7-OGa"/>
                         <segue destination="ek5-7f-0uS" kind="show" identifier="signIn" id="NjU-Le-KVr"/>
+                        <segue destination="79J-uw-sTp" kind="show" identifier="skip" id="rWv-7I-Wwu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -108,7 +109,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s9C-OG-HCg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1154" y="134"/>
+            <point key="canvasLocation" x="1144" y="70"/>
+        </scene>
+        <!--Tab-->
+        <scene sceneID="Dbg-at-SKP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Tab" id="79J-uw-sTp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8Bh-ft-PA4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kW8-xx-Szu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1132" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="T9O-Yt-3C3">

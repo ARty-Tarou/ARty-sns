@@ -10,32 +10,32 @@ import UIKit
 import NCMB
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
-
-// MARK: Properties
+    
+    // MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
     
-
-// User情報を格納
-var user: User? = nil
-
-override func viewDidLoad() {
-    super.viewDidLoad()
-
-    // Do any additional setup after loading the view.
     
-    //ユーザー情報を取得し保存
-    guard let email = user?.getEmail() else{
-        return
-    }
-    guard let password = user?.getPassword() else{
-        return
-    }
-    print("email:\(email)")
-    print("password:\(password)")
+    // User情報を格納
+    var user: User? = nil
     
-    //テキストフィールドのデリゲートを設定
-    userNameTextField.delegate = self
-}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        
+        //ユーザー情報を取得し保存
+        guard let email = user?.getEmail() else{
+            return
+        }
+        guard let password = user?.getPassword() else{
+            return
+        }
+        print("email:\(email)")
+        print("password:\(password)")
+        
+        //テキストフィールドのデリゲートを設定
+        userNameTextField.delegate = self
+    }
     
     // MARK: Delegate Method
     
@@ -59,7 +59,7 @@ override func viewDidLoad() {
             user.userName = userName
             user.mailAddress = email
             user.password = password
-
+            
             
             // ニフクラに新規会員登録
             user.signUpInBackground(callback: {result in
@@ -73,21 +73,21 @@ override func viewDidLoad() {
                     print("登録失敗:\(error)")
                 }
             })
-
+            
         }
         
     }
     
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

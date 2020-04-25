@@ -7,8 +7,4 @@ class CustomCell: UITableViewCell{
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var overViewTextField: UITextField!
     
-    
-    func set(userName: String, productImage: UIImage?){
-        userNameLabel.text = userName
-    }
 }

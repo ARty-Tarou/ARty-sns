@@ -8,20 +8,29 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITextFieldDelegate {
+class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: Properties
     @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var leftScrollView: UIScrollView!
-    @IBOutlet weak var RightScrollView: UIScrollView!
-    
+    @IBOutlet weak var leftTableView: UITableView!
+    @IBOutlet weak var rightTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // ナビゲーションバーを非表示にする
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
-        // テキストフィールドにデリゲートを設定
+        // TableViewの設定
+        leftTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        rightTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        leftTableView.delegate = self
+        rightTableView.delegate = self
+        leftTableView.dataSource = self
+        rightTableView.dataSource = self
+        
+        // デリゲートを設定
         searchTextField.delegate = self
     }
     
@@ -35,11 +44,75 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         // デバッグ用出力
         if let str = searchTextField.text{
-                 print("検索：\(str)")
+            print("検索：\(str)")
         }
+        // MARK: リクエスト処理
         // TODO: ニフクラにアクセスして検索する処理を書いていく
         
+        /*
+        // リクエストURL
+        guard let requestURL = URL(string: "https://...")
+        
+        // リクエストに必要な情報を生成
+        let req = URLRequest(url: requestURL)
+        // データ転送を管理するためのセッション生成
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        // リクエストをタスクとして登録
+        let task = session.detaTask(with: req, completionHandler: {(data, response, error) in
+            // セッション終了
+            session.finishTasksAndInvalidate()
+            // do try catch エラーハンドリング
+            do{
+                // JSONDecoderのインスタンス取得
+                let decoder = JSONDecoder()
+                // 受け取ったJSONデータをパース（解析）して格納
+                let json = try decoder.decode(ResultJson.self, from: data!)
+                
+                print(json)
+            }catch{
+                // エラー処理
+                print("エラー")
+            }
+        })
+        // ダウンロード開始
+        task.resume()
+ */
+        
         return true
+    }
+    
+    // セルの総数を返す
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // スタンプリストの総数
+        
+        if tableView == leftTableView{
+            return 5 //leftTableViewのセルの数
+        }else{
+            return 10 //rightTableViewのセルの数
+        }
+    }
+    
+    // セルの高さ
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 350
+    }
+    
+    // セルに値を設定する
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // 表示するCellを取得
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
+        
+        if tableView == leftTableView{
+            cell.userNameLabel.text = "left"
+            cell.productImageView.image = UIImage(named: "urety")
+            cell.overViewTextField.text = "概要"
+        }else{
+            cell.userNameLabel.text = "right"
+            cell.productImageView.image = UIImage(named: "muty")
+            cell.overViewTextField.text = "概要"
+        }
+        
+        return cell
     }
     
     
