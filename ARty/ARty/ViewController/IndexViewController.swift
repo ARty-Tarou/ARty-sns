@@ -12,7 +12,7 @@ import NCMB
 class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
     
     //MARK: Properties
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
         }
         
         // テキストフィールドのデリゲートを設定
-        emailTextField.delegate = self
+        mailAddressTextField.delegate = self
         passwordTextField.delegate = self
         
     }
@@ -38,9 +38,9 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
         // キーボードを閉じる
         textField.resignFirstResponder()
         
-        // デバッグ用 e-mail、passwordのどちらのテキストフィールドか判定
-        if textField == emailTextField{
-            print("email")
+        // デバッグ用 mailAddress、passwordのどちらのテキストフィールドか判定
+        if textField == mailAddressTextField{
+            print("mailAddress")
         }else if textField == passwordTextField{
             print("password")
         }
@@ -64,16 +64,16 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
     // Desisionボタンを押したとき
     @IBAction func desisionButtonAction(_ sender: Any) {
         
-        if let email = emailTextField.text, let password = passwordTextField.text{
+        if let mailAddress = mailAddressTextField.text, let password = passwordTextField.text{
             
             // 入力されているか
-            if email == "" || password == ""{
+            if mailAddress == "" || password == ""{
                 print("入力されていない項目があるよ")
                 return
             }
             
             //Userインスタンスを生成
-            user = User(email: email, password: password)
+            user = User(mailAddress: mailAddress, password: password)
             
             // 画面遷移
             performSegue(withIdentifier: "decision", sender: nil)

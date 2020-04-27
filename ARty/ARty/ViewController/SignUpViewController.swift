@@ -24,13 +24,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         
         //ユーザー情報を取得し保存
-        guard let email = user?.getEmail() else{
+        guard let mailAddress = user?.getMailAddress() else{
             return
         }
         guard let password = user?.getPassword() else{
             return
         }
-        print("email:\(email)")
+        print("mailAddress:\(mailAddress)")
         print("password:\(password)")
         
         //テキストフィールドのデリゲートを設定
@@ -51,13 +51,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: Actions
     @IBAction func signUpButtonAction(_ sender: Any) {
         
-        if let userName = userNameTextField.text, let email = user?.getEmail(), let password = user?.getPassword(){
+        if let userName = userNameTextField.text, let mailAddress = user?.getMailAddress(), let password = user?.getPassword(){
             // ユーザーインスタンス生成
             let user = NCMBUser()
             
             // ユーザー情報格納
             user.userName = userName
-            user.mailAddress = email
+            user.mailAddress = mailAddress
             user.password = password
             
             

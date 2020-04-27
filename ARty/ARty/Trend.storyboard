@@ -7,25 +7,49 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--トレンド-->
+        <!--Trend-->
         <scene sceneID="nnU-2U-1lq">
             <objects>
-                <viewController title="トレンド" id="YMs-sb-tV3" sceneMemberID="viewController">
+                <viewController id="YMs-sb-tV3" customClass="TrendViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hPd-Ze-aVm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etL-zk-piS">
+                                <rect key="frame" x="283" y="661" width="70" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="stick"/>
+                                <connections>
+                                    <action selector="stickButtonAction:" destination="YMs-sb-tV3" eventType="touchUpInside" id="0MQ-wH-j90"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="kDD-R7-8xG"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Top Rated" selectedImage="star.fill" catalog="system" id="mWi-CH-EDt"/>
+                    <tabBarItem key="tabBarItem" title="Trend" selectedImage="star.fill" catalog="system" id="mWi-CH-EDt"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="WCp-cO-CIL" kind="show" identifier="stick" id="F5q-iq-EaH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryM-RB-I8o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3186" y="730"/>
         </scene>
+        <!--StickForm-->
+        <scene sceneID="3ek-Xk-Ekd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StickForm" id="WCp-cO-CIL" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="c81-YX-Fmu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="44E-PC-gBH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3719" y="730"/>
+        </scene>
     </scenes>
     <resources>
         <image name="star.fill" catalog="system" width="64" height="58"/>
+        <image name="stick" width="315" height="316"/>
     </resources>
 </document>

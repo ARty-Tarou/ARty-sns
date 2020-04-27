@@ -9,16 +9,16 @@
 import Foundation
 
 struct User{
-    private let email: String
+    private let mailAddress: String
     private let password: String
     
-    init(email: String, password: String){
-        self.email = email
+    init(mailAddress: String, password: String){
+        self.mailAddress = mailAddress
         self.password = password
     }
     
-    func getEmail() -> String{
-        return email
+    func getMailAddress() -> String{
+        return mailAddress
     }
     
     func getPassword() -> String{

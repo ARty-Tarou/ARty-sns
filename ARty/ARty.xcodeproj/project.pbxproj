@@ -30,6 +30,10 @@
 		CC7C24E82450654F005431B5 /* Stamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24E72450654F005431B5 /* Stamp.swift */; };
 		CC7C24EE2451D28E005431B5 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24ED2451D28E005431B5 /* CustomCell.swift */; };
 		CC7C24F22452D042005431B5 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7C24F12452D042005431B5 /* CustomCell.xib */; };
+		CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCA6D9612456BC30008AC366 /* StickForm.storyboard */; };
+		CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9632456BC65008AC366 /* StickFormViewController.swift */; };
+		CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9652456BD10008AC366 /* TimelineViewController.swift */; };
+		CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9672456C987008AC366 /* TrendViewController.swift */; };
 		CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCDC551244EB98900E4AECE /* LogoutLogic.swift */; };
 		F0975A23096E7EDCF5C824A6 /* Pods_ARty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */; };
 /* End PBXBuildFile section */
@@ -63,6 +67,10 @@
 		CC7C24E72450654F005431B5 /* Stamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamp.swift; sourceTree = "<group>"; };
 		CC7C24ED2451D28E005431B5 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		CC7C24F12452D042005431B5 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		CCA6D9612456BC30008AC366 /* StickForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StickForm.storyboard; sourceTree = "<group>"; };
+		CCA6D9632456BC65008AC366 /* StickFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFormViewController.swift; sourceTree = "<group>"; };
+		CCA6D9652456BD10008AC366 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		CCA6D9672456C987008AC366 /* TrendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendViewController.swift; sourceTree = "<group>"; };
 		CCCDC551244EB98900E4AECE /* LogoutLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +140,7 @@
 				CC61E562244D53A500EF5DED /* Search.storyboard */,
 				CC61E564244D53DD00EF5DED /* Setting.storyboard */,
 				CC61E566244D540300EF5DED /* Timeline.storyboard */,
+				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -149,6 +158,9 @@
 				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
 				086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */,
 				CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */,
+				CCA6D9672456C987008AC366 /* TrendViewController.swift */,
+				CCA6D9652456BD10008AC366 /* TimelineViewController.swift */,
+				CCA6D9632456BC65008AC366 /* StickFormViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -231,6 +243,7 @@
 				5705E03624460F770069FEDD /* Assets.xcassets in Resources */,
 				CC61E563244D53A500EF5DED /* Search.storyboard in Resources */,
 				CC61E561244D539600EF5DED /* Trend.storyboard in Resources */,
+				CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */,
 				5705E03424460F750069FEDD /* Main.storyboard in Resources */,
 				CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */,
 			);
@@ -288,13 +301,16 @@
 				CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */,
 				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
 				5705E03124460F750069FEDD /* IndexViewController.swift in Sources */,
+				CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */,
 				CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */,
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				CC7C24E82450654F005431B5 /* Stamp.swift in Sources */,
+				CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */,
 				086AFC7C244DE3FD00F0B86D /* SettingViewController.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
+				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
 				CC7C24EE2451D28E005431B5 /* CustomCell.swift in Sources */,
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);
