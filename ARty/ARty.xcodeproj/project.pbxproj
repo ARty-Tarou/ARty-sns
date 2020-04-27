@@ -10,6 +10,8 @@
 		086AFC7C244DE3FD00F0B86D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */; };
 		089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C4244DA26200699589 /* ChangeSettingViewController.swift */; };
 		08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08B4186A244F1F300053AFCC /* SigninFailed.storyboard */; };
+		08D860802456CB7300903A7C /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8607E2456CB7300903A7C /* SearchCell.swift */; };
+		08D860812456CB7300903A7C /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08D8607F2456CB7300903A7C /* SearchCell.xib */; };
 		5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02C24460F750069FEDD /* AppDelegate.swift */; };
 		5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02E24460F750069FEDD /* SceneDelegate.swift */; };
 		5705E03124460F750069FEDD /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E03024460F750069FEDD /* IndexViewController.swift */; };
@@ -42,6 +44,8 @@
 		086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		089207C4244DA26200699589 /* ChangeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSettingViewController.swift; sourceTree = "<group>"; };
 		08B4186A244F1F300053AFCC /* SigninFailed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SigninFailed.storyboard; sourceTree = "<group>"; };
+		08D8607E2456CB7300903A7C /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		08D8607F2456CB7300903A7C /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35561E5CB536E7EDE99F2207 /* Pods-ARty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARty.debug.xcconfig"; path = "Target Support Files/Pods-ARty/Pods-ARty.debug.xcconfig"; sourceTree = "<group>"; };
 		48DD4E16E8A2989F507179BB /* Pods-ARty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARty.release.xcconfig"; path = "Target Support Files/Pods-ARty/Pods-ARty.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				CC7C24F12452D042005431B5 /* CustomCell.xib */,
+				08D8607F2456CB7300903A7C /* SearchCell.xib */,
 				5705E03724460F770069FEDD /* LaunchScreen.storyboard */,
 				5705E03224460F750069FEDD /* Main.storyboard */,
 				CC58184F244D6F6E000380D9 /* SignUp.storyboard */,
@@ -149,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				CC7C24ED2451D28E005431B5 /* CustomCell.swift */,
+				08D8607E2456CB7300903A7C /* SearchCell.swift */,
 				CC61E55C244D4E0900EF5DED /* User.swift */,
 				CC7C24E72450654F005431B5 /* Stamp.swift */,
 				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
@@ -234,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */,
+				08D860812456CB7300903A7C /* SearchCell.xib in Resources */,
 				08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */,
 				CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */,
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
@@ -298,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D860802456CB7300903A7C /* SearchCell.swift in Sources */,
 				CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */,
 				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
 				5705E03124460F750069FEDD /* IndexViewController.swift in Sources */,

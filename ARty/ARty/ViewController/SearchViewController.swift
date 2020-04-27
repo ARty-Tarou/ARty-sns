@@ -23,8 +23,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         navigationController?.setNavigationBarHidden(true, animated: true)
         
         // TableViewの設定
-        leftTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
-        rightTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        leftTableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
+        rightTableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "searchCell")
         leftTableView.delegate = self
         rightTableView.delegate = self
         leftTableView.dataSource = self
@@ -100,16 +100,18 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
     // セルに値を設定する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 表示するCellを取得
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell") as! SearchCell
         
         if tableView == leftTableView{
-            cell.userNameLabel.text = "left"
-            cell.productImageView.image = UIImage(named: "urety")
-            cell.overViewTextField.text = "概要"
+            cell.SearchUserName.text = "left"
+            cell.SearchUserImage.image = UIImage(named: "FirstIcon")
+            cell.SearchImage.image = UIImage(named: "urety")
+            cell.SearchDescribe.text = "概要"
         }else{
-            cell.userNameLabel.text = "right"
-            cell.productImageView.image = UIImage(named: "muty")
-            cell.overViewTextField.text = "概要"
+            cell.SearchUserName.text = "right"
+            cell.SearchUserImage.image = UIImage(named: "FirstIcon")
+            cell.SearchImage.image = UIImage(named: "muty")
+            cell.SearchDescribe.text = "概要"
         }
         
         return cell
