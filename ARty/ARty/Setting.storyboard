@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N9I-aF-UDC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N9I-aF-UDC">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -105,6 +105,9 @@
                                 <rect key="frame" x="347" y="44" width="35" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="Signout"/>
+                                <connections>
+                                    <action selector="logoutButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="ZDM-mc-DF7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -119,7 +122,7 @@
                         <outlet property="userName" destination="p9y-Eg-aDA" id="qxk-KL-BdX"/>
                         <outlet property="userProductTableView" destination="IWn-NS-3Oe" id="HZN-Mt-7Z7"/>
                         <segue destination="Rdj-bm-9Yi" kind="show" identifier="change" id="Vzi-AY-hBT"/>
-                        <segue destination="MRk-hP-nIy" kind="show" identifier="logout" id="V9L-3V-Pac"/>
+                        <segue destination="MRk-hP-nIy" kind="showDetail" identifier="logout" id="V9L-3V-Pac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

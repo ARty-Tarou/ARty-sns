@@ -49,6 +49,14 @@
                                     <action selector="debugButtonAction:" destination="5MM-Q3-xqV" eventType="touchUpInside" id="X6b-aE-MGz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pKg-8f-Lyg">
+                                <rect key="frame" x="193" y="720" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="test"/>
+                                <connections>
+                                    <action selector="testButtonAction:" destination="5MM-Q3-xqV" eventType="touchUpInside" id="dqu-nY-y5G"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="7J1-wG-Stq"/>
@@ -59,6 +67,7 @@
                         <outlet property="userNameOrMailAddressTextField" destination="shv-HD-e5S" id="Ydh-Ss-gH9"/>
                         <segue destination="TuE-7h-lMO" kind="show" identifier="success" id="Vx7-cg-pqS"/>
                         <segue destination="JmA-kA-Tka" kind="show" identifier="failed" id="Dxk-dn-MpB"/>
+                        <segue destination="aLU-U7-eR5" kind="show" identifier="test" id="bTB-x2-ZDf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tMb-pF-bHd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -84,6 +93,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F0k-AT-POP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1920" y="838"/>
+        </scene>
+        <!--Test-->
+        <scene sceneID="Pm1-1R-OaB">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Test" id="aLU-U7-eR5" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="WRB-uw-0Om"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="703-mr-TwP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1886" y="906"/>
         </scene>
     </scenes>
     <resources>

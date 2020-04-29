@@ -14,11 +14,12 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
     //MARK: Properties
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        /*
         // ログインしているかチェック
         let bool = loginCheck()
         
@@ -26,7 +27,7 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
             // タブビューへ遷移
             performSegue(withIdentifier: "skip", sender: nil)
         }
-        
+        */
         // テキストフィールドのデリゲートを設定
         mailAddressTextField.delegate = self
         passwordTextField.delegate = self
