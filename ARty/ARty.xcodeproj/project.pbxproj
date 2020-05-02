@@ -39,6 +39,7 @@
 		CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9652456BD10008AC366 /* TimelineViewController.swift */; };
 		CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9672456C987008AC366 /* TrendViewController.swift */; };
 		CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCDC551244EB98900E4AECE /* LogoutLogic.swift */; };
+		CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF2AC4A245BEF08000B98EA /* StickLogic.swift */; };
 		F0975A23096E7EDCF5C824A6 /* Pods_ARty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		CCA6D9652456BD10008AC366 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		CCA6D9672456C987008AC366 /* TrendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendViewController.swift; sourceTree = "<group>"; };
 		CCCDC551244EB98900E4AECE /* LogoutLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutLogic.swift; sourceTree = "<group>"; };
+		CCF2AC4A245BEF08000B98EA /* StickLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				CCA6D9672456C987008AC366 /* TrendViewController.swift */,
 				CCA6D9652456BD10008AC366 /* TimelineViewController.swift */,
 				CCA6D9632456BC65008AC366 /* StickFormViewController.swift */,
+				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */,
 				086AFC7C244DE3FD00F0B86D /* SettingViewController.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
+				CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
@@ -474,6 +478,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ARty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -492,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ARty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

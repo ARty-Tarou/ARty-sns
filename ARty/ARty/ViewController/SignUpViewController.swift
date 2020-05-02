@@ -13,6 +13,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var checkBoxButton: UIButton!
     
     
     // User情報を格納
@@ -35,6 +36,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         //テキストフィールドのデリゲートを設定
         userNameTextField.delegate = self
+        
+        // チェックボックスのし設定
+        checkBoxButton.setImage(UIImage(named: "check_off"), for: .normal)
+        checkBoxButton.setImage(UIImage(named: "check_on"), for: .selected)
     }
     
     // MARK: Delegate Method
@@ -51,7 +56,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: Actions
     @IBAction func signUpButtonAction(_ sender: Any) {
         
-        if let userName = userNameTextField.text, let mailAddress = user?.getMailAddress(), let password = user?.getPassword(){
+        if let userName = userNameTextField.text, let mailAddress = user?.getMailAddress(), let password = user?.getPassword(), checkBoxButton.isSelected{
             // ユーザーインスタンス生成
             let user = NCMBUser()
             
@@ -73,8 +78,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     print("登録失敗:\(error)")
                 }
             })
-            
+        }else{
+            print("利用規約に同意されてないです")
         }
-        
     }
+    
+    @IBAction func checkBoxButtonAction(_ sender: Any) {
+        checkBoxButton.isSelected = !checkBoxButton.isSelected
+    }
+    
 }

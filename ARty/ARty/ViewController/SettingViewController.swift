@@ -49,9 +49,6 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // UserProductを表示する
         userProduct()
-        
-        // TODO: テスト用
-//        configreSV()
     }
     
     // MARK: Methods

@@ -50,36 +50,16 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
     // 投稿ボタンを押したとき
     @IBAction func stickButtonAction(_ sender: Any) {
         
-        // saveStickスクリプトを実行
-        // スクリプトインスタンスの作成
-        let script = NCMBScript(name: "saveStick.js", method: .post)
-        if let user = NCMBUser.currentUser{
-            // ヘッダー設定
-            let headers: [String: String?] = ["userName": user.userName, "password": user.password]
-            
-            // スタンプイメージをデータ型に変換
-            guard let image = stampImageView.image else{
-                fatalError()
-            }
-            let data = image.pngData()
-            
-            let imageData = data?.base64EncodedString()
-            
-            print("imageData:\(String(describing: imageData))")
-
-            // ボディ設定
-            let requestBody: [String: Any?] = ["detail": overViewTextField.text, "stampData": imageData , "userId": user.objectId]
-            // スクリプト実行
-            script.executeInBackground(headers: headers, queries: [:], body: requestBody, callback: {result in
-                switch result{
-                case let .success(data):
-                    print("script実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "" )")
-                case let .failure(error):
-                    print("script実行に失敗\(error)")
-                    return;
-                }
-            })
+        guard let image = stampImageView.image else{
+            fatalError("画像を取得できなかった")
         }
+        
+        let data = image.pngData()!
+        
+        // StickLogicインスタンスを生成
+        let stickLogic = StickLogic()
+        stickLogic.saveFile(data: data, detail: overViewTextField.text!)
+        
     }
     
     // ライブラリボタンを押したとき
@@ -140,7 +120,7 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
     // 撮影が終わったら呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 撮影した画像を渡す
-        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        stampImageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         // モーダルビューを閉じる
         dismiss(animated: true, completion: nil)
     }

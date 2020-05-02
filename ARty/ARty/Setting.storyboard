@@ -122,7 +122,7 @@
                         <outlet property="userName" destination="p9y-Eg-aDA" id="qxk-KL-BdX"/>
                         <outlet property="userProductTableView" destination="IWn-NS-3Oe" id="HZN-Mt-7Z7"/>
                         <segue destination="Rdj-bm-9Yi" kind="show" identifier="change" id="Vzi-AY-hBT"/>
-                        <segue destination="MRk-hP-nIy" kind="showDetail" identifier="logout" id="V9L-3V-Pac"/>
+                        <segue destination="MRk-hP-nIy" kind="show" identifier="logout" id="V9L-3V-Pac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
