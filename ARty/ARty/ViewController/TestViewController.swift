@@ -16,6 +16,6 @@ class TestViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // ログアウト処理
-        LogoutLogic().logout()
+        _ = LogoutLogic().logout()
     }
 }

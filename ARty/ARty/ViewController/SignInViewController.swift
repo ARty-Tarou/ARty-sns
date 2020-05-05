@@ -41,6 +41,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
         // 入力されているか
         if let userNameOrMailAdress = userNameOrMailAddressTextField.text, let password = passwordTextField.text{
             
+            // activityIndicatorを表示、入力不可にする
+            let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+            activityIndicatorLogic.startActivityIndecator(view: view)
+            
             // ログイン処理
             
             if SignInViewController.self.isValidEmail(userNameOrMailAdress) {
@@ -57,6 +61,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         
                         DispatchQueue.global().async {
                             DispatchQueue.main.async {
+                                // activityIndicatorを終了
+                                activityIndicatorLogic.stopActivityIndecator(view: self.view)
                                 // 画面遷移
                                 self.performSegue(withIdentifier: "success", sender: nil)
                             }
@@ -64,6 +70,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                     case let .failure(error):
                         // ログインに失敗した場合の処理
                         print("ログインに失敗しました\(error)")
+                        // activityIndicatorを終了
+                        activityIndicatorLogic.stopActivityIndecator(view: self.view)
                     }
                 })
             }else{
@@ -77,9 +85,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         //ログインに成功した場合の処理
                         print("ログインに成功しました")
                         
-                        
                         DispatchQueue.global().async {
                             DispatchQueue.main.async {
+                                // activityIndicatorを終了
+                                activityIndicatorLogic.stopActivityIndecator(view: self.view)
                                 // タブビューへ画面遷移
                                 self.performSegue(withIdentifier: "success", sender: nil)
                             }
@@ -91,8 +100,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         
                         DispatchQueue.global().async{
                             DispatchQueue.main.async {
+                                // activityIndicatorを終了
+                                activityIndicatorLogic.stopActivityIndecator(view: self.view)
                                 // 画面遷移
                                 self.performSegue(withIdentifier: "failed", sender: nil)
+                                
                             }
                         }
                     }
@@ -115,6 +127,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+    // MARK: Method
     
     // 文字列がメールアドレスか判定
     class func isValidEmail(_ string: String) -> Bool {

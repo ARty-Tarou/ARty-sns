@@ -21,6 +21,7 @@
 		CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */; };
 		CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0CE45A244C2C910047B289 /* SignInViewController.swift */; };
 		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
+		CC5A7A2424619650009A923C /* ActivityIndicatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */; };
 		CC61E55D244D4E0900EF5DED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61E55C244D4E0900EF5DED /* User.swift */; };
 		CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E55E244D527A00EF5DED /* SignIn.storyboard */; };
 		CC61E561244D539600EF5DED /* Trend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E560244D539600EF5DED /* Trend.storyboard */; };
@@ -63,6 +64,7 @@
 		CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CC0CE45A244C2C910047B289 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorLogic.swift; sourceTree = "<group>"; };
 		CC61E55C244D4E0900EF5DED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CC61E55E244D527A00EF5DED /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		CC61E560244D539600EF5DED /* Trend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trend.storyboard; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				08D8607E2456CB7300903A7C /* SearchCell.swift */,
 				CC61E55C244D4E0900EF5DED /* User.swift */,
 				CC7C24E72450654F005431B5 /* Stamp.swift */,
+				CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */,
 				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
@@ -321,6 +324,7 @@
 				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
 				5705E03124460F750069FEDD /* IndexViewController.swift in Sources */,
 				CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */,
+				CC5A7A2424619650009A923C /* ActivityIndicatorLogic.swift in Sources */,
 				CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */,
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				CC7C24E82450654F005431B5 /* Stamp.swift in Sources */,

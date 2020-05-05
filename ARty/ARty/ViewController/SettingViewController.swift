@@ -123,10 +123,16 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func logoutButtonAction(_ sender: Any) {
         // TODO: ログアウト処理
-        LogoutLogic().logout()
-        // トップ画面に遷移
-        performSegue(withIdentifier: "logout", sender: nil)
+        // LogoutLogicインスタンス生成
+        let logoutLogic = LogoutLogic()
+        // ログアウト処理実行
+        let bool = logoutLogic.logout()
         
+        if bool == true{
+            // トップ画面に遷移
+            performSegue(withIdentifier: "logout", sender: nil)
+        }
+ 
     }
     
     // changeボタンをタップしたとき
