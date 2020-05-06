@@ -1,9 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "stick.png",
+      "filename" : "CameraOn.png",
       "idiom" : "universal",
-      "filename" : "Stick.PNG",
       "scale" : "1x"
     },
     {

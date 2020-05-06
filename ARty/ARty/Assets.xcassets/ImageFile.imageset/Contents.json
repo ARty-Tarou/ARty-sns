@@ -1,9 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "stick.png",
+      "filename" : "ImageFile.png",
       "idiom" : "universal",
-      "filename" : "Stick.PNG",
       "scale" : "1x"
     },
     {
