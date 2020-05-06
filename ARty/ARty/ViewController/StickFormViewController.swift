@@ -31,8 +31,8 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
         let libraryButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
         let cameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
         // TODO: 後で変更
-        libraryButton.setImage(UIImage(named: "stick"), for: .normal)
-        cameraButton.setImage(UIImage(named: "stick"), for: .normal)
+        libraryButton.setImage(UIImage(named: "imageFile"), for: .normal)
+        cameraButton.setImage(UIImage(named: "CameraOnTwo"), for: .normal)
         libraryButton.addTarget(self, action: #selector(self.onClickLibrary(_:)), for: .touchUpInside)
         cameraButton.addTarget(self, action: #selector(self.onClickCamera(_:)), for: .touchUpInside)
         let libraryButtonItem = UIBarButtonItem(customView: libraryButton)
