@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N58-K8-y3k">
-                                <rect key="frame" x="324" y="691" width="70" height="70"/>
+                                <rect key="frame" x="290" y="685" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Stick" image="stick"/>
                                 <connections>
@@ -49,6 +49,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="stick" width="315" height="316"/>
+        <image name="stick" width="290" height="290"/>
     </resources>
 </document>

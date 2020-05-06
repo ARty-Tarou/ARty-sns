@@ -37,9 +37,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         //テキストフィールドのデリゲートを設定
         userNameTextField.delegate = self
         
-        // チェックボックスのし設定
-        checkBoxButton.setImage(UIImage(named: "check_off"), for: .normal)
-        checkBoxButton.setImage(UIImage(named: "check_on"), for: .selected)
+        // チェックボックスの設定
+        checkBoxButton.setImage(UIImage(named: "check"), for: .normal)
+        checkBoxButton.setImage(UIImage(named: "checked"), for: .selected)
     }
     
     // MARK: Delegate Method

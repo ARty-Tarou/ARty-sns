@@ -25,12 +25,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Fv-rI-NvM">
-                                <rect key="frame" x="147" y="614" width="120" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Fv-rI-NvM" userLabel="SignInButton">
+                                <rect key="frame" x="133" y="604" width="148" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Sign in"/>
+                                <state key="normal" image="SigninButton"/>
                                 <connections>
                                     <action selector="signInButtonAction:" destination="5MM-Q3-xqV" eventType="touchUpInside" id="fbZ-bR-DXh"/>
                                 </connections>
@@ -106,6 +105,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="SigninButton" width="148" height="61"/>
         <image name="muty" width="768" height="768"/>
     </resources>
 </document>
