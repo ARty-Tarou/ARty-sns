@@ -120,7 +120,7 @@
         <!--Navigation Controller-->
         <scene sceneID="T9O-Yt-3C3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wEb-u9-TXt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="wEb-u9-TXt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="icU-Ds-rqm">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

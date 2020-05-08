@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 class TrendViewController: UIViewController {
 
@@ -14,7 +15,6 @@ class TrendViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         // ナビゲーションバーを非表示にする

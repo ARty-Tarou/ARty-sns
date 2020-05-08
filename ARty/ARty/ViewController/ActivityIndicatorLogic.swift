@@ -13,7 +13,7 @@ class ActivityIndicatorLogic{
     }
     
     func startActivityIndecator(view: UIView){
-        print("処理中です")
+        print("処理中です。")
         // ActivityIndicatorを開始、操作を不可にする
         DispatchQueue.global().async{
             DispatchQueue.main.async{
@@ -24,6 +24,7 @@ class ActivityIndicatorLogic{
     }
     
     func stopActivityIndecator(view: UIView){
+        print("処理が終了しました。")
         // ActivityIndicatorを終了、操作を可能にする
         DispatchQueue.global().async{
             DispatchQueue.main.async{

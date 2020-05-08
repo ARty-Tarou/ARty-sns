@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // APIキーの設定とSDK初期化
         NCMB.initialize(applicationKey: applicationkey, clientKey: clientkey);
         return true
+        
     }
     
 

@@ -56,7 +56,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     // MARK: Actions
     @IBAction func signUpButtonAction(_ sender: Any) {
         
+        let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+        activityIndicatorLogic.startActivityIndecator(view: view)
+        
         if let userName = userNameTextField.text, let mailAddress = user?.getMailAddress(), let password = user?.getPassword(), checkBoxButton.isSelected{
+            
             // ユーザーインスタンス生成
             let user = NCMBUser()
             
@@ -64,8 +68,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             user.userName = userName
             user.mailAddress = mailAddress
             user.password = password
-            
-            
+            var acl: NCMBACL = NCMBACL.empty
+            acl.put(key: "*", readable: true, writable: false)
+            user.acl = acl
+
+            /*
+            let result = user.signUp()
+            switch result{
+            case .success():
+                print("登録に成功しました。")
+            case let .failure(error):
+                print("登録に失敗しました。：\(error)")
+            }
+            */
+            /*
             // ニフクラに新規会員登録
             user.signUpInBackground(callback: {result in
                 switch result{
@@ -73,13 +89,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     // 新規登録に成功した場合の処理
                     print("登録に成功")
                     
+                    
                 case let .failure(error):
                     // 新規登録に失敗した場合の処理
                     print("登録失敗:\(error)")
                 }
             })
+ */
         }else{
             print("利用規約に同意されてないです")
+            activityIndicatorLogic.stopActivityIndecator(view: view)
         }
     }
     

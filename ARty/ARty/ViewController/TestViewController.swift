@@ -15,7 +15,9 @@ class TestViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        // ログアウト処理
-        _ = LogoutLogic().logout()
+    }
+    @IBAction func startButtonAction(_ sender: Any) {
+        let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+        activityIndicatorLogic.startActivityIndecator(view: view)
     }
 }

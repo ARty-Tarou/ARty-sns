@@ -9,10 +9,11 @@
 import UIKit
 import NCMB
 
-class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
     // MARK: Properties
     @IBOutlet weak var overViewTextField: UITextField!
     @IBOutlet weak var stampImageView: UIImageView!
+    @IBOutlet weak var overViewTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
 
         // デリゲートを設定
         overViewTextField.delegate = self
+        overViewTextView.delegate = self
         
         // テキストフィールドにツールバーを設定
         overViewTextField.inputAccessoryView = toolBar

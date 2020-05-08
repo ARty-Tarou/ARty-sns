@@ -19,6 +19,9 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var artsTab: UIButton!
     @IBOutlet weak var userProductTableView: UITableView!
     
+    // カレントユーザー
+    let user = NCMBUser.currentUser
+    
     // スタンプリスト
     var stamps: [(Stamp)] = []
     
@@ -34,21 +37,26 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         userProductTableView.delegate = self
         userProductTableView.dataSource = self
         
-        // カレントユーザーの情報を取得
-        if let user = NCMBUser.currentUser{
-            // userの名前を取得
-            if let name = user.userName{
-                userName.text = name
-            }
-            
-            // ファイルストアに画像があるか検索
-        }
-        
         // Stampタブを選択状態にする
         stampTab.isEnabled = false
         
         // UserProductを表示する
         userProduct()
+    }
+    
+    // MARK: 構造体
+    // JSON構造体
+    struct StampJson: Codable{
+        // stickのobjectId
+        let objectId: String?
+        // stampName
+        let stampName: String?
+        // userName
+        let userName: String?
+    }
+    
+    struct StampImageJson: Codable{
+        let stampData: Data?
     }
     
     // MARK: Methods
@@ -63,27 +71,121 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
             // スタンプリストを初期化
             stamps = []
             
-            // スタンプリストを取得
-            // スタンプインスタンスを生成
-            let stamp1: Stamp! = Stamp(name: "ure", image: UIImage(named: "urety"))
-            stamps.append(stamp1)
+            // ファイルストアからスタンプリストを取得
+            // スクリプトインスタンスを生成
+            let script = NCMBScript(name: "pullMyStick.js", method: .post)
             
-            let stamp2: Stamp! = Stamp(name: "kana", image: UIImage(named: "kanaty"))
-            stamps.append(stamp2)
+            // ボディ設定
+            let requestBody: [String: Any?] = ["userId": self.user?.objectId]
             
-            let stamp3: Stamp! = Stamp(name: "mu", image: UIImage(named: "muty"))
-            stamps.append(stamp3)
-            
-            var count = 1
-            for stamp in stamps{
-                print("stamp\(count):\(stamp.name)")
-                count += 1
-            }
-            
-            // テーブルビューを更新
-            self.userProductTableView.reloadData()
-
-            
+            // スクリプト実行 JSON形式で自分が投稿したスタンプリストを取得
+            script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                switch result{
+                case let .success(data):
+                    print("script実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                    
+                    do{
+                        
+                        
+                        let decoder = JSONDecoder()
+                        
+                        let json = try decoder.decode([StampJson].self, from: data!)
+                        
+                        // 取得したjsonのファイル数だけ回す
+                        for item in json{
+                            print("stampName:\(String(describing: item.stampName))")
+                            
+                            // ファイルストアから画像を取得
+                            // ファイルの指定
+                            let file: NCMBFile = NCMBFile(fileName: item.stampName!)
+                            
+                            // ファイルの取得
+                            print("画像を取ってきます。")
+                            // 非同期処理
+                            file.fetchInBackground(callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("ファイル取得成功:\(String(describing: data))")
+                                    
+                                    // ファイルを画像に変換
+                                    guard let image = data.flatMap(UIImage.init)else{
+                                        fatalError("画像に変換失敗")
+                                    }
+                                    
+                                    // スタンプリストに追加
+                                    let stamp: Stamp! = Stamp(name: item.stampName!, image: image)
+                                    self.stamps.append(stamp)
+                                    
+                                    // テーブルビューを更新
+                                    // テーブルビューを更新
+                                    print("テーブルビューを更新します。")
+                                    DispatchQueue.global().async{
+                                        DispatchQueue.main.async{
+                                            self.userProductTableView.reloadData()
+                                        }
+                                    }
+                                case let .failure(error):
+                                    print("ファイル取得失敗:\(error)")
+                                }
+                            })
+                            
+                            // TODO: スクリプトで画像を取得
+                            // スクリプトインスタンス生成
+                            /*let script = NCMBScript(name: "pullMyFile.js", method: .post)
+                            
+                            // ボディ設定
+                            let requestBody: [String: Any?] = ["fileName": item.stampName]
+                            
+                            // スクリプト実行
+                            script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    
+                                    let decoder = JSONDecoder()
+                                    
+                                    do{
+                                        let json = try decoder.decode(StampImageJson.self, from: data!)
+                                        
+                                        guard let image = UIImage(data: json.stampData!) else{
+                                            fatalError("画像変換失敗")
+                                        }
+                                        /*guard let image = json.stampData.flatMap(UIImage.init) else{
+                                            fatalError("画像に変換失敗")
+                                        }*/
+                                        let stamp: Stamp! = Stamp(name: item.userName!, image: image)
+                                        
+                                        self.stamps.append(stamp)
+                                    }catch{
+                                        print("StampImageJson取り出し失敗")
+                                    }
+                                    
+                                    
+                                case let .failure(error):
+                                    print("error:\(error)")
+                                }
+                            })*/
+                            /*
+                            let stamp: Stamp! = Stamp(name: item.stampName!, image: UIImage(named: "urety"))
+                            self.stamps.append(stamp)*/
+                        }
+                        
+                        // テーブルビューを更新
+                        /*print("テーブルビューを更新します。")
+                        DispatchQueue.global().async{
+                            DispatchQueue.main.async{
+                                self.userProductTableView.reloadData()
+                            }
+                        }*/
+                        
+                    }catch{
+                        print("error")
+                    }
+                    
+                    
+                case let .failure(error):
+                    print("script実行に失敗:\(error)")
+                }
+            })
         }else{
             // アートリストを表示する処理
             print("artListを表示する")
@@ -131,6 +233,8 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         if bool == true{
             // トップ画面に遷移
             performSegue(withIdentifier: "logout", sender: nil)
+        }else{
+            print("ログアウトに失敗しました。")
         }
  
     }
