@@ -113,7 +113,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                                     }
                                     
                                     // スタンプリストに追加
-                                    let stamp: Stamp! = Stamp(name: item.stampName!, image: image)
+                                    let stamp: Stamp! = Stamp(name: item.userName!, image: image)
                                     self.stamps.append(stamp)
                                     
                                     // テーブルビューを更新
