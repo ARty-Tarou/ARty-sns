@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -47,6 +48,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             print("検索：\(str)")
         }
         // MARK: リクエスト処理
+        
+        // TODO: 検索処理のスクリプトを記述していく。
+        // Scriptインスタンスを生成
+        
+        
         // TODO: ニフクラにアクセスして検索する処理を書いていく
         
         /*

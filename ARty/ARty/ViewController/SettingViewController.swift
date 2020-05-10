@@ -32,6 +32,25 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // ナビゲーションバーを非表示にする
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+        //　TODO: スクリプトでユーザーの詳細情報を取得する
+        
+        //
+        // スクリプトインスタンス生成
+        let script = NCMBScript(name: "pullMyInform.js", method: .post)
+        
+        // ボディ設定
+        let requestBody:[String: Any?] = ["userId": self.user?.objectId]
+        
+        // スクリプト実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case let .success(data):
+                print("pullMyInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+            case let .failure(error):
+                print("pullMyInformScript実行に失敗:\(error)")
+            }
+        })
+        
         // Table Viewの設定
         userProductTableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "customCell")
         userProductTableView.delegate = self
@@ -44,8 +63,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         userProduct()
     }
     
-    // MARK: 構造体
-    // JSON構造体
+    // MARK: JSON
     struct StampJson: Codable{
         // stickのobjectId
         let objectId: String?
@@ -82,7 +100,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
             script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
                 switch result{
                 case let .success(data):
-                    print("script実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                    print("pullMyStickScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
                     
                     do{
                         
@@ -91,24 +109,23 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                         
                         let json = try decoder.decode([StampJson].self, from: data!)
                         
-                        // 取得したjsonのファイル数だけ回す
+                        // 取得したjsonのデータ数だけ回す
                         for item in json{
-                            print("stampName:\(String(describing: item.stampName))")
+                            print("stampName:\(String(describing:  item.stampName))")
                             
                             // ファイルストアから画像を取得
                             // ファイルの指定
-                            let file: NCMBFile = NCMBFile(fileName: item.stampName!)
+                            let file = NCMBFile(fileName: item.stampName!)
                             
                             // ファイルの取得
                             print("画像を取ってきます。")
-                            // 非同期処理
                             file.fetchInBackground(callback: {result in
                                 switch result{
                                 case let .success(data):
                                     print("ファイル取得成功:\(String(describing: data))")
                                     
-                                    // ファイルを画像に変換
-                                    guard let image = data.flatMap(UIImage.init)else{
+                                    // データを画像に変換
+                                    guard let image = data.flatMap(UIImage.init) else{
                                         fatalError("画像に変換失敗")
                                     }
                                     
@@ -116,7 +133,6 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                                     let stamp: Stamp! = Stamp(name: item.userName!, image: image)
                                     self.stamps.append(stamp)
                                     
-                                    // テーブルビューを更新
                                     // テーブルビューを更新
                                     print("テーブルビューを更新します。")
                                     DispatchQueue.global().async{
@@ -183,7 +199,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     
                 case let .failure(error):
-                    print("script実行に失敗:\(error)")
+                    print("pullMyStickScript実行に失敗:\(error)")
                 }
             })
         }else{
@@ -212,8 +228,8 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // 表示するCellを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! CustomCell
         
-        cell.userNameLabel.text = stamps[indexPath.row].name
-        if let image = stamps[indexPath.row].image{
+        cell.userNameLabel.text = stamps[indexPath.row].userId
+        if let image = stamps[indexPath.row].stampImage{
             cell.productImageView.image = image
         }
         

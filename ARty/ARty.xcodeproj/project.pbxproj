@@ -126,8 +126,11 @@
 				5705E02C24460F750069FEDD /* AppDelegate.swift */,
 				5705E02E24460F750069FEDD /* SceneDelegate.swift */,
 				5705E03524460F770069FEDD /* Assets.xcassets */,
+				5705E03224460F750069FEDD /* Main.storyboard */,
+				5705E03724460F770069FEDD /* LaunchScreen.storyboard */,
 				CC61E559244D4C8400EF5DED /* Storyboard */,
 				CC61E55A244D4CF500EF5DED /* ViewController */,
+				CCAF3F9C2468423C00ABB3C3 /* Model */,
 				5705E03A24460F770069FEDD /* Info.plist */,
 			);
 			path = ARty;
@@ -149,8 +152,6 @@
 				CC7C24F12452D042005431B5 /* CustomCell.xib */,
 				08D8607F2456CB7300903A7C /* SearchCell.xib */,
 				CC1324922466CA9200F6CF0A /* TimelineCell.xib */,
-				5705E03724460F770069FEDD /* LaunchScreen.storyboard */,
-				5705E03224460F750069FEDD /* Main.storyboard */,
 				CC58184F244D6F6E000380D9 /* SignUp.storyboard */,
 				CC61E55E244D527A00EF5DED /* SignIn.storyboard */,
 				08B4186A244F1F300053AFCC /* SigninFailed.storyboard */,
@@ -161,20 +162,13 @@
 				CC61E566244D540300EF5DED /* Timeline.storyboard */,
 				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
 			);
-			name = Storyboard;
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		CC61E55A244D4CF500EF5DED /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				CC63B8D724586BF0001C2EEB /* TestViewController.swift */,
-				CC7C24ED2451D28E005431B5 /* CustomCell.swift */,
-				08D8607E2456CB7300903A7C /* SearchCell.swift */,
-				CC1324902466363B00F6CF0A /* TimelineCell.swift */,
-				CC61E55C244D4E0900EF5DED /* User.swift */,
-				CC7C24E72450654F005431B5 /* Stamp.swift */,
-				CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */,
-				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
@@ -184,9 +178,23 @@
 				CCA6D9672456C987008AC366 /* TrendViewController.swift */,
 				CCA6D9652456BD10008AC366 /* TimelineViewController.swift */,
 				CCA6D9632456BC65008AC366 /* StickFormViewController.swift */,
-				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CCAF3F9C2468423C00ABB3C3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CC7C24ED2451D28E005431B5 /* CustomCell.swift */,
+				08D8607E2456CB7300903A7C /* SearchCell.swift */,
+				CC1324902466363B00F6CF0A /* TimelineCell.swift */,
+				CC61E55C244D4E0900EF5DED /* User.swift */,
+				CC7C24E72450654F005431B5 /* Stamp.swift */,
+				CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */,
+				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
+				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D584BCEDC6545DDB3D38C4BD /* Frameworks */ = {

@@ -22,6 +22,9 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
         // ナビゲーションバーを表示する
         navigationController?.setNavigationBarHidden(false, animated: true)
         
+        overViewTextView.text = "test"
+        
+        
         // ツールバーを設定
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -53,7 +56,7 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
     @IBAction func stickButtonAction(_ sender: Any) {
         
         guard let image = stampImageView.image else{
-            fatalError("画像を取得できなかった")
+            fatalError("画像を取得できなかったよ")
         }
         
         let data = image.pngData()!
