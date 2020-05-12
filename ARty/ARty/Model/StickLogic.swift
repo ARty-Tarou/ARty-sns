@@ -33,7 +33,7 @@ class StickLogic{
                 let script = NCMBScript(name: "saveStick.js", method: .post)
                 
                 // ボディ設定
-                let requestBody: [String: Any?] = ["userId": user.objectId, "detail": detail, "fileName": fileName]
+                let requestBody: [String: Any?] = ["userId": user.objectId, "detail": detail, "stampName": fileName, "flag": 0]
                 
                 // スクリプト実行
                 script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in

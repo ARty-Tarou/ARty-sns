@@ -45,14 +45,22 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     // MARK: JSON
-    struct TimelineData: Codable{
+    struct StickData: Codable{
+        // この投稿のgood数
+        let good: Int?
+        // 投稿者のuserId
+        let userId: String?
+        // stampかstampArtか
+        let stamp: Bool?
+        // スタンプデータ
+        let staticData : StaticData?
+    }
+    
+    struct StaticData: Codable{
         // スタンプ名
         let stampName: String?
-        // このスタンプのgood数
-        let good: Int?
-        // スタンプの作成者のuserId
-        let userId: String?
-        
+        // スタンプアート名
+        let stampArtName: String?
     }
     
     // MARK: Methods
@@ -71,6 +79,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         
         // スクリプト実行
         // JSON形式でタイムラインを取得
+        
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
             case let .success(data):
@@ -79,43 +88,62 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                 do{
                     let decoder = JSONDecoder()
                     
-                    let json = try decoder.decode([TimelineData].self, from: data!)
+                    let json = try decoder.decode([StickData].self, from: data!)
                     
                     // 取得したjsonのデータ数だけ回す
-                    for item in json{
-                        print("stampName:\(String(describing: item.stampName))")
-                        
+                    for stick in json{
                         // スタンプインスタンスを生成
-                        let stamp: Stamp = Stamp(name: item.stampName!, userId: item.userId!, good: item.good!)
+                        let stamp: Stamp = Stamp()
+                        stamp.setUserId(userId: stick.userId!)
+                        stamp.setGood(good: stick.good!)
                         
-                        // ファイルストアから画像を取得
-                        // ファイルの指定
-                        let file = NCMBFile(fileName: item.stampName!)
-                        
-                        // ファイルの取得
-                        print("画像を取ってきます。")
-                        
-                        file.fetchInBackground(callback: {result in
-                            switch result{
-                            case let .success(data):
+                        if stick.stamp == true{
+                            // スタンプの場合
+                            if let stampData = stick.staticData{
+                                print("stampName:\(String(describing: stampData.stampName))")
                                 
-                                // データを画像に変換
-                                if let image = data.flatMap(UIImage.init){
-                                    // スタンプに画像をセット
-                                    print("画像をセット")
-                                    stamp.setStampImage(stampImage: image)
-                                }
+                                // スタンプ名をセット
+                                stamp.setStampName(stampName: stampData.stampName!)
                                 
-                            case let .failure(error):
-                                print("ファイル取得失敗:\(error)")
+                                // ファイルストアから画像を取得
+                                // ファイルの指定
+                                let file = NCMBFile(fileName: stampData.stampName!)
+                                
+                                // ファイルの取得
+                                print("画像を取ってきます:\(stampData.stampName!)")
+                                file.fetchInBackground(callback: {result in
+                                    switch result{
+                                    case let .success(data):
+                                        print("画像取得に成功")
+                                        // データを画像に変換
+                                        if let image = data.flatMap(UIImage.init){
+                                            // スタンプに画像をセット
+                                            print("画像をセット:\(stampData.stampName!)")
+                                            stamp.setStampImage(stampImage: image)
+                                            
+                                            // コレクションビューを更新
+                                            print("コレクションビューを更新")
+                                            DispatchQueue.global().async{
+                                                DispatchQueue.main.async {
+                                                    self.collectionView.reloadData()
+                                                }
+                                            }
+                                            
+                                        }
+                                    case let .failure(error):
+                                        print("画像取得に失敗:\(error)")
+                                    }
+                                })
                             }
-                        })
+                        }else{
+                            // スタンプアートの場合
+                            
+                        }
                         
                         // ユーザー情報の取得処理
                         
                         
                         // タイムラインリストに追加
-                        //let stamp: Stamp! = Stamp(name: item.stampName!, userId: item.userId!, good: item.good!)
                         self.timelineList.append(stamp)
                         
                         // コレクションビューを更新
@@ -143,18 +171,31 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         performSegue(withIdentifier: "stick", sender: nil)
     }
     
+    @objc func onUserIcon(_ sender: UIButton){
+        // ボタンのタグを表示
+        print("ユーザーアイコンが押されたよ:\(sender.tag)")
+        print("タップされたアイコンのuserId:\(self.timelineList[sender.tag].userId!)")
+        
+        // プロフィール画面へ遷移
+        performSegue(withIdentifier: "profile", sender: self.timelineList[sender.tag].userId)
+    }
+    
     // MARK: UICollectionViewDataSource
     
     // セルを返す
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timelineCell", for: indexPath) as! TimelineCell
         
+        // セルに情報を付加
         cell.userNameLabel.text = self.timelineList[indexPath.row].userId
         if let image = self.timelineList[indexPath.row].stampImage{
             cell.stampImageView.image = image
         }
         cell.goodNum.text = String(self.timelineList[indexPath.row].good!)
         
+        // セルのボタンにアクションを設定
+        cell.userIconButton.tag = indexPath.row
+        cell.userIconButton.addTarget(self, action: #selector(self.onUserIcon(_ :)), for: .touchUpInside)
         
         return cell
     }
@@ -168,7 +209,16 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
         print(timelineList[indexPath.row].stampName)
-        
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "profile"{
+            // 遷移先ViewControllerの取得
+            let profileViewController = segue.destination as! ProfileViewController
+            
+            // userIdを渡す
+            let userId = sender as? String
+            profileViewController.userId = userId
+        }
     }
 }

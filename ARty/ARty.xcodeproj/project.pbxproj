@@ -20,6 +20,8 @@
 		5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5705E03724460F770069FEDD /* LaunchScreen.storyboard */; };
 		CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */; };
 		CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0CE45A244C2C910047B289 /* SignInViewController.swift */; };
+		CC115C7B246931F600461C49 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC115C7A246931F600461C49 /* Profile.storyboard */; };
+		CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC115C7C2469328400461C49 /* ProfileViewController.swift */; };
 		CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1324902466363B00F6CF0A /* TimelineCell.swift */; };
 		CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC1324922466CA9200F6CF0A /* TimelineCell.xib */; };
 		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
@@ -65,6 +67,8 @@
 		5705E03A24460F770069FEDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CC0CE45A244C2C910047B289 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		CC115C7A246931F600461C49 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		CC115C7C2469328400461C49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CC1324902466363B00F6CF0A /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		CC1324922466CA9200F6CF0A /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
 		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				CC61E560244D539600EF5DED /* Trend.storyboard */,
 				CC61E562244D53A500EF5DED /* Search.storyboard */,
 				CC61E564244D53DD00EF5DED /* Setting.storyboard */,
+				CC115C7A246931F600461C49 /* Profile.storyboard */,
 				CC61E566244D540300EF5DED /* Timeline.storyboard */,
 				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
 			);
@@ -174,6 +179,7 @@
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
 				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
 				086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */,
+				CC115C7C2469328400461C49 /* ProfileViewController.swift */,
 				CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */,
 				CCA6D9672456C987008AC366 /* TrendViewController.swift */,
 				CCA6D9652456BD10008AC366 /* TimelineViewController.swift */,
@@ -278,6 +284,7 @@
 				CC63B8D624586BD1001C2EEB /* Test.storyboard in Resources */,
 				CC61E563244D53A500EF5DED /* Search.storyboard in Resources */,
 				CC61E561244D539600EF5DED /* Trend.storyboard in Resources */,
+				CC115C7B246931F600461C49 /* Profile.storyboard in Resources */,
 				CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */,
 				5705E03424460F750069FEDD /* Main.storyboard in Resources */,
 				CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */,
@@ -351,6 +358,7 @@
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
+				CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */,
 				CC7C24EE2451D28E005431B5 /* CustomCell.swift in Sources */,
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);

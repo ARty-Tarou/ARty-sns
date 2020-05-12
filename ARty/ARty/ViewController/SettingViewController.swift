@@ -113,6 +113,9 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                         for item in json{
                             print("stampName:\(String(describing:  item.stampName))")
                             
+                            // スタンプインスタンスを生成
+                            let stamp = Stamp(name: item.stampName!)
+                            
                             // ファイルストアから画像を取得
                             // ファイルの指定
                             let file = NCMBFile(fileName: item.stampName!)
@@ -125,25 +128,24 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                                     print("ファイル取得成功:\(String(describing: data))")
                                     
                                     // データを画像に変換
-                                    guard let image = data.flatMap(UIImage.init) else{
-                                        fatalError("画像に変換失敗")
+                                    if let image = data.flatMap(UIImage.init){
+                                        stamp.setStampImage(stampImage: image)
                                     }
                                     
-                                    // スタンプリストに追加
-                                    let stamp: Stamp! = Stamp(name: item.userName!, image: image)
-                                    self.stamps.append(stamp)
-                                    
-                                    // テーブルビューを更新
-                                    print("テーブルビューを更新します。")
-                                    DispatchQueue.global().async{
-                                        DispatchQueue.main.async{
-                                            self.userProductTableView.reloadData()
-                                        }
-                                    }
                                 case let .failure(error):
                                     print("ファイル取得失敗:\(error)")
                                 }
                             })
+                            
+                            // スタンプリストに追加
+                            self.stamps.append(stamp)
+                            // テーブルビューを更新
+                            print("テーブルビューを更新します。")
+                            DispatchQueue.global().async{
+                                DispatchQueue.main.async{
+                                    self.userProductTableView.reloadData()
+                                }
+                            }
                             
                             // TODO: スクリプトで画像を取得
                             // スクリプトインスタンス生成

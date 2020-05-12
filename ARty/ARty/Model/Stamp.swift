@@ -11,13 +11,19 @@ import UIKit
 class Stamp {
 
     // MARK: Properties
-    var stampName: String
+    var stampName: String?
     var stampImage: UIImage?
     var userId: String?
     var userName: String?
     var good: Int?
 
     // MARK: Initialization
+    init(){}
+    
+    init(name: String){
+        self.stampName = name
+    }
+    
     init?(name: String, image: UIImage?) {
     
         // The name must not be empty
@@ -37,11 +43,23 @@ class Stamp {
     }
     
     // MARK: Setter
+    func setStampName(stampName: String){
+        self.stampName = stampName
+    }
+    
     func setStampImage(stampImage: UIImage?){
         self.stampImage = stampImage
     }
     
+    func setUserId(userId: String){
+        self.userId = userId
+    }
+    
     func setUserName(userName: String){
         self.userName = userName
+    }
+    
+    func setGood(good: Int){
+        self.good = good
     }
 }

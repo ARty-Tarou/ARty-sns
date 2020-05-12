@@ -54,11 +54,22 @@
                     <connections>
                         <outlet property="collectionView" destination="MtL-1k-bbF" id="LK1-Jg-s0x"/>
                         <segue destination="vZv-o7-4eg" kind="show" identifier="stick" id="xl0-1p-TH0"/>
+                        <segue destination="0nj-j6-zYq" kind="show" identifier="profile" id="2vS-23-42o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wpE-r4-52m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2892.753623188406" y="46.875"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="Li5-3S-kBp">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="0nj-j6-zYq" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="AeX-bO-KjQ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JBI-F0-zee" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3480" y="-7"/>
         </scene>
         <!--StickForm-->
         <scene sceneID="4cL-aI-xuj">
@@ -68,7 +79,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmt-eS-lBy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3526" y="47"/>
+            <point key="canvasLocation" x="3496" y="113"/>
         </scene>
     </scenes>
     <resources>
