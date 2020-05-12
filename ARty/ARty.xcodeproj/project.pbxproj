@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		086AFC7C244DE3FD00F0B86D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */; };
-		089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C4244DA26200699589 /* ChangeSettingViewController.swift */; };
+		086AFC7C244DE3FD00F0B86D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086AFC7B244DE3FD00F0B86D /* MyPageViewController.swift */; };
+		089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C4244DA26200699589 /* ChangeMyDataViewController.swift */; };
 		08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08B4186A244F1F300053AFCC /* SigninFailed.storyboard */; };
 		08D860802456CB7300903A7C /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8607E2456CB7300903A7C /* SearchCell.swift */; };
 		08D860812456CB7300903A7C /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08D8607F2456CB7300903A7C /* SearchCell.xib */; };
@@ -30,15 +30,16 @@
 		CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E55E244D527A00EF5DED /* SignIn.storyboard */; };
 		CC61E561244D539600EF5DED /* Trend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E560244D539600EF5DED /* Trend.storyboard */; };
 		CC61E563244D53A500EF5DED /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E562244D53A500EF5DED /* Search.storyboard */; };
-		CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E564244D53DD00EF5DED /* Setting.storyboard */; };
+		CC61E565244D53DD00EF5DED /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E564244D53DD00EF5DED /* MyPage.storyboard */; };
 		CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E566244D540300EF5DED /* Timeline.storyboard */; };
 		CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E568244D544C00EF5DED /* Tab.storyboard */; };
+		CC636E11246AE3580080CA2F /* PullUserInformLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC636E10246AE3580080CA2F /* PullUserInformLogic.swift */; };
 		CC63B8D624586BD1001C2EEB /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC63B8D524586BD1001C2EEB /* Test.storyboard */; };
 		CC63B8D824586BF0001C2EEB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63B8D724586BF0001C2EEB /* TestViewController.swift */; };
 		CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */; };
 		CC7C24E82450654F005431B5 /* Stamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24E72450654F005431B5 /* Stamp.swift */; };
-		CC7C24EE2451D28E005431B5 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24ED2451D28E005431B5 /* CustomCell.swift */; };
-		CC7C24F22452D042005431B5 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7C24F12452D042005431B5 /* CustomCell.xib */; };
+		CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24ED2451D28E005431B5 /* StickCell.swift */; };
+		CC7C24F22452D042005431B5 /* StickCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7C24F12452D042005431B5 /* StickCell.xib */; };
 		CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCA6D9612456BC30008AC366 /* StickForm.storyboard */; };
 		CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9632456BC65008AC366 /* StickFormViewController.swift */; };
 		CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9652456BD10008AC366 /* TimelineViewController.swift */; };
@@ -49,8 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		089207C4244DA26200699589 /* ChangeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSettingViewController.swift; sourceTree = "<group>"; };
+		086AFC7B244DE3FD00F0B86D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		089207C4244DA26200699589 /* ChangeMyDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMyDataViewController.swift; sourceTree = "<group>"; };
 		08B4186A244F1F300053AFCC /* SigninFailed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SigninFailed.storyboard; sourceTree = "<group>"; };
 		08D8607E2456CB7300903A7C /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		08D8607F2456CB7300903A7C /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
@@ -77,15 +78,16 @@
 		CC61E55E244D527A00EF5DED /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		CC61E560244D539600EF5DED /* Trend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trend.storyboard; sourceTree = "<group>"; };
 		CC61E562244D53A500EF5DED /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
-		CC61E564244D53DD00EF5DED /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		CC61E564244D53DD00EF5DED /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
 		CC61E566244D540300EF5DED /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		CC61E568244D544C00EF5DED /* Tab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tab.storyboard; sourceTree = "<group>"; };
+		CC636E10246AE3580080CA2F /* PullUserInformLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUserInformLogic.swift; sourceTree = "<group>"; };
 		CC63B8D524586BD1001C2EEB /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		CC63B8D724586BF0001C2EEB /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CC7C24E72450654F005431B5 /* Stamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamp.swift; sourceTree = "<group>"; };
-		CC7C24ED2451D28E005431B5 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		CC7C24F12452D042005431B5 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		CC7C24ED2451D28E005431B5 /* StickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickCell.swift; sourceTree = "<group>"; };
+		CC7C24F12452D042005431B5 /* StickCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickCell.xib; sourceTree = "<group>"; };
 		CCA6D9612456BC30008AC366 /* StickForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StickForm.storyboard; sourceTree = "<group>"; };
 		CCA6D9632456BC65008AC366 /* StickFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFormViewController.swift; sourceTree = "<group>"; };
 		CCA6D9652456BD10008AC366 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				5705E03524460F770069FEDD /* Assets.xcassets */,
 				5705E03224460F750069FEDD /* Main.storyboard */,
 				5705E03724460F770069FEDD /* LaunchScreen.storyboard */,
+				CC636E0F246A9AB60080CA2F /* CustomCell */,
 				CC61E559244D4C8400EF5DED /* Storyboard */,
 				CC61E55A244D4CF500EF5DED /* ViewController */,
 				CCAF3F9C2468423C00ABB3C3 /* Model */,
@@ -153,16 +156,13 @@
 			isa = PBXGroup;
 			children = (
 				CC63B8D524586BD1001C2EEB /* Test.storyboard */,
-				CC7C24F12452D042005431B5 /* CustomCell.xib */,
-				08D8607F2456CB7300903A7C /* SearchCell.xib */,
-				CC1324922466CA9200F6CF0A /* TimelineCell.xib */,
 				CC58184F244D6F6E000380D9 /* SignUp.storyboard */,
 				CC61E55E244D527A00EF5DED /* SignIn.storyboard */,
 				08B4186A244F1F300053AFCC /* SigninFailed.storyboard */,
 				CC61E568244D544C00EF5DED /* Tab.storyboard */,
 				CC61E560244D539600EF5DED /* Trend.storyboard */,
 				CC61E562244D53A500EF5DED /* Search.storyboard */,
-				CC61E564244D53DD00EF5DED /* Setting.storyboard */,
+				CC61E564244D53DD00EF5DED /* MyPage.storyboard */,
 				CC115C7A246931F600461C49 /* Profile.storyboard */,
 				CC61E566244D540300EF5DED /* Timeline.storyboard */,
 				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
@@ -177,8 +177,8 @@
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
-				089207C4244DA26200699589 /* ChangeSettingViewController.swift */,
-				086AFC7B244DE3FD00F0B86D /* SettingViewController.swift */,
+				089207C4244DA26200699589 /* ChangeMyDataViewController.swift */,
+				086AFC7B244DE3FD00F0B86D /* MyPageViewController.swift */,
 				CC115C7C2469328400461C49 /* ProfileViewController.swift */,
 				CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */,
 				CCA6D9672456C987008AC366 /* TrendViewController.swift */,
@@ -188,10 +188,20 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		CC636E0F246A9AB60080CA2F /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				CC7C24F12452D042005431B5 /* StickCell.xib */,
+				08D8607F2456CB7300903A7C /* SearchCell.xib */,
+				CC1324922466CA9200F6CF0A /* TimelineCell.xib */,
+			);
+			path = CustomCell;
+			sourceTree = "<group>";
+		};
 		CCAF3F9C2468423C00ABB3C3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CC7C24ED2451D28E005431B5 /* CustomCell.swift */,
+				CC7C24ED2451D28E005431B5 /* StickCell.swift */,
 				08D8607E2456CB7300903A7C /* SearchCell.swift */,
 				CC1324902466363B00F6CF0A /* TimelineCell.swift */,
 				CC61E55C244D4E0900EF5DED /* User.swift */,
@@ -199,6 +209,7 @@
 				CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */,
 				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
+				CC636E10246AE3580080CA2F /* PullUserInformLogic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,7 +289,7 @@
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
 				CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */,
 				CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */,
-				CC7C24F22452D042005431B5 /* CustomCell.xib in Resources */,
+				CC7C24F22452D042005431B5 /* StickCell.xib in Resources */,
 				CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */,
 				5705E03624460F770069FEDD /* Assets.xcassets in Resources */,
 				CC63B8D624586BD1001C2EEB /* Test.storyboard in Resources */,
@@ -287,7 +298,7 @@
 				CC115C7B246931F600461C49 /* Profile.storyboard in Resources */,
 				CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */,
 				5705E03424460F750069FEDD /* Main.storyboard in Resources */,
-				CC61E565244D53DD00EF5DED /* Setting.storyboard in Resources */,
+				CC61E565244D53DD00EF5DED /* MyPage.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,15 +362,16 @@
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				CC7C24E82450654F005431B5 /* Stamp.swift in Sources */,
 				CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */,
-				086AFC7C244DE3FD00F0B86D /* SettingViewController.swift in Sources */,
+				086AFC7C244DE3FD00F0B86D /* MyPageViewController.swift in Sources */,
 				CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */,
+				CC636E11246AE3580080CA2F /* PullUserInformLogic.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
-				089207C5244DA26200699589 /* ChangeSettingViewController.swift in Sources */,
+				089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */,
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
 				CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */,
-				CC7C24EE2451D28E005431B5 /* CustomCell.swift in Sources */,
+				CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */,
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,15 +517,17 @@
 			baseConfigurationReference = 35561E5CB536E7EDE99F2207 /* Pods-ARty.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y66T484S8D;
 				INFOPLIST_FILE = ARty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Swift-Beginners.ARty";
+				PRODUCT_BUNDLE_IDENTIFIER = artylensjr.ARty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -524,15 +538,17 @@
 			baseConfigurationReference = 48DD4E16E8A2989F507179BB /* Pods-ARty.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Y66T484S8D;
 				INFOPLIST_FILE = ARty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Swift-Beginners.ARty";
+				PRODUCT_BUNDLE_IDENTIFIER = artylensjr.ARty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

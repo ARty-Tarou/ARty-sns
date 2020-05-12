@@ -1,5 +1,5 @@
 //
-//  ChangeSettingViewController.swift
+//  ChangeMyDataViewController.swift
 //  ARty
 //
 //  Created by 石松祐太 on 2020/04/20.
@@ -9,7 +9,7 @@
 import UIKit
 import NCMB
 
-class ChangeSettingViewController: UIViewController, UITextFieldDelegate {
+class ChangeMyDataViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!

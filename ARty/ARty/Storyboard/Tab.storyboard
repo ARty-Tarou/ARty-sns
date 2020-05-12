@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K8C-Ph-IPk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K8C-Ph-IPk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -58,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="2362" y="137"/>
         </scene>
-        <!--Setting-->
+        <!--MyPage-->
         <scene sceneID="ni8-vi-U9M">
             <objects>
-                <viewControllerPlaceholder storyboardName="Setting" id="Aoe-ep-Kv7" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="MyPage" id="Aoe-ep-Kv7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="more" id="wlz-YR-m9Y"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxg-ZH-h0M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

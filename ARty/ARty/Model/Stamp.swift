@@ -15,6 +15,7 @@ class Stamp {
     var stampImage: UIImage?
     var userId: String?
     var userName: String?
+    var userIcon: UIImage?
     var good: Int?
 
     // MARK: Initialization
@@ -57,6 +58,10 @@ class Stamp {
     
     func setUserName(userName: String){
         self.userName = userName
+    }
+    
+    func setUserIcon(userIcon: UIImage?){
+        self.userIcon = userIcon
     }
     
     func setGood(good: Int){

@@ -64,7 +64,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="EMc-dL-Cdb"/>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationItem key="navigationItem" id="x0M-3z-QiO">
+                        <barButtonItem key="rightBarButtonItem" title="投稿" style="plain" id="gPl-Zm-L1A"/>
+                    </navigationItem>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="overViewTextField" destination="zH4-6S-Jv7" id="mb7-kT-gIa"/>
@@ -74,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjK-Pr-GDh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-124.6376811594203" y="32.8125"/>
+            <point key="canvasLocation" x="785.50724637681162" y="32.8125"/>
         </scene>
     </scenes>
     <resources>
