@@ -73,6 +73,25 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         let userName: String?
     }
     
+    // MARK: JSON
+    struct StickData: Codable{
+        // この投稿のgood数
+        let good: Int?
+        // 投稿者のuserId
+        let userId: String?
+        // stampかstampArtか
+        let stamp: Bool?
+        // スタンプデータ
+        let staticData : StaticData?
+    }
+    
+    struct StaticData: Codable{
+        // スタンプ名
+        let stampName: String?
+        // スタンプアート名
+        let stampArtName: String?
+    }
+    
     struct StampImageJson: Codable{
         let stampData: Data?
     }
@@ -107,44 +126,60 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                         
                         let decoder = JSONDecoder()
                         
-                        let json = try decoder.decode([StampJson].self, from: data!)
+                        let json = try decoder.decode([StickData].self, from: data!)
                         
                         // 取得したjsonのデータ数だけ回す
-                        for item in json{
-                            print("stampName:\(String(describing:  item.stampName))")
-                            
-                            // スタンプインスタンスを生成
-                            let stamp = Stamp(name: item.stampName!)
-                            
-                            // ファイルストアから画像を取得
-                            // ファイルの指定
-                            let file = NCMBFile(fileName: item.stampName!)
-                            
-                            // ファイルの取得
-                            print("画像を取ってきます。")
-                            file.fetchInBackground(callback: {result in
-                                switch result{
-                                case let .success(data):
-                                    print("ファイル取得成功:\(String(describing: data))")
+                        for stick in json{
+                            // スタンプの場合回す
+                            if stick.stamp == true{
+                                // スタンプインスタンスを生成
+                                let stamp: Stamp = Stamp()
+                                stamp.setUserId(userId: stick.userId!)
+                                if let stampData = stick.staticData{
+                                    print("stampName:\(String(describing: stampData.stampName))")
                                     
-                                    // データを画像に変換
-                                    if let image = data.flatMap(UIImage.init){
-                                        stamp.setStampImage(stampImage: image)
+                                    // スタンプ名をセット
+                                    stamp.setStampName(stampName: stampData.stampName!)
+                                    
+                                    // ファイルストアから画像を取得
+                                    // ファイルの指定
+                                    let file = NCMBFile(fileName: stampData.stampName!)
+                                    
+                                    // ファイルの取得
+                                    print("画像を取ってきます:\(stampData.stampName!)")
+                                    file.fetchInBackground(callback: {result in
+                                        switch result{
+                                        case let .success(data):
+                                            print("画像取得に成功")
+                                            // データを画像に変換
+                                            if let image = data.flatMap(UIImage.init){
+                                                // スタンプに画像をセット
+                                                print("画像をセット:\(stampData.stampName!)")
+                                                stamp.setStampImage(stampImage: image)
+                                                
+                                                // テーブルビューを更新
+                                                print("テーブルビューを更新")
+                                                DispatchQueue.global().async{
+                                                    DispatchQueue.main.async{
+                                                        self.userProductTableView.reloadData()
+                                                    }
+                                                }
+                                            }
+                                        case let .failure(error):
+                                            print("画像取得に失敗:\(error)")
+                                        }
+                                    })
+                                }
+                                // スタンプリストに追加
+                                self.stamps.append(stamp)
+                                // テーブルビューを更新
+                                print("テーブルビューを更新します。")
+                                DispatchQueue.global().async{
+                                    DispatchQueue.main.async{
+                                        self.userProductTableView.reloadData()
                                     }
-                                    
-                                case let .failure(error):
-                                    print("ファイル取得失敗:\(error)")
                                 }
-                            })
-                            
-                            // スタンプリストに追加
-                            self.stamps.append(stamp)
-                            // テーブルビューを更新
-                            print("テーブルビューを更新します。")
-                            DispatchQueue.global().async{
-                                DispatchQueue.main.async{
-                                    self.userProductTableView.reloadData()
-                                }
+                                
                             }
                             
                             // TODO: スクリプトで画像を取得
