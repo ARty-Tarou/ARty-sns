@@ -17,7 +17,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     
     // User情報を格納
-    var user: User? = nil
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()

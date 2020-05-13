@@ -142,74 +142,74 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                                         print("画像取得に失敗:\(error)")
                                     }
                                 })
-                                
-                                // ユーザー情報を取得
-                                // スクリプトインスタンスを生成
-                                let script = NCMBScript(name: "pullYourInform.js", method: .post)
-                                
-                                // スクリプトボディを設定
-                                let requestBody: [String: Any?] = ["userId": stick.userId!]
-                                
-                                // スクリプトを実行
-                                script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
-                                    switch result{
-                                    case let .success(data):
-                                        print("pullYourInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                            }
+                            
+                            // ユーザー情報を取得
+                            // スクリプトインスタンスを生成
+                            let script = NCMBScript(name: "pullYourInform.js", method: .post)
+                            
+                            // スクリプトボディを設定
+                            let requestBody: [String: Any?] = ["userId": stick.userId!]
+                            
+                            // スクリプトを実行
+                            script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("pullYourInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                                    
+                                    do{
+                                        let decoder = JSONDecoder()
                                         
-                                        do{
-                                            let decoder = JSONDecoder()
-                                            
-                                            let json = try decoder.decode([UserInfo].self, from: data!)
-                                            
-                                            for userInfo in json{
-                                                if let userData = userInfo.userData{
-                                                    // ユーザー名をセット
-                                                    stamp.setUserName(userName: userData.userName!)
-                                                }
-                                                
-                                                // ファイルストアからユーザーアイコンを取得
-                                                print("ユーザーアイコンを取ってきます:\(userInfo.iconImageName!)")
-                                                let file = NCMBFile(fileName: userInfo.iconImageName!)
-                                                file.fetchInBackground(callback: {result in
-                                                    switch result{
-                                                    case let .success(data):
-                                                        print("ユーザーアイコン取得に成功")
-                                                        
-                                                        // データを画像に変換
-                                                        if let image = data.flatMap(UIImage.init){
-                                                            // ユーザーアイコンをセット
-                                                            stamp.setUserIcon(userIcon: image)
-                                                        }
-                                                        
-                                                        // コレクションビューを更新
-                                                        print("コレクションビューを更新")
-                                                        DispatchQueue.global().async{
-                                                            DispatchQueue.main.async {
-                                                                self.collectionView.reloadData()
-                                                            }
-                                                        }
-                                                    case let .failure(error):
-                                                        print("ユーザーアイコン取得に失敗:\(error)")
-                                                    }
-                                                })
-                                                
-                                                // コレクションビューを更新
-                                                print("コレクションビューを更新")
-                                                DispatchQueue.global().async{
-                                                    DispatchQueue.main.async {
-                                                        self.collectionView.reloadData()
-                                                    }
-                                                }
+                                        let json = try decoder.decode([UserInfo].self, from: data!)
+                                        
+                                        for userInfo in json{
+                                            if let userData = userInfo.userData{
+                                                // ユーザー名をセット
+                                                stamp.setUserName(userName: userData.userName!)
                                             }
                                             
-                                        }catch{
-                                            print("error")
+                                            // ファイルストアからユーザーアイコンを取得
+                                            print("ユーザーアイコンを取ってきます:\(userInfo.iconImageName!)")
+                                            let file = NCMBFile(fileName: userInfo.iconImageName!)
+                                            file.fetchInBackground(callback: {result in
+                                                switch result{
+                                                case let .success(data):
+                                                    print("ユーザーアイコン取得に成功")
+                                                    
+                                                    // データを画像に変換
+                                                    if let image = data.flatMap(UIImage.init){
+                                                        // ユーザーアイコンをセット
+                                                        stamp.setUserIcon(userIcon: image)
+                                                    }
+                                                    
+                                                    // コレクションビューを更新
+                                                    print("コレクションビューを更新")
+                                                    DispatchQueue.global().async{
+                                                        DispatchQueue.main.async {
+                                                            self.collectionView.reloadData()
+                                                        }
+                                                    }
+                                                case let .failure(error):
+                                                    print("ユーザーアイコン取得に失敗:\(error)")
+                                                }
+                                            })
+                                            
+                                            // コレクションビューを更新
+                                            print("コレクションビューを更新")
+                                            DispatchQueue.global().async{
+                                                DispatchQueue.main.async {
+                                                    self.collectionView.reloadData()
+                                                }
+                                            }
                                         }
-                                    case let .failure(error):
-                                        print("pullYourInformScript実行に失敗:\(error)")
+                                        
+                                    }catch{
+                                        print("error")
                                     }
-                                })
-                            }
+                                case let .failure(error):
+                                    print("pullYourInformScript実行に失敗:\(error)")
+                                }
+                            })
                         }else{
                             // スタンプアートの場合
                             
@@ -235,7 +235,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                 print("pullTimelineScript実行に失敗:\(error)")
             }
         })
- 
+        
     }
     
     // MARK: Action
@@ -249,8 +249,20 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         print("ユーザーアイコンが押されたよ:\(sender.tag)")
         print("タップされたアイコンのuserId:\(self.timelineList[sender.tag].userId!)")
         
+        // プロフィール画面に渡すユーザーインスタンスを作成
+        let user = User()
+        if let userId = self.timelineList[sender.tag].userId{
+            user.setUserId(userId: userId)
+        }
+        if let userName = self.timelineList[sender.tag].userName{
+            user.setUserName(userName: userName)
+        }
+        if let userIconImage = self.timelineList[sender.tag].userIcon{
+            user.setUserIconImage(userIconImage: userIconImage)
+        }
+        
         // プロフィール画面へ遷移
-        performSegue(withIdentifier: "profile", sender: self.timelineList[sender.tag].userId)
+        performSegue(withIdentifier: "profile", sender: user)
     }
     
     // MARK: UICollectionViewDataSource
@@ -284,7 +296,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
-        print(timelineList[indexPath.row].stampName!)
+        print(timelineList[indexPath.row].stampName ?? nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -292,9 +304,9 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             // 遷移先ViewControllerの取得
             let profileViewController = segue.destination as! ProfileViewController
             
-            // userIdを渡す
-            let userId = sender as? String
-            profileViewController.userId = userId
+            // プロフィール画面にユーザー情報を渡す
+            let user = sender as? User
+            profileViewController.user = user
         }
     }
 }

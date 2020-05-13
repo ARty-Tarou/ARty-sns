@@ -32,14 +32,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyi-1F-LHa">
-                                <rect key="frame" x="322" y="119" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="投稿"/>
-                                <connections>
-                                    <action selector="stickButtonAction:" destination="Dhi-BN-Cbu" eventType="touchUpInside" id="H4Y-Ak-cXn"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Of-2a-HPD">
                                 <rect key="frame" x="20" y="246" width="374" height="426"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -65,7 +57,11 @@
                         <viewLayoutGuide key="safeArea" id="EMc-dL-Cdb"/>
                     </view>
                     <navigationItem key="navigationItem" id="x0M-3z-QiO">
-                        <barButtonItem key="rightBarButtonItem" title="投稿" style="plain" id="gPl-Zm-L1A"/>
+                        <barButtonItem key="rightBarButtonItem" title="投稿" style="plain" id="gPl-Zm-L1A">
+                            <connections>
+                                <action selector="stickButtonAction:" destination="Dhi-BN-Cbu" id="2OQ-gd-XeG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>

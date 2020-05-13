@@ -54,35 +54,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         
         
         // TODO: ニフクラにアクセスして検索する処理を書いていく
-        
-        /*
-        // リクエストURL
-        guard let requestURL = URL(string: "https://...")
-        
-        // リクエストに必要な情報を生成
-        let req = URLRequest(url: requestURL)
-        // データ転送を管理するためのセッション生成
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        // リクエストをタスクとして登録
-        let task = session.detaTask(with: req, completionHandler: {(data, response, error) in
-            // セッション終了
-            session.finishTasksAndInvalidate()
-            // do try catch エラーハンドリング
-            do{
-                // JSONDecoderのインスタンス取得
-                let decoder = JSONDecoder()
-                // 受け取ったJSONデータをパース（解析）して格納
-                let json = try decoder.decode(ResultJson.self, from: data!)
-                
-                print(json)
-            }catch{
-                // エラー処理
-                print("エラー")
-            }
-        })
-        // ダウンロード開始
-        task.resume()
- */
+
         
         return true
     }

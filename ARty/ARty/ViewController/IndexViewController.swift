@@ -99,7 +99,7 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
             print("signIn画面へ")
             
             // ユーザー情報を渡す
-            signUpViewController.self.user = user
+            signUpViewController.user = user
         }
     }
     
