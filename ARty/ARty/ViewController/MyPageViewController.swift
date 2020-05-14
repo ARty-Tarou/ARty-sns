@@ -248,7 +248,12 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
  
     }
+    @IBAction func helpButtonAction(_ sender: Any) {
+        //ヘルプ画面へ遷移
+        performSegue(withIdentifier:"Help", sender: nil)
+    }
     
+   
     // changeボタンをタップしたとき
     @IBAction func changeButtonAction(_ sender: Any) {
         // 変更画面へ遷移

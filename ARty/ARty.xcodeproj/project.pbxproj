@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08430F58246D25B700CF182E /* HelppageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08430F57246D25B700CF182E /* HelppageViewController.swift */; };
+		08430F5A246D262A00CF182E /* Helppage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08430F59246D262A00CF182E /* Helppage.storyboard */; };
 		086AFC7C244DE3FD00F0B86D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086AFC7B244DE3FD00F0B86D /* MyPageViewController.swift */; };
 		089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C4244DA26200699589 /* ChangeMyDataViewController.swift */; };
 		08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08B4186A244F1F300053AFCC /* SigninFailed.storyboard */; };
+		08D74602246D5B7800245DDD /* SubHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D74601246D5B7800245DDD /* SubHelpViewController.swift */; };
 		08D860802456CB7300903A7C /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8607E2456CB7300903A7C /* SearchCell.swift */; };
 		08D860812456CB7300903A7C /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08D8607F2456CB7300903A7C /* SearchCell.xib */; };
 		5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02C24460F750069FEDD /* AppDelegate.swift */; };
@@ -53,9 +56,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08430F57246D25B700CF182E /* HelppageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelppageViewController.swift; sourceTree = "<group>"; };
+		08430F59246D262A00CF182E /* Helppage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Helppage.storyboard; sourceTree = "<group>"; };
 		086AFC7B244DE3FD00F0B86D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		089207C4244DA26200699589 /* ChangeMyDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMyDataViewController.swift; sourceTree = "<group>"; };
 		08B4186A244F1F300053AFCC /* SigninFailed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SigninFailed.storyboard; sourceTree = "<group>"; };
+		08D74601246D5B7800245DDD /* SubHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubHelpViewController.swift; path = ARty/Storyboard/SubHelpViewController.swift; sourceTree = SOURCE_ROOT; };
 		08D8607E2456CB7300903A7C /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		08D8607F2456CB7300903A7C /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +179,7 @@
 				CC61E566244D540300EF5DED /* Timeline.storyboard */,
 				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
 				CC7D8184246BD64200351D2A /* UserTable.storyboard */,
+				08430F59246D262A00CF182E /* Helppage.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -192,6 +199,8 @@
 				CCA6D9652456BD10008AC366 /* TimelineViewController.swift */,
 				CCA6D9632456BC65008AC366 /* StickFormViewController.swift */,
 				CC7D8186246BD69800351D2A /* UserTableViewController.swift */,
+				08430F57246D25B700CF182E /* HelppageViewController.swift */,
+				08D74601246D5B7800245DDD /* SubHelpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -307,6 +316,7 @@
 				CC61E561244D539600EF5DED /* Trend.storyboard in Resources */,
 				CC115C7B246931F600461C49 /* Profile.storyboard in Resources */,
 				CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */,
+				08430F5A246D262A00CF182E /* Helppage.storyboard in Resources */,
 				5705E03424460F750069FEDD /* Main.storyboard in Resources */,
 				CC61E565244D53DD00EF5DED /* MyPage.storyboard in Resources */,
 				CC7D818B246C41A800351D2A /* UserTableCell.xib in Resources */,
@@ -374,10 +384,12 @@
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				CC7C24E82450654F005431B5 /* Stamp.swift in Sources */,
 				CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */,
+				08430F58246D25B700CF182E /* HelppageViewController.swift in Sources */,
 				086AFC7C244DE3FD00F0B86D /* MyPageViewController.swift in Sources */,
 				CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */,
+				08D74602246D5B7800245DDD /* SubHelpViewController.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */,
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
