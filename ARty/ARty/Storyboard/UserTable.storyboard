@@ -37,11 +37,22 @@
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="userTableView" destination="WMz-Q9-bfa" id="hqZ-gV-kcs"/>
+                        <segue destination="nhS-rC-pfc" kind="show" identifier="profile" id="vxt-8d-yQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJh-4D-yyW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="108.69565217391305" y="93.75"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="Sxw-cb-8Gh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="nhS-rC-pfc" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="apB-Mj-7ji"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZoP-T0-hE6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709" y="94"/>
         </scene>
     </scenes>
 </document>

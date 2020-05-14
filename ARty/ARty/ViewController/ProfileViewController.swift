@@ -285,15 +285,20 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // MARK: Actions
-    @IBAction func followButtonAction(_ sender: Any) {
+    @IBAction func followListButtonAction(_ sender: Any) {
         // ユーザーテーブル画面へ遷移する
         performSegue(withIdentifier: "userTable", sender: 0)
     }
     
-    @IBAction func followerButtonAction(_ sender: Any) {
+    @IBAction func followerListButtonAction(_ sender: Any) {
         // ユーザーテーブル画面へ遷移する
         performSegue(withIdentifier: "userTable", sender: 1)
     }
+    
+    @IBAction func followButtonAction(_ sender: Any) {
+        
+    }
+    
     
     @IBAction func stampTabButtonAction(_ sender: Any) {
         print("スタンプタブが押されたよ")

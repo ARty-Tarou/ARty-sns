@@ -44,12 +44,20 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: JSON
-    struct UserData: Codable{
-        // フォローユーザーId
-        let followId: String?
-        // フォロワーユーザーId
-        let followerId: String?
+    struct UserInfo: Codable{
+        // ユーザーID
+        let userId: String?
+        // ユーザーアイコン
+        let iconImageName: String?
+        // UserData
+        let userData: UserData?
     }
+    
+    struct UserData: Codable{
+        // ユーザー名
+        let userName: String?
+    }
+    
     
     // MARK: Methods
     func pullFollow(){
@@ -64,6 +72,57 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
             case let .success(data):
                 print("pullFollowScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
                 
+                do{
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode([UserInfo].self, from: data!)
+                    
+                    for followUser in json{
+                        // Userインスタンスを生成
+                        let user = User()
+                        user.setUserId(userId: followUser.userId!)
+                        user.setUserName(userName: (followUser.userData?.userName)!)
+                        
+                        // ファイルストアからアイコンイメージを取得
+                        // ファイルを指定
+                        let file = NCMBFile(fileName: followUser.iconImageName!)
+                        
+                        // ファイルストアからユーザーアイコンを取得
+                        file.fetchInBackground(callback: {result in
+                            switch result{
+                            case let .success(data):
+                                print("ユーザーアイコン取得に成功:\(file.fileName)")
+                                
+                                // データを画像に変換
+                                let image = data.flatMap(UIImage.init)
+                                
+                                // ユーザーアイコンをセット
+                                user.setUserIconImage(userIconImage: image!)
+                                
+                                // テーブルビューを更新
+                                print("テーブルビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.userTableView.reloadData()
+                                    }
+                                }
+                            case let .failure(error):
+                                print("ユーザーアイコン取得に失敗:\(error)")
+                            }
+                        })
+                        // ユーザーリストに追加
+                        self.userList.append(user)
+                        
+                        // テーブルビューを更新
+                        print("テーブルビューを更新")
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.async {
+                                self.userTableView.reloadData()
+                            }
+                        }
+                    }
+                }catch{
+                    print("error")
+                }
             case let .failure(error):
                 print("pullFollowScript実行に失敗:\(error)")
             }
@@ -81,6 +140,59 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
             switch result{
             case let .success(data):
                 print("pullFollowerScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                do{
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode([UserInfo].self, from: data!)
+                    
+                    for followerUser in json{
+                        // Userインスタンスを生成
+                        let user = User()
+                        user.setUserId(userId: followerUser.userId!)
+                        user.setUserName(userName: (followerUser.userData?.userName)!)
+                        
+                        // ファイルストアからアイコンイメージを取得
+                        // ファイルを指定
+                        let file = NCMBFile(fileName: followerUser.iconImageName!)
+                        
+                        // ファイルストアからユーザーアイコンを取得
+                        file.fetchInBackground(callback: {result in
+                            switch result{
+                            case let .success(data):
+                                print("ユーザーアイコン取得に成功:\(file.fileName)")
+                                
+                                // データを画像に変換
+                                let image = data.flatMap(UIImage.init)
+                                
+                                // ユーザーアイコンをセット
+                                user.setUserIconImage(userIconImage: image!)
+                                
+                                // テーブルビューを更新
+                                print("テーブルビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.userTableView.reloadData()
+                                    }
+                                }
+                            case let .failure(error):
+                                print("ユーザーアイコン取得に失敗:\(error)")
+                            }
+                        })
+                        
+                        // ユーザーリストに追加
+                        self.userList.append(user)
+                        
+                        // テーブルビューを更新
+                        print("テーブルビューを更新")
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.async {
+                                self.userTableView.reloadData()
+                            }
+                        }
+                    }
+                }catch{
+                    
+                }
             case let .failure(error):
                 print("pullFollowerScript実行に失敗:\(error)")
             }
@@ -105,8 +217,31 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
         // 表示するセルを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "userTableCell") as! UserTableCell
         
-        cell.userNameLabel.text = "aaa"
+        cell.userNameLabel.text = self.userList[indexPath.row].getUserName()
+        if let userIcon = self.userList[indexPath.row].getUserIconImage(){
+            cell.userIconImageView.image = userIcon
+        }
         
         return cell
+    }
+    
+    // セルが選択された時
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(userList[indexPath.row].getUserId() ?? nil!)
+        
+        // プロフィール画面へ遷移
+        performSegue(withIdentifier: "profile", sender: userList[indexPath.row])
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "profile"{
+            // 遷移先ViewControllerの取得
+            let profileViewController = segue.destination as! ProfileViewController
+            
+            // プロフィール画面にユーザー情報を渡す
+            let user = sender as? User
+            profileViewController.user = user
+        }
     }
 }
