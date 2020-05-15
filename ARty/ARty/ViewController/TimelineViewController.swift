@@ -17,7 +17,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBOutlet weak var collectionView: UICollectionView!
     
     // スタンプリスト
-    var timelineList: [(Stamp)] = []
+    var timelineList: [(Stamp, User)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     // MARK: JSON
+    
     struct StickData: Codable{
         // この投稿のgood数
         let good: Int?
@@ -60,6 +61,13 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         let stampName: String?
         // スタンプアート名
         let stampArtName: String?
+    }
+    
+    struct UserAllData: Codable{
+        // ユーザー
+        let result: UserInfo?
+        // フォロー情報
+        let follow: Bool?
     }
     
     struct UserInfo: Codable{
@@ -81,10 +89,10 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         let script = NCMBScript(name: "pullTimeline.js", method: .post)
         
         // ボディを設定
-        guard let user = NCMBUser.currentUser else{
+        guard let currentUser = NCMBUser.currentUser else{
             fatalError("カレントユーザーが取得できなかったよ")
         }
-        let requestBody: [String: Any?] = ["userId": user.objectId]
+        let requestBody: [String: Any?] = ["userId": currentUser.objectId]
         
         // スクリプト実行
         // JSON形式でタイムラインを取得
@@ -100,9 +108,10 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                     
                     // 取得したjsonのデータ数だけ回す
                     for stick in json{
-                        // スタンプインスタンスを生成
+                        // スタンプ、ユーザーインスタンスを生成
                         let stamp: Stamp = Stamp()
-                        stamp.setUserId(userId: stick.userId!)
+                        let user: User = User()
+                        user.setUserId(userId: stick.userId!)
                         stamp.setGood(good: stick.good!)
                         
                         if stick.stamp == true{
@@ -149,7 +158,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                             let script = NCMBScript(name: "pullYourInform.js", method: .post)
                             
                             // スクリプトボディを設定
-                            let requestBody: [String: Any?] = ["userId": stick.userId!]
+                            let requestBody: [String: Any?] = ["userId": stick.userId!, "currentUserId": currentUser.objectId!]
                             
                             // スクリプトを実行
                             script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -160,12 +169,14 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                                     do{
                                         let decoder = JSONDecoder()
                                         
-                                        let json = try decoder.decode([UserInfo].self, from: data!)
+                                        let json = try decoder.decode(UserAllData.self, from: data!)
                                         
-                                        for userInfo in json{
+                                        // フォロー情報をセット
+                                        user.setFollow(bool: json.follow!)
+                                        if let userInfo = json.result{
                                             if let userData = userInfo.userData{
                                                 // ユーザー名をセット
-                                                stamp.setUserName(userName: userData.userName!)
+                                                user.setUserName(userName: userData.userName!)
                                             }
                                             
                                             // ファイルストアからユーザーアイコンを取得
@@ -179,7 +190,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                                                     // データを画像に変換
                                                     if let image = data.flatMap(UIImage.init){
                                                         // ユーザーアイコンをセット
-                                                        stamp.setUserIcon(userIcon: image)
+                                                        user.setUserIconImage(userIconImage: image)
                                                     }
                                                     
                                                     // コレクションビューを更新
@@ -202,7 +213,6 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                                                 }
                                             }
                                         }
-                                        
                                     }catch{
                                         print("error")
                                     }
@@ -217,7 +227,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                         
                         // ユーザー情報の取得処理
                         // タイムラインリストに追加
-                        self.timelineList.append(stamp)
+                        self.timelineList.append((stamp, user))
                         
                         // コレクションビューを更新
                         print("コレクションビューを更新")
@@ -247,18 +257,21 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     @objc func onUserIcon(_ sender: UIButton){
         // ボタンのタグを表示
         print("ユーザーアイコンが押されたよ:\(sender.tag)")
-        print("タップされたアイコンのuserId:\(self.timelineList[sender.tag].userId!)")
+        print("タップされたアイコンのuserId:\(String(describing: self.timelineList[sender.tag].1.getUserId()))")
         
         // プロフィール画面に渡すユーザーインスタンスを作成
         let user = User()
-        if let userId = self.timelineList[sender.tag].userId{
+        if let userId = self.timelineList[sender.tag].1.getUserId(){
             user.setUserId(userId: userId)
         }
-        if let userName = self.timelineList[sender.tag].userName{
+        if let userName = self.timelineList[sender.tag].1.getUserName(){
             user.setUserName(userName: userName)
         }
-        if let userIconImage = self.timelineList[sender.tag].userIcon{
+        if let userIconImage = self.timelineList[sender.tag].1.getUserIconImage(){
             user.setUserIconImage(userIconImage: userIconImage)
+        }
+        if let follow = self.timelineList[sender.tag].1.getFollow(){
+            user.setFollow(bool: follow)
         }
         
         // プロフィール画面へ遷移
@@ -272,14 +285,14 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "timelineCell", for: indexPath) as! TimelineCell
         
         // セルに情報を付加
-        cell.userNameLabel.text = self.timelineList[indexPath.row].userName
-        if let userIcon = self.timelineList[indexPath.row].userIcon{
+        cell.userNameLabel.text = self.timelineList[indexPath.row].1.getUserName()
+        if let userIcon = self.timelineList[indexPath.row].1.getUserIconImage(){
             cell.userIconButton.setImage(userIcon, for: .normal)
         }
-        if let stampImage = self.timelineList[indexPath.row].stampImage{
+        if let stampImage = self.timelineList[indexPath.row].0.stampImage{
             cell.stampImageView.image = stampImage
         }
-        cell.goodNum.text = String(self.timelineList[indexPath.row].good!)
+        cell.goodNum.text = String(self.timelineList[indexPath.row].0.good!)
         
         // セルのボタンにアクションを設定
         cell.userIconButton.tag = indexPath.row
@@ -296,7 +309,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
-        print(timelineList[indexPath.row].stampName ?? nil)
+        print(timelineList[indexPath.row].0.stampName!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -9,7 +9,7 @@
 import UIKit
 import NCMB
 
-class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
+class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate{
     
     // MARK: Properties
     @IBOutlet weak var userIconImageView: UIImageView!
@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var followerNumLabel: UILabel!
     @IBOutlet weak var FollowNumLabel: UILabel!
     @IBOutlet weak var selfIntroductionTextView: UITextView!
+    @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var stampTab: UIButton!
     @IBOutlet weak var artsTab: UIButton!
     @IBOutlet weak var stickCollectionView: UICollectionView!
@@ -26,6 +27,9 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     // 表示するユーザー
     var user: User?
+    
+    // カレントユーザー
+    let currentUser = NCMBUser.currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +44,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         userNameLabel.text = user?.getUserName()
         userIconImageView.image = user?.getUserIconImage()
         
+        // followButtonのレイアウトを設定
+        followButtonLayout(bool: user?.getFollow())
+        
         // 未取得のユーザーの情報を補完する
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullYourInform.js", method: .post)
         // ボディを設定
-        let requestBody: [String: Any?] = ["userId": user?.getUserId()]
+        let requestBody: [String: Any?] = ["userId": user?.getUserId(), "currentUserId": currentUser?.objectId!]
         // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
@@ -54,9 +61,14 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 do{
                     let decoder = JSONDecoder()
                     
-                    let json = try decoder.decode([UserInfo].self, from: data!)
+                    let json = try decoder.decode(UserAllData.self, from: data!)
                     
-                    for userInfo in json{
+                    // フォローボタンを更新
+                    if self.user?.getFollow() == nil || self.user?.getFollow() != json.follow{
+                        
+                    }
+                    
+                    if let userInfo = json.result{
                         DispatchQueue.global().async{
                             DispatchQueue.main.async {
                                 self.selfIntroductionTextView.text = userInfo.selfIntroduction
@@ -116,7 +128,55 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        // プロフィール画面から移動する時、処理を行う
+        if count % 2 == 1{
+            print("フォロー情報を更新")
+            let bool = user?.getFollow()!
+            if let currentUser = NCMBUser.currentUser{
+                if bool == true{
+                    // フォローする
+                    // スクリプトインスタンスを生成
+                    let script = NCMBScript(name: "pushMyFollow.js", method: .post)
+                    // ボディを設定
+                    let requestBody: [String: Any?] = ["followerId": currentUser.objectId, "followedId": user?.getUserId()]
+                    // スクリプトを実行
+                    script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                        switch result{
+                        case .success:
+                            print("pushMyFollowScript実行に成功")
+                        case let .failure(error):
+                            print("pushMyFollowScript実行に失敗:\(error)")
+                        }
+                    })
+                }else{
+                    // フォロー解除
+                    // スクリプトインスタンスを生成
+                    let script = NCMBScript(name: "undoFollow.js", method: .post)
+                    // ボディを設定
+                    let requestBody: [String: Any?] = ["followerId": currentUser.objectId, "followedId": user?.getUserId()]
+                    // スクリプトを実行
+                    script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                        switch result{
+                        case .success:
+                            print("undoFollowScript実行に成功")
+                        case let .failure(error):
+                            print("undoFollowScript実行に失敗:\(error)")
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
     // MARK: JSON
+    struct UserAllData: Codable{
+        // UserInfo
+        let result: UserInfo?
+        // follow情報
+        let follow: Bool?
+    }
+    
     struct UserInfo: Codable{
         // userId
         let userId: String?
@@ -243,6 +303,23 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         })
     }
     
+    func followButtonLayout(bool: Bool?){
+        // 自分だった場合Buttonを隠す
+        if user?.getUserId() == currentUser?.objectId{
+            followButton.isHidden = true
+            followButton.isEnabled = false
+        }else{
+            if bool == true{
+                followButton.setTitle("フォロー解除", for: .normal)
+                followButton.backgroundColor = UIColor.blue
+            }else{
+                followButton.setTitle("フォローする", for: .normal)
+                followButton.backgroundColor = UIColor.green
+            }
+        }
+
+    }
+    
     // MARK: UICollectionViewDataSource
     
     // セルを返す
@@ -295,8 +372,19 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         performSegue(withIdentifier: "userTable", sender: 1)
     }
     
+    // フォロー情報に変更があったか
+    var count = 0
     @IBAction func followButtonAction(_ sender: Any) {
-        
+        if let bool = user?.getFollow(){
+            print("フォローボタンが押されたよ:\(bool) → \(!bool)")
+            count += 1
+            print("フォローボタンが押された回数:\(count)")
+            // フォローボタンのレイアウトを更新
+            followButtonLayout(bool: !bool)
+            // フォローしてます情報を更新
+            user?.setFollow(bool: !bool)
+            
+        }
     }
     
     
@@ -330,6 +418,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
+    // UINavigationController
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "userTable"{
             // 遷移先ViewControllerの取得
@@ -340,6 +430,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             let category = sender as? Int
             userTableViewController.category = category
         }
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        print("ここにフォロー処理を書くよ")
     }
     
 }

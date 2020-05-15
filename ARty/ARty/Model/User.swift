@@ -16,6 +16,8 @@ class User{
     private var mailAddress: String?
     private var password: String?
     
+    private var fallow: Bool?
+    
     // MARK: Initialization
     init(){}
     
@@ -77,4 +79,11 @@ class User{
         return password
     }
     
+    func setFollow(bool: Bool){
+        self.fallow = bool
+    }
+    
+    func getFollow() -> Bool?{
+        return self.fallow
+    }
 }
