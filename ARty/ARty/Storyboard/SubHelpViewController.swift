@@ -13,39 +13,29 @@ class SubHelpViewController: UIViewController{
     //Helppageで選択されたセルの番号を取得
     var getCell: Int!
     //予めのタイトル設置
-    let Helptitles:[String] = ["ARtyへようこそ","ARtyの使い方","カメラ機能の使い方","goodの活用方法","投稿の方法","その他"]
+    let Helptitles:NSArray = ["初めに","ARtyの使い方","カメラ機能の使い方","goodの活用方法","投稿の方法","その他"]
     
-    let HelpExplanation:[String] =
-        ["ARtyへようこそまいりました",
-         "使い方を説明するよ",
+    let HelpExplanations:NSArray =
+        ["Welcome to ARty!!\nこのアプリはU・22プログラミングコンテスト2020用に作成されたものです。\n本アプリでは従来のSNSアプリ同様、他のユーザー様とのコミュニケーション媒体として利用するほかAR技術を用いた機能が実装されております\nARtyの機能として実装されているものは\n\n1、ユーザー様が本アプリのAR機能を用いて撮影された写真（以下スタンプアート）の共有機能\n2、ユーザー様が作成された画像（以下スタンプ）の共有機能\n\nこの2点がメインコンテンツとなっております\n下部の画像を見ていただけるとよりご理解いただけると思いますのでぜひご覧ください。",
+         "使い方",
          "カメラ機能はこうやって活用するよ",
          "グッドボタンはリンゴマークを押してね",
+         "投稿はこうやってやるんだ！",
          "なんかあったらメールしてくれよ"]
     
     @IBOutlet weak var Helptitle: UILabel!
+    @IBOutlet weak var HelpExplanation: UITextView!
     
     override func viewDidLoad() {
-        
-        
         super.viewDidLoad()
-       
-        if getCell == 0{
-               Helptitle.text = Helptitles[0]
-        }else if getCell == 1{
-                Helptitle.text = Helptitles[1]
-        }else if getCell == 2{
-                Helptitle.text = Helptitles[2]
-        }else if getCell == 3{
-                Helptitle.text = Helptitles[3]
-        }else if getCell == 4{
-                Helptitle.text = Helptitles[4]
-        }else{
-            print("何かしらがnilじゃ")
-        }
-    }
-
-
     
+        Helptitle.text = Helptitles[Int(getCell)] as? String
+        HelpExplanation.text = HelpExplanations[Int(getCell)] as? String
+        
+        
+       
+    
+    }
         
 }
 

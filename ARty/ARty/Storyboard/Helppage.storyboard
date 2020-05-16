@@ -91,10 +91,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cJ-wv-bGv">
-                                <rect key="frame" x="53" y="110" width="115" height="59"/>
+                                <rect key="frame" x="37" y="72" width="357" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="49"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -102,6 +102,10 @@
                         <viewLayoutGuide key="safeArea" id="aGl-Ke-bu0"/>
                     </view>
                     <navigationItem key="navigationItem" id="Fpq-F3-uLk"/>
+                    <connections>
+                        <outlet property="HelpExplanation" destination="Dej-hE-K2b" id="H0b-Vj-Bae"/>
+                        <outlet property="Helptitle" destination="0cJ-wv-bGv" id="Xdq-X8-nWw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71q-ab-J5H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
