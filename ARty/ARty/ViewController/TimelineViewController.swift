@@ -43,7 +43,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    // MARK: JSON
+    // MARK: Codable
     
     struct StickData: Codable{
         // この投稿のgood数

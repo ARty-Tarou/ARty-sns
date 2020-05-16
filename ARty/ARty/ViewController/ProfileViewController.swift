@@ -169,7 +169,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    // MARK: JSON
+    // MARK: Codable
     struct UserAllData: Codable{
         // UserInfo
         let result: UserInfo?

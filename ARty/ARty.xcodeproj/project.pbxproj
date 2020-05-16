@@ -222,12 +222,12 @@
 				CC7C24ED2451D28E005431B5 /* StickCell.swift */,
 				08D8607E2456CB7300903A7C /* SearchCell.swift */,
 				CC1324902466363B00F6CF0A /* TimelineCell.swift */,
+				CC7D818C246C428900351D2A /* UserTableCell.swift */,
 				CC61E55C244D4E0900EF5DED /* User.swift */,
 				CC7C24E72450654F005431B5 /* Stamp.swift */,
 				CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */,
 				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
-				CC7D818C246C428900351D2A /* UserTableCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

@@ -35,6 +35,28 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
         searchTextField.delegate = self
     }
     
+    // MARK: Codable
+    
+    
+    // MARK: Method
+    func pullSearch(){
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "pullSearch.js", method: .post)
+        // ボディを設定
+        let requestBody: [String: Any?]  = ["userId": NCMBUser.currentUser?.objectId, "word": searchTextField.text]
+        // スクリプトを実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case let .success(data):
+                print("pullSearchScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                
+            case let .failure(error):
+                print("pullSearchScript実行に失敗:\(error)")
+            }
+        })
+    }
+    
     
     // MARK: Delegate methods
     
@@ -48,12 +70,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UITableViewDe
             print("検索：\(str)")
         }
         // MARK: リクエスト処理
-        
         // TODO: 検索処理のスクリプトを記述していく。
-        // Scriptインスタンスを生成
-        
-        
-        // TODO: ニフクラにアクセスして検索する処理を書いていく
 
         
         return true
