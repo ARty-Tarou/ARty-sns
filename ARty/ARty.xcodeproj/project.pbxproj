@@ -46,6 +46,8 @@
 		CC7D8187246BD69800351D2A /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7D8186246BD69800351D2A /* UserTableViewController.swift */; };
 		CC7D818B246C41A800351D2A /* UserTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7D818A246C41A800351D2A /* UserTableCell.xib */; };
 		CC7D818D246C428900351D2A /* UserTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7D818C246C428900351D2A /* UserTableCell.swift */; };
+		CC88A31A24700A4F003FC79C /* SearchStickCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC88A31924700A4F003FC79C /* SearchStickCell.xib */; };
+		CC88A31C24700D2B003FC79C /* SearchStickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC88A31B24700D2B003FC79C /* SearchStickCell.swift */; };
 		CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCA6D9612456BC30008AC366 /* StickForm.storyboard */; };
 		CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9632456BC65008AC366 /* StickFormViewController.swift */; };
 		CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9652456BD10008AC366 /* TimelineViewController.swift */; };
@@ -100,6 +102,8 @@
 		CC7D8186246BD69800351D2A /* UserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		CC7D818A246C41A800351D2A /* UserTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableCell.xib; sourceTree = "<group>"; };
 		CC7D818C246C428900351D2A /* UserTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCell.swift; sourceTree = "<group>"; };
+		CC88A31924700A4F003FC79C /* SearchStickCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchStickCell.xib; sourceTree = "<group>"; };
+		CC88A31B24700D2B003FC79C /* SearchStickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStickCell.swift; sourceTree = "<group>"; };
 		CCA6D9612456BC30008AC366 /* StickForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StickForm.storyboard; sourceTree = "<group>"; };
 		CCA6D9632456BC65008AC366 /* StickFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFormViewController.swift; sourceTree = "<group>"; };
 		CCA6D9652456BD10008AC366 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 				08D8607F2456CB7300903A7C /* SearchCell.xib */,
 				CC1324922466CA9200F6CF0A /* TimelineCell.xib */,
 				CC7D818A246C41A800351D2A /* UserTableCell.xib */,
+				CC88A31924700A4F003FC79C /* SearchStickCell.xib */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */,
 				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
+				CC88A31B24700D2B003FC79C /* SearchStickCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,6 +313,7 @@
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
 				CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */,
 				CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */,
+				CC88A31A24700A4F003FC79C /* SearchStickCell.xib in Resources */,
 				CC7C24F22452D042005431B5 /* StickCell.xib in Resources */,
 				CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */,
 				5705E03624460F770069FEDD /* Assets.xcassets in Resources */,
@@ -396,6 +403,7 @@
 				CC7D8187246BD69800351D2A /* UserTableViewController.swift in Sources */,
 				CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */,
 				CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */,
+				CC88A31C24700D2B003FC79C /* SearchStickCell.swift in Sources */,
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
