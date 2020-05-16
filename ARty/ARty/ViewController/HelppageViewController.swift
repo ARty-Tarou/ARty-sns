@@ -15,7 +15,7 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
     var chosenCell: Int!
     
     let labelTitles: NSArray = [
-        "ARtyへようこそ","ARtyの使い方","カメラ機能の使い方",
+        "初めに","ARtyの使い方","カメラ機能の使い方",
         "goodの活用方法","投稿の方法","その他"]
     
     
@@ -57,20 +57,20 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
         //選択したセルの保存
         chosenCell = indexPath.row
         
-        
         //セルの選択を会場
         Helptable.deselectRow(at: indexPath,animated: true)
         
         //別画面に遷移しますよ
-        performSegue(withIdentifier: "toSubHelpViewController", sender: nil)
-        
+        if chosenCell != nil{
+            performSegue(withIdentifier: "toSubHelpViewController", sender: nil)
+        }
     }
     // Segue 準備
-       override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
+       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
            // 遷移先のViecControllerのインスタンスを生成
            let secVC: SubHelpViewController = (segue.destination as? SubHelpViewController)!
            // SubHelpViewControllerのgetCellに選択されたテキストを設定する
-           secVC.getCell = chosenCell
+        secVC.getCell = chosenCell
 
        }
 }
