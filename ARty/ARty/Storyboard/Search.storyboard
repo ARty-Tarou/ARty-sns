@@ -16,8 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍検索" textAlignment="justified" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-Zu-ieq">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍検索" textAlignment="justified" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-Zu-ieq">
                                 <rect key="frame" x="16" y="52" width="343" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -77,8 +78,9 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7Q-ih-tMG">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7Q-ih-tMG">
                                 <rect key="frame" x="367" y="52" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="検索"/>
                                 <connections>
                                     <action selector="searchButtonAction:" destination="WKS-lf-T82" eventType="touchUpInside" id="R0b-l2-hne"/>
@@ -86,12 +88,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="8mq-Zu-ieq" firstAttribute="leading" secondItem="h4q-cD-2NF" secondAttribute="leading" constant="16" id="JmY-Mu-4ph"/>
-                            <constraint firstItem="8mq-Zu-ieq" firstAttribute="top" secondItem="h4q-cD-2NF" secondAttribute="top" constant="8" id="aJN-4n-1xV"/>
-                            <constraint firstItem="c7Q-ih-tMG" firstAttribute="top" secondItem="h4q-cD-2NF" secondAttribute="top" constant="8" id="gJo-va-yNJ"/>
-                            <constraint firstItem="h4q-cD-2NF" firstAttribute="trailing" secondItem="c7Q-ih-tMG" secondAttribute="trailing" constant="16" id="rOq-lc-NpS"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="h4q-cD-2NF"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="Max-Fw-OWK"/>

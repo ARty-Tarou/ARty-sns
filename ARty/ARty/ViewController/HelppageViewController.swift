@@ -47,9 +47,11 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
         return 100.0
     }
     //仮だけど戻るボタンの生成もしときます
-    @IBAction func BackToMy(_ sender: Any) {
-        performSegue(withIdentifier: "ToMypage", sender:nil)
+    @IBAction func backtoMypage(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
+    
+
     //cellが選択された時
     func tableView(_ Helptable:UITableView,didSelectRowAt indexPath:IndexPath){
         
