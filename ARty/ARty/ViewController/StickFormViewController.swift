@@ -22,7 +22,7 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
         // ナビゲーションバーを表示する
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        overViewTextView.text = "test"
+        overViewTextView.text = ""
         
         
         // ツールバーを設定
@@ -43,7 +43,7 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
         let cameraButtonItem = UIBarButtonItem(customView: cameraButton)
         toolBar.setItems([flexibleItem, libraryButtonItem, flexibleItem, cameraButtonItem, flexibleItem], animated: true)
 
-        // デリゲートを設定
+        // デリゲートを設定（これ上いらんよね？）
         overViewTextField.delegate = self
         overViewTextView.delegate = self
         
@@ -113,14 +113,11 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
     }
     
     // MARK: Delegate Method
-    // テキストフィールドのリターンが押されたときに呼ばれる
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
+    // 右上の入力確定でキーボード閉じる
+    @IBAction func KeybOut(_ sender: Any) {overViewTextField.text = overViewTextView.text
         // キーボードを閉じる
-        overViewTextField.resignFirstResponder()
-        
-        return true
-    }
+        overViewTextField.endEditing(true)    }
+    
     
     // 撮影が終わったら呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
