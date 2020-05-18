@@ -18,6 +18,9 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
     var userId: String?
     var category: Int? //0:フォロー,1:フォロワー
     
+    // カレントユーザー
+    let currentUser = NCMBUser.currentUser
+    
     // テーブルに表示するユーザーリスト
     var userList: [User] = []
 
@@ -64,7 +67,7 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullFollow.js", method: .post)
         // ボディを設定
-        let requestBody: [String: Any?] = ["userId": self.userId!]
+        let requestBody: [String: Any?] = ["userId": self.userId!, "currentUserId": currentUser?.objectId]
         // スクリプト実行
         // JSON形式でフォローユーザーリストを取得
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -81,6 +84,7 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
                         let user = User()
                         user.setUserId(userId: followUser.userId!)
                         user.setUserName(userName: (followUser.userData?.userName)!)
+                        user.setFollow(bool: true)
                         
                         // ファイルストアからアイコンイメージを取得
                         // ファイルを指定
@@ -133,7 +137,7 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullFollower.js", method: .post)
         // ボディを設定
-        let requestBody: [String: Any?] = ["userId": self.userId!]
+        let requestBody: [String: Any?] = ["userId": self.userId!, "currentUserId": currentUser?.objectId]
         // スクリプト実行
         // JSON形式でフォロワーユーザーリストを取得
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in

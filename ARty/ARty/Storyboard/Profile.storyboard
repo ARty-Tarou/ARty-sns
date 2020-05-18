@@ -119,10 +119,10 @@
                     </view>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="FollowNumLabel" destination="qUE-qe-5Af" id="Psd-4I-dKl"/>
                         <outlet property="artsTab" destination="ckg-4d-mZD" id="gdK-DQ-7Kc"/>
                         <outlet property="followButton" destination="FoM-cF-qu6" id="Z3g-fD-Jge"/>
-                        <outlet property="followerNumLabel" destination="yVL-TK-XFH" id="B9G-v4-6dM"/>
+                        <outlet property="numberOfFollowLabel" destination="qUE-qe-5Af" id="iep-XD-wQa"/>
+                        <outlet property="numberOfFollowerLabel" destination="yVL-TK-XFH" id="VgY-FS-b2J"/>
                         <outlet property="selfIntroductionTextView" destination="ZcN-6l-ktK" id="aoo-Nn-4hn"/>
                         <outlet property="stampTab" destination="Emn-ny-pok" id="1mo-zG-Yui"/>
                         <outlet property="stickCollectionView" destination="5KJ-ad-I6V" id="A4a-xq-cZ2"/>

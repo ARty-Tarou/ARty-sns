@@ -12,9 +12,11 @@ import NCMB
 class MyPageViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
 
     // MARK: Properties
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet weak var selfIntroduction: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userIconImageView: UIImageView!
+    @IBOutlet weak var selfIntroductionTextView: UITextView!
+    @IBOutlet weak var numberOfFollowLabel: UILabel!
+    @IBOutlet weak var numberOfFollowerLabel: UILabel!
     @IBOutlet weak var stampTab: UIButton!
     @IBOutlet weak var artsTab: UIButton!
     @IBOutlet weak var myStickCollectionView: UICollectionView!
@@ -27,38 +29,15 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         // ナビゲーションバーを非表示にする
         navigationController?.setNavigationBarHidden(true, animated: true)
         
-        //　TODO: スクリプトでユーザーの詳細情報を取得する
-        // スクリプトインスタンス生成
-        let script = NCMBScript(name: "pullMyInform.js", method: .post)
+        // userNameLabelにユーザー名を設定
+        userNameLabel.text = user?.userName
         
-        // ボディ設定
-        let requestBody:[String: Any?] = ["userId": self.user?.objectId]
-        
-        // スクリプト実行
-        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
-            switch result{
-            case let .success(data):
-                print("pullMyInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
-                
-                do{
-                    let decoder = JSONDecoder()
-                    
-                    let json = try decoder.decode([UserData].self, from: data!)
-                    
-                    print(json.count)
-                }catch{
-                    print("error")
-                }
-                
-            case let .failure(error):
-                print("pullMyInformScript実行に失敗:\(error)")
-            }
-        })
+        //　未取得のユーザー情報を補完
+        pullMyInform()
         
         // CollectionViewの設定
         myStickCollectionView.register(UINib(nibName: "StickCell", bundle: nil), forCellWithReuseIdentifier: "stickCell")
@@ -79,11 +58,15 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     // MARK: JSON
-    struct UserData: Codable{
+    struct UserInfo: Codable{
         // userIcon
         let iconImageName: String?
         // selfIntroduction
         let selfIntroduction: String?
+        // follow
+        let numberOfFollow: Int?
+        // follower
+        let numberOfFollowed: Int?
     }
     
     struct StickData: Codable{
@@ -105,6 +88,65 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     // MARK: Methods
+    
+    func pullMyInform(){
+        // スクリプトインスタンス生成
+        let script = NCMBScript(name: "pullMyInform.js", method: .post)
+        
+        // ボディ設定
+        let requestBody:[String: Any?] = ["userId": self.user?.objectId]
+        
+        // スクリプト実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case let .success(data):
+                print("pullMyInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                do{
+                    let decoder = JSONDecoder()
+                    
+                    let json = try decoder.decode([UserInfo].self, from: data!)
+                    
+                    if let userInfo = json.first{
+                        DispatchQueue.global().async{
+                            DispatchQueue.main.async {
+                                self.selfIntroductionTextView.text = userInfo.selfIntroduction
+                                self.numberOfFollowLabel.text = String(userInfo.numberOfFollow!)
+                                self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed!)
+                                
+                                if self.userIconImageView.image == nil{
+                                    // ファイルストアからファイルを取得
+                                    let file = NCMBFile(fileName: userInfo.iconImageName!)
+                                    file.fetchInBackground(callback: {result in
+                                        switch result{
+                                        case let .success(data):
+                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName!)")
+                                            
+                                            // データを画像に変換
+                                            let image = data.flatMap(UIImage.init)
+                                            
+                                            DispatchQueue.global().async{
+                                                DispatchQueue.main.async {
+                                                    self.userIconImageView.image = image
+                                                }
+                                            }
+                                        case let .failure(error):
+                                            print("ユーザーアイコンが取得できませんでした。:\(error)")
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                    }
+                }catch{
+                    print("error")
+                }
+                
+            case let .failure(error):
+                print("pullMyInformScript実行に失敗:\(error)")
+            }
+        })
+    }
     
     func userStick(){
         // スクリプトでstickリストを取得

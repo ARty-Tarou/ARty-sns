@@ -14,8 +14,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: Properties
     @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var followerNumLabel: UILabel!
-    @IBOutlet weak var FollowNumLabel: UILabel!
+    @IBOutlet weak var numberOfFollowerLabel: UILabel!
+    @IBOutlet weak var numberOfFollowLabel: UILabel!
     @IBOutlet weak var selfIntroductionTextView: UITextView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var stampTab: UIButton!
@@ -48,66 +48,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         followButtonLayout(bool: user?.getFollow())
         
         // 未取得のユーザーの情報を補完する
-        // スクリプトインスタンスを生成
-        let script = NCMBScript(name: "pullYourInform.js", method: .post)
-        // ボディを設定
-        let requestBody: [String: Any?] = ["userId": user?.getUserId(), "currentUserId": currentUser?.objectId!]
-        // スクリプト実行
-        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
-            switch result{
-            case let .success(data):
-                print("pullYourInformScript実行成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
-                
-                do{
-                    let decoder = JSONDecoder()
-                    
-                    let json = try decoder.decode(UserAllData.self, from: data!)
-                    
-                    // フォローボタンを更新
-                    if self.user?.getFollow() == nil || self.user?.getFollow() != json.follow{
-                        
-                    }
-                    
-                    if let userInfo = json.result{
-                        DispatchQueue.global().async{
-                            DispatchQueue.main.async {
-                                self.selfIntroductionTextView.text = userInfo.selfIntroduction
-                                self.FollowNumLabel.text = String(userInfo.numberOfFollow!)
-                                self.followerNumLabel.text = String(userInfo.numberOfFollowed!)
-                                if self.userNameLabel.text == nil{
-                                    self.userNameLabel.text = userInfo.userData?.userName
-                                }
-                                if self.userIconImageView.image == nil{
-                                    // ファイルストアからファイルを取得
-                                    let file = NCMBFile(fileName: userInfo.iconImageName!)
-                                    file.fetchInBackground(callback: {result in
-                                        switch result{
-                                        case let .success(data):
-                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName!)")
-                                            
-                                            // データを画像に変換
-                                            let image = data.flatMap(UIImage.init)
-                                            
-                                            DispatchQueue.global().async{
-                                                DispatchQueue.main.async {
-                                                    self.userIconImageView.image = image
-                                                }
-                                            }
-                                        case let .failure(error):
-                                            print("ユーザーアイコンが取得できませんでした。:\(error)")
-                                        }
-                                    })
-                                }
-                            }
-                        }
-                    }
-                }catch{
-                    print("error")
-                }
-            case let .failure(error):
-                print("pullYourInformScript実行失敗:\(error)")
-            }
-        })
+        pullYourInform()
         
         // CollectionViewの設定
         stickCollectionView.register(UINib(nibName: "StickCell", bundle: nil), forCellWithReuseIdentifier: "stickCell")
@@ -218,6 +159,71 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // MARK: Method
+    
+    func pullYourInform(){
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "pullYourInform.js", method: .post)
+        // ボディを設定
+        let requestBody: [String: Any?] = ["userId": user?.getUserId(), "currentUserId": currentUser?.objectId!]
+        // スクリプト実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case let .success(data):
+                print("pullYourInformScript実行成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                do{
+                    let decoder = JSONDecoder()
+                    
+                    let json = try decoder.decode(UserAllData.self, from: data!)
+                    
+                    // フォローボタンを更新
+                    if self.user?.getFollow() == nil || self.user?.getFollow() != json.follow{
+                        
+                    }
+                    
+                    if let userInfo = json.result{
+                        DispatchQueue.global().async{
+                            DispatchQueue.main.async {
+                                self.selfIntroductionTextView.text = userInfo.selfIntroduction
+                                self.numberOfFollowLabel.text = String(userInfo.numberOfFollow!)
+                                self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed!)
+                                if self.userNameLabel.text == nil{
+                                    self.userNameLabel.text = userInfo.userData?.userName
+                                }
+                                if self.userIconImageView.image == nil{
+                                    // ファイルストアからファイルを取得
+                                    let file = NCMBFile(fileName: userInfo.iconImageName!)
+                                    file.fetchInBackground(callback: {result in
+                                        switch result{
+                                        case let .success(data):
+                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName!)")
+                                            
+                                            // データを画像に変換
+                                            let image = data.flatMap(UIImage.init)
+                                            
+                                            DispatchQueue.global().async{
+                                                DispatchQueue.main.async {
+                                                    self.userIconImageView.image = image
+                                                }
+                                            }
+                                        case let .failure(error):
+                                            print("ユーザーアイコンが取得できませんでした。:\(error)")
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                    }
+                }catch{
+                    print("error")
+                }
+            case let .failure(error):
+                print("pullYourInformScript実行失敗:\(error)")
+            }
+        })
+    }
+    
+    
     func userStick(){
         // スクリプトでstickリストを取得
         let script = NCMBScript(name: "pullYourStick.js", method: .post)
@@ -318,6 +324,37 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         }
 
+    }
+    
+    func pushFollow(){
+        print("フォローするよ")
+        
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "pushMyFollow.js", method: .post)
+        follow(script: script)
+    }
+    
+    func undoFollow(){
+        print("フォロー解除するよ")
+        
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "undoFollow.js", method: .post)
+        follow(script: script)
+    }
+    
+    func follow(script: NCMBScript){
+        // ボディを設定
+        let requestBody: [String: Any?] = ["followerId": currentUser?.objectId, "followedUserId": user?.getUserId()]
+        
+        // スクリプトを実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case .success:
+                print("\(script.name)実行に成功")
+            case let .failure(error):
+                print("\(script.name)実行に失敗:\(error)")
+            }
+        })
     }
     
     // MARK: UICollectionViewDataSource
@@ -433,7 +470,18 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        print("ここにフォロー処理を書くよ")
+        if count % 2 == 1{
+            if let bool = user?.getFollow(){
+                switch bool{
+                case true:
+                    // フォローするよ
+                    pushFollow()
+                case false:
+                    // フォロー解除するよ
+                    undoFollow()
+                }
+            }
+        }
     }
     
 }

@@ -28,6 +28,9 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
             performSegue(withIdentifier: "skip", sender: nil)
         }
         */
+        let user = NCMBUser.currentUser
+        print("セッショントークン:\(user?.sessionToken)")
+        
         // テキストフィールドのデリゲートを設定
         mailAddressTextField.delegate = self
         passwordTextField.delegate = self

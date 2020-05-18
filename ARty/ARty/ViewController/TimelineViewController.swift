@@ -92,6 +92,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         guard let currentUser = NCMBUser.currentUser else{
             fatalError("カレントユーザーが取得できなかったよ")
         }
+        print("currentUser:\(currentUser.objectId)")
         let requestBody: [String: Any?] = ["userId": currentUser.objectId]
         
         // スクリプト実行
@@ -225,7 +226,6 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                             
                         }
                         
-                        // ユーザー情報の取得処理
                         // タイムラインリストに追加
                         self.timelineList.append((stamp, user))
                         
