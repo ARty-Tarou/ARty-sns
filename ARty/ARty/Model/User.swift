@@ -13,9 +13,12 @@ class User{
     private var userName: String?
     private var userIconImage: UIImage?
     private var selfIntroduction: String?
+    private var numberOfFollowed: Int?
+    private var numberOfFollow: Int?
     private var mailAddress: String?
     private var password: String?
     
+    // カレントユーザーにフォローされているか
     private var fallow: Bool?
     
     // MARK: Initialization
@@ -65,6 +68,22 @@ class User{
     
     func setSelfIntroduction(selfIntroduction: String){
         self.selfIntroduction = selfIntroduction
+    }
+    
+    func setNumberOfFollowed(numberOfFollowed: Int){
+        self.numberOfFollowed = numberOfFollowed
+    }
+    
+    func getNumberOfFollowed() -> Int?{
+        return numberOfFollowed
+    }
+    
+    func setNumberOfFollow(numberOfFollow: Int){
+        self.numberOfFollow = numberOfFollow
+    }
+    
+    func getNumberOfFollow() -> Int?{
+        return numberOfFollow
     }
     
     func getMailAddress() -> String?{

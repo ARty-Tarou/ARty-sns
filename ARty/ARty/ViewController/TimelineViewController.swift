@@ -16,8 +16,12 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // MARK: Properties
     @IBOutlet weak var collectionView: UICollectionView!
     
-    // スタンプリスト
+    // タイムラインリスト
     var timelineList: [(Stamp, User)] = []
+    
+    
+    // 何件読んだか
+    var skip = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,41 +49,63 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     // MARK: Codable
     
-    struct StickData: Codable{
-        // この投稿のgood数
-        let good: Int?
-        // 投稿者のuserId
-        let userId: String?
-        // stampかstampArtか
-        let stamp: Bool?
-        // スタンプデータ
-        let staticData: StaticData?
+    struct PullStickResult: Codable{
+        // TimelineData
+        let result: [TimelineData]
+        // skip
+        let skip: Int
     }
     
-    struct StaticData: Codable{
+    struct TimelineData: Codable{
+        // 投稿のデータ
+        let stickData: StickData
+        // 投稿に対するユーザーのデータ
+        let userDetailData: UserDetailData
+        // グッドしているか
+        let good: Bool
+    }
+    
+    struct StickData: Codable{
+        // 投稿の概要
+        let detail: String
+        // 投稿のgood数
+        let good: Int
+        // 投稿の閲覧数
+        let numberOfViews: Int
+        // 投稿者
+        let userId: String
+        // スタンプであるか
+        let stamp: Bool
+        // 投稿のその他の情報
+        let staticData: StickStaticData
+    }
+    
+    struct StickStaticData: Codable{
         // スタンプ名
         let stampName: String?
-        // スタンプアート名
-        let stampArtName: String?
+        // TODO: 後々ここにスタンプアート名を書くのかな？ let stampArtName: String?
     }
     
-    struct UserAllData: Codable{
-        // ユーザー
-        let result: UserInfo?
-        // フォロー情報
-        let follow: Bool?
-    }
-    
-    struct UserInfo: Codable{
-        // ユーザーアイコンのファイル名
-        let iconImageName: String?
-        // ユーザーデータ
-        let userData: UserData?
+    struct UserDetailData: Codable{
+        // 投稿者のユーザーID
+        let userId: String
+        // TODO: 投稿者の誕生日（後々Date型に変更？)
+        let birthday: String?
+        // 投稿者のユーザーアイコンのファイル名
+        let iconImageName: String
+        // 投稿者のプロフィールコメント
+        let selfIntroduction: String
+        // ユーザーのフォロワー数
+        let numberOfFollowed: Int
+        // ユーザーのフォロー数
+        let numberOfFollow: Int
+        // ユーザーのその他情報
+        let userData: UserData
     }
     
     struct UserData: Codable{
         // ユーザー名
-        let userName: String?
+        let userName: String
     }
     
     // MARK: Methods
@@ -105,125 +131,95 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                 do{
                     let decoder = JSONDecoder()
                     
-                    let json = try decoder.decode([StickData].self, from: data!)
+                    let json = try decoder.decode(PullStickResult.self, from: data!)
                     
-                    // 取得したjsonのデータ数だけ回す
-                    for stick in json{
+                    self.skip = json.skip
+                    
+                    // timelineListを作成していく
+                    for timelineData in json.result{
                         // スタンプ、ユーザーインスタンスを生成
                         let stamp: Stamp = Stamp()
                         let user: User = User()
-                        user.setUserId(userId: stick.userId!)
-                        stamp.setGood(good: stick.good!)
                         
-                        if stick.stamp == true{
-                            // スタンプの場合
-                            if let stampData = stick.staticData{
-                                print("stampName:\(String(describing: stampData.stampName))")
-                                
-                                // スタンプ名をセット
-                                stamp.setStampName(stampName: stampData.stampName!)
-                                
-                                // ファイルストアから画像を取得
-                                // ファイルの指定
-                                let file = NCMBFile(fileName: stampData.stampName!)
-                                
-                                // ファイルの取得
-                                print("画像を取ってきます:\(stampData.stampName!)")
-                                file.fetchInBackground(callback: {result in
-                                    switch result{
-                                    case let .success(data):
-                                        print("画像取得に成功")
-                                        // データを画像に変換
-                                        if let image = data.flatMap(UIImage.init){
-                                            // スタンプに画像をセット
-                                            print("画像をセット:\(stampData.stampName!)")
-                                            stamp.setStampImage(stampImage: image)
-                                            
-                                            // コレクションビューを更新
-                                            print("コレクションビューを更新")
-                                            DispatchQueue.global().async{
-                                                DispatchQueue.main.async {
-                                                    self.collectionView.reloadData()
-                                                }
-                                            }
-                                            
-                                        }
-                                    case let .failure(error):
-                                        print("画像取得に失敗:\(error)")
-                                    }
-                                })
-                            }
-                            
-                            // ユーザー情報を取得
-                            // スクリプトインスタンスを生成
-                            let script = NCMBScript(name: "pullYourInform.js", method: .post)
-                            
-                            // スクリプトボディを設定
-                            let requestBody: [String: Any?] = ["userId": stick.userId!, "currentUserId": currentUser.objectId!]
-                            
-                            // スクリプトを実行
-                            script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                        // スタンプ・スタンプアートに関する情報を入れていく
+                        let stickData = timelineData.stickData
+                        
+                        // 投稿の内容を代入
+                        stamp.setUserId(userId: stickData.userId)
+                        stamp.setDetail(detail: stickData.detail)
+                        stamp.setNumberOfGood(numberOfGood: stickData.good)
+                        stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                        
+                        // スタンプか、スタンプアートか
+                        if stickData.stamp == true{
+                            // スタンプ名を代入
+                            stamp.setStampName(stampName: stickData.staticData.stampName!)
+                            // ファイルストアからスタンプを取得
+                            let file = NCMBFile(fileName: stamp.getStampName()!)
+                            file.fetchInBackground(callback: {result in
                                 switch result{
                                 case let .success(data):
-                                    print("pullYourInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                                    print("スタンプ画像取得に成功\(file.fileName)")
                                     
-                                    do{
-                                        let decoder = JSONDecoder()
-                                        
-                                        let json = try decoder.decode(UserAllData.self, from: data!)
-                                        
-                                        // フォロー情報をセット
-                                        user.setFollow(bool: json.follow!)
-                                        if let userInfo = json.result{
-                                            if let userData = userInfo.userData{
-                                                // ユーザー名をセット
-                                                user.setUserName(userName: userData.userName!)
-                                            }
-                                            
-                                            // ファイルストアからユーザーアイコンを取得
-                                            print("ユーザーアイコンを取ってきます:\(userInfo.iconImageName!)")
-                                            let file = NCMBFile(fileName: userInfo.iconImageName!)
-                                            file.fetchInBackground(callback: {result in
-                                                switch result{
-                                                case let .success(data):
-                                                    print("ユーザーアイコン取得に成功")
-                                                    
-                                                    // データを画像に変換
-                                                    if let image = data.flatMap(UIImage.init){
-                                                        // ユーザーアイコンをセット
-                                                        user.setUserIconImage(userIconImage: image)
-                                                    }
-                                                    
-                                                    // コレクションビューを更新
-                                                    print("コレクションビューを更新")
-                                                    DispatchQueue.global().async{
-                                                        DispatchQueue.main.async {
-                                                            self.collectionView.reloadData()
-                                                        }
-                                                    }
-                                                case let .failure(error):
-                                                    print("ユーザーアイコン取得に失敗:\(error)")
-                                                }
-                                            })
-                                            
-                                            // コレクションビューを更新
-                                            print("コレクションビューを更新")
-                                            DispatchQueue.global().async{
-                                                DispatchQueue.main.async {
-                                                    self.collectionView.reloadData()
-                                                }
-                                            }
+                                    // データをUIImageに変換
+                                    let image = data.flatMap(UIImage.init)
+                                    // スタンプに画像を代入
+                                    stamp.setStampImage(stampImage: image)
+                                    
+                                    // コレクションビューを更新
+                                    print("コレクションビューを更新")
+                                    DispatchQueue.global().async {
+                                        DispatchQueue.main.async {
+                                            self.collectionView.reloadData()
                                         }
-                                    }catch{
-                                        print("error")
                                     }
+                                    
                                 case let .failure(error):
-                                    print("pullYourInformScript実行に失敗:\(error)")
+                                    print("スタンプ画像取得に失敗\(error)")
                                 }
                             })
                         }else{
-                            // スタンプアートの場合
-                            
+                            // スタンプアート名を代入
+                        }
+                        
+                        // ユーザーに関する情報を入れていく
+                        let userDetailData = timelineData.userDetailData
+                        
+                        // ユーザー情報を代入
+                        user.setUserId(userId: userDetailData.userId)
+                        user.setUserName(userName: userDetailData.userData.userName)
+                        user.setSelfIntroduction(selfIntroduction: userDetailData.selfIntroduction)
+                        user.setNumberOfFollowed(numberOfFollowed: userDetailData.numberOfFollowed)
+                        user.setNumberOfFollow(numberOfFollow: userDetailData.numberOfFollow)
+                        user.setFollow(bool: true)
+                        
+                        // デフォルトアイコンではない場合ファイルストアからユーザーアイコンを取得する
+                        if userDetailData.iconImageName != "firstIcon"{
+                            let file = NCMBFile(fileName: userDetailData.iconImageName)
+                            file.fetchInBackground(callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("ユーザーアイコン取得に成功:\(file.fileName)")
+                                    
+                                    // データをUIImageに変換
+                                    let image = data.flatMap(UIImage.init)
+                                    user.setUserIconImage(userIconImage: image!)
+                                    
+                                    // コレクションビューを更新
+                                    print("コレクションビューを更新")
+                                    DispatchQueue.global().async {
+                                        DispatchQueue.main.async {
+                                            self.collectionView.reloadData()
+                                        }
+                                    }
+                                    
+                                case let .failure(error):
+                                    print("ユーザーアイコン取得に失敗:\(error)")
+                                }
+                            })
+                        }else{
+                            // 初期アイコンを設定
+                            user.setUserIconImage(userIconImage: UIImage(named: "FirstIcon")!)
                         }
                         
                         // タイムラインリストに追加
@@ -259,23 +255,8 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         print("ユーザーアイコンが押されたよ:\(sender.tag)")
         print("タップされたアイコンのuserId:\(String(describing: self.timelineList[sender.tag].1.getUserId()))")
         
-        // プロフィール画面に渡すユーザーインスタンスを作成
-        let user = User()
-        if let userId = self.timelineList[sender.tag].1.getUserId(){
-            user.setUserId(userId: userId)
-        }
-        if let userName = self.timelineList[sender.tag].1.getUserName(){
-            user.setUserName(userName: userName)
-        }
-        if let userIconImage = self.timelineList[sender.tag].1.getUserIconImage(){
-            user.setUserIconImage(userIconImage: userIconImage)
-        }
-        if let follow = self.timelineList[sender.tag].1.getFollow(){
-            user.setFollow(bool: follow)
-        }
-        
         // プロフィール画面へ遷移
-        performSegue(withIdentifier: "profile", sender: user)
+        performSegue(withIdentifier: "profile", sender: self.timelineList[sender.tag].1)
     }
     
     // MARK: UICollectionViewDataSource
@@ -289,10 +270,12 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         if let userIcon = self.timelineList[indexPath.row].1.getUserIconImage(){
             cell.userIconButton.setImage(userIcon, for: .normal)
         }
-        if let stampImage = self.timelineList[indexPath.row].0.stampImage{
+        if let stampImage = self.timelineList[indexPath.row].0.getStampImage(){
             cell.stampImageView.image = stampImage
         }
-        cell.goodNum.text = String(self.timelineList[indexPath.row].0.good!)
+        cell.detailTextView.text = self.timelineList[indexPath.row].0.getDetail()
+        cell.goodNum.text = String(self.timelineList[indexPath.row].0.getNumberOfGood()!)
+        
         
         // セルのボタンにアクションを設定
         cell.userIconButton.tag = indexPath.row
@@ -309,7 +292,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
-        print(timelineList[indexPath.row].0.stampName!)
+        print(timelineList[indexPath.row].0.getStampName())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

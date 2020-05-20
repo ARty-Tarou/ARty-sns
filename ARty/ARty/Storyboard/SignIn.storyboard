@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5MM-Q3-xqV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5MM-Q3-xqV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,14 +44,6 @@
                                     <action selector="debugButtonAction:" destination="5MM-Q3-xqV" eventType="touchUpInside" id="X6b-aE-MGz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pKg-8f-Lyg">
-                                <rect key="frame" x="193" y="720" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="test"/>
-                                <connections>
-                                    <action selector="testButtonAction:" destination="5MM-Q3-xqV" eventType="touchUpInside" id="dqu-nY-y5G"/>
-                                </connections>
-                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="muty" translatesAutoresizingMaskIntoConstraints="NO" id="9kv-dc-t4U">
                                 <rect key="frame" x="102" y="176" width="212" height="197"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -66,7 +58,6 @@
                         <outlet property="userNameOrMailAddressTextField" destination="shv-HD-e5S" id="Ydh-Ss-gH9"/>
                         <segue destination="TuE-7h-lMO" kind="show" identifier="success" id="Vx7-cg-pqS"/>
                         <segue destination="JmA-kA-Tka" kind="show" identifier="failed" id="Dxk-dn-MpB"/>
-                        <segue destination="aLU-U7-eR5" kind="show" identifier="test" id="bTB-x2-ZDf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tMb-pF-bHd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -92,16 +83,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F0k-AT-POP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1920" y="838"/>
-        </scene>
-        <!--Test-->
-        <scene sceneID="Pm1-1R-OaB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Test" id="aLU-U7-eR5" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="WRB-uw-0Om"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="703-mr-TwP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1886" y="906"/>
         </scene>
     </scenes>
     <resources>

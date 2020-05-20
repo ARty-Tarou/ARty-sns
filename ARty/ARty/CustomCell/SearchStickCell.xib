@@ -20,10 +20,6 @@
                         <rect key="frame" x="10" y="7" width="162" height="162"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IGF-xh-tzJ">
-                        <rect key="frame" x="10" y="177" width="40" height="40"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1d-EN-yK1">
                         <rect key="frame" x="58" y="177" width="114" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -42,7 +38,7 @@
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wtk-Wx-AeY">
                         <rect key="frame" x="10" y="260" width="26" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" image="gooded"/>
+                        <state key="normal" image="good"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Good:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maT-4q-WHi">
                         <rect key="frame" x="39" y="263" width="47" height="21"/>
@@ -51,28 +47,34 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4R4-Dc-8UJ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4R4-Dc-8UJ">
                         <rect key="frame" x="94" y="263" width="78" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Lm-Db-zlF">
+                        <rect key="frame" x="10" y="177" width="40" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" image="FirstIcon"/>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             </collectionViewCellContentView>
             <connections>
+                <outlet property="detailTextView" destination="cs1-sF-Ur4" id="ljP-jP-5gu"/>
                 <outlet property="goodButton" destination="Wtk-Wx-AeY" id="s5F-ay-7TJ"/>
                 <outlet property="numberOfGood" destination="4R4-Dc-8UJ" id="ZT8-EE-jhr"/>
-                <outlet property="overViewTextView" destination="cs1-sF-Ur4" id="8Sx-gz-Mt8"/>
                 <outlet property="stickImageView" destination="xZq-TN-itP" id="fFs-Jg-ZDp"/>
-                <outlet property="userIconImageView" destination="IGF-xh-tzJ" id="bRT-n1-VNc"/>
+                <outlet property="userIconButton" destination="9Lm-Db-zlF" id="zvi-Se-9nW"/>
                 <outlet property="userName" destination="D1d-EN-yK1" id="awX-Q5-bYi"/>
             </connections>
             <point key="canvasLocation" x="-81.159420289855078" y="113.83928571428571"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="gooded" width="22" height="22"/>
+        <image name="FirstIcon" width="312" height="312"/>
+        <image name="good" width="22" height="22"/>
     </resources>
 </document>

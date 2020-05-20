@@ -11,9 +11,9 @@ import UIKit
 class SearchStickCell: UICollectionViewCell{
     
     @IBOutlet weak var stickImageView: UIImageView!
-    @IBOutlet weak var userIconImageView: UIImageView!
+    @IBOutlet weak var userIconButton: UIButton!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var overViewTextView: UITextView!
+    @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet weak var goodButton: UIButton!
     @IBOutlet weak var numberOfGood: UILabel!
 }

@@ -240,8 +240,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if stampTab.isEnabled == false{
             // スタンプリストを表示
-            cell.userNameLabel.text = stamps[indexPath.row].userId
-            if let image = stamps[indexPath.row].stampImage{
+            if let image = stamps[indexPath.row].getStampImage(){
                 cell.productImageView.image = image
             }
         }else{
@@ -266,7 +265,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         if stampTab.isEnabled == false{
             // スタンプの場合
-            print(stamps[indexPath.row].stampName!)
+            print(stamps[indexPath.row].getStampName())
         }else{
             // スタンプアートの場合
             

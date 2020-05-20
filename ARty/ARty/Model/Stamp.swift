@@ -11,60 +11,86 @@ import UIKit
 class Stamp {
 
     // MARK: Properties
-    var stampName: String?
-    var stampImage: UIImage?
-    var userId: String?
-    var userName: String?
-    var userIcon: UIImage?
-    var good: Int?
+    private var stampName: String?
+    private var stampImage: UIImage?
+    private var userId: String?
+    private var detail: String?
+    private var numberOfGood: Int?
+    private var good: Bool?
+    private var numberOfViews: Int?
+    
 
     // MARK: Initialization
     init(){}
     
-    init(name: String){
-        self.stampName = name
-    }
-    
-    init?(name: String, image: UIImage?) {
-    
-        // The name must not be empty
-        guard !name.isEmpty else {
-            return nil
-        }
-
-        // Initialize stored properties
+    init(name: String, image: UIImage?) {
         self.stampName = name
         self.stampImage = image
     }
     
-    init(name: String,  userId: String, good: Int) {
-        self.stampName = name
+    init(stampName: String,stampImage: UIImage,  userId: String,detail: String, numberOfGood: Int, numberOfViews: Int) {
+        self.stampName = stampName
+        self.stampImage = stampImage
         self.userId = userId
-        self.good = good
+        self.detail = detail
+        self.numberOfGood = numberOfGood
+        self.numberOfViews = numberOfViews
     }
     
-    // MARK: Setter
+    // MARK: Setter & Getter
     func setStampName(stampName: String){
         self.stampName = stampName
+    }
+    
+    func getStampName() -> String?{
+        return stampName
     }
     
     func setStampImage(stampImage: UIImage?){
         self.stampImage = stampImage
     }
     
+    func getStampImage() -> UIImage?{
+        return stampImage
+    }
+    
     func setUserId(userId: String){
         self.userId = userId
     }
     
-    func setUserName(userName: String){
-        self.userName = userName
+    func getUserId() -> String?{
+        return userId
     }
     
-    func setUserIcon(userIcon: UIImage?){
-        self.userIcon = userIcon
+    func setDetail(detail: String){
+        self.detail = detail
     }
     
-    func setGood(good: Int){
+    func getDetail() -> String?{
+        return detail
+    }
+    
+    func setNumberOfGood(numberOfGood: Int){
+        self.numberOfGood = numberOfGood
+    }
+    
+    func getNumberOfGood() -> Int?{
+        return numberOfGood
+    }
+    
+    func setGood(good: Bool){
         self.good = good
+    }
+    
+    func getGood() -> Bool?{
+        return good
+    }
+    
+    func setNumberOfViews(numberOfViews: Int){
+        self.numberOfViews = numberOfViews
+    }
+    
+    func getNumberOfViews() -> Int?{
+        return numberOfViews
     }
 }

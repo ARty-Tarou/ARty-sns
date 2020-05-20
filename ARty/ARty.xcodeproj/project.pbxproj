@@ -13,8 +13,6 @@
 		089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089207C4244DA26200699589 /* ChangeMyDataViewController.swift */; };
 		08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08B4186A244F1F300053AFCC /* SigninFailed.storyboard */; };
 		08D74602246D5B7800245DDD /* SubHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D74601246D5B7800245DDD /* SubHelpViewController.swift */; };
-		08D860802456CB7300903A7C /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8607E2456CB7300903A7C /* SearchCell.swift */; };
-		08D860812456CB7300903A7C /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08D8607F2456CB7300903A7C /* SearchCell.xib */; };
 		5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02C24460F750069FEDD /* AppDelegate.swift */; };
 		5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E02E24460F750069FEDD /* SceneDelegate.swift */; };
 		5705E03124460F750069FEDD /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5705E03024460F750069FEDD /* IndexViewController.swift */; };
@@ -36,8 +34,6 @@
 		CC61E565244D53DD00EF5DED /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E564244D53DD00EF5DED /* MyPage.storyboard */; };
 		CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E566244D540300EF5DED /* Timeline.storyboard */; };
 		CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E568244D544C00EF5DED /* Tab.storyboard */; };
-		CC63B8D624586BD1001C2EEB /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC63B8D524586BD1001C2EEB /* Test.storyboard */; };
-		CC63B8D824586BF0001C2EEB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63B8D724586BF0001C2EEB /* TestViewController.swift */; };
 		CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */; };
 		CC7C24E82450654F005431B5 /* Stamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24E72450654F005431B5 /* Stamp.swift */; };
 		CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24ED2451D28E005431B5 /* StickCell.swift */; };
@@ -64,8 +60,6 @@
 		089207C4244DA26200699589 /* ChangeMyDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMyDataViewController.swift; sourceTree = "<group>"; };
 		08B4186A244F1F300053AFCC /* SigninFailed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SigninFailed.storyboard; sourceTree = "<group>"; };
 		08D74601246D5B7800245DDD /* SubHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubHelpViewController.swift; path = ARty/Storyboard/SubHelpViewController.swift; sourceTree = SOURCE_ROOT; };
-		08D8607E2456CB7300903A7C /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
-		08D8607F2456CB7300903A7C /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		322BE8A9F3F2FE8CB86F36CC /* Pods_ARty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35561E5CB536E7EDE99F2207 /* Pods-ARty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARty.debug.xcconfig"; path = "Target Support Files/Pods-ARty/Pods-ARty.debug.xcconfig"; sourceTree = "<group>"; };
 		48DD4E16E8A2989F507179BB /* Pods-ARty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARty.release.xcconfig"; path = "Target Support Files/Pods-ARty/Pods-ARty.release.xcconfig"; sourceTree = "<group>"; };
@@ -92,8 +86,6 @@
 		CC61E564244D53DD00EF5DED /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
 		CC61E566244D540300EF5DED /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		CC61E568244D544C00EF5DED /* Tab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tab.storyboard; sourceTree = "<group>"; };
-		CC63B8D524586BD1001C2EEB /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
-		CC63B8D724586BF0001C2EEB /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CC7C24E72450654F005431B5 /* Stamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamp.swift; sourceTree = "<group>"; };
 		CC7C24ED2451D28E005431B5 /* StickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickCell.swift; sourceTree = "<group>"; };
@@ -171,7 +163,6 @@
 		CC61E559244D4C8400EF5DED /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				CC63B8D524586BD1001C2EEB /* Test.storyboard */,
 				CC58184F244D6F6E000380D9 /* SignUp.storyboard */,
 				CC61E55E244D527A00EF5DED /* SignIn.storyboard */,
 				08B4186A244F1F300053AFCC /* SigninFailed.storyboard */,
@@ -191,7 +182,6 @@
 		CC61E55A244D4CF500EF5DED /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CC63B8D724586BF0001C2EEB /* TestViewController.swift */,
 				5705E03024460F750069FEDD /* IndexViewController.swift */,
 				CC0CE458244C2A8D0047B289 /* SignUpViewController.swift */,
 				CC0CE45A244C2C910047B289 /* SignInViewController.swift */,
@@ -213,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				CC7C24F12452D042005431B5 /* StickCell.xib */,
-				08D8607F2456CB7300903A7C /* SearchCell.xib */,
 				CC1324922466CA9200F6CF0A /* TimelineCell.xib */,
 				CC7D818A246C41A800351D2A /* UserTableCell.xib */,
 				CC88A31924700A4F003FC79C /* SearchStickCell.xib */,
@@ -225,7 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				CC7C24ED2451D28E005431B5 /* StickCell.swift */,
-				08D8607E2456CB7300903A7C /* SearchCell.swift */,
 				CC1324902466363B00F6CF0A /* TimelineCell.swift */,
 				CC7D818C246C428900351D2A /* UserTableCell.swift */,
 				CC61E55C244D4E0900EF5DED /* User.swift */,
@@ -307,7 +295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */,
-				08D860812456CB7300903A7C /* SearchCell.xib in Resources */,
 				08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */,
 				CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */,
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
@@ -318,7 +305,6 @@
 				CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */,
 				5705E03624460F770069FEDD /* Assets.xcassets in Resources */,
 				CC7D8185246BD64200351D2A /* UserTable.storyboard in Resources */,
-				CC63B8D624586BD1001C2EEB /* Test.storyboard in Resources */,
 				CC61E563244D53A500EF5DED /* Search.storyboard in Resources */,
 				CC61E561244D539600EF5DED /* Trend.storyboard in Resources */,
 				CC115C7B246931F600461C49 /* Profile.storyboard in Resources */,
@@ -379,10 +365,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08D860802456CB7300903A7C /* SearchCell.swift in Sources */,
 				CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */,
 				CC7D818D246C428900351D2A /* UserTableCell.swift in Sources */,
-				CC63B8D824586BF0001C2EEB /* TestViewController.swift in Sources */,
 				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
 				5705E03124460F750069FEDD /* IndexViewController.swift in Sources */,
 				CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */,

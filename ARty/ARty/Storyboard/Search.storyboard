@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍検索" textAlignment="justified" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-Zu-ieq">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="検索したいキーワードを入力してね" textAlignment="justified" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8mq-Zu-ieq">
                                 <rect key="frame" x="16" y="52" width="343" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -96,11 +96,22 @@
                         <outlet property="leftCollectionView" destination="27i-4V-Jly" id="Ejy-1v-Z99"/>
                         <outlet property="rightCollectionView" destination="obn-9z-GCj" id="0TF-Zn-iPQ"/>
                         <outlet property="searchTextField" destination="8mq-Zu-ieq" id="heR-Cv-LlH"/>
+                        <segue destination="hkI-oV-fFb" kind="show" identifier="profile" id="LtK-rl-LhQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TS6-83-KGg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2060.8695652173915" y="1106.9196428571429"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="g7m-qn-LxA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="hkI-oV-fFb" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Dhb-ap-Ney"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hca-M1-flY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2696" y="1107"/>
         </scene>
     </scenes>
 </document>

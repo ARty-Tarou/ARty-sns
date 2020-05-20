@@ -9,21 +9,19 @@
 import UIKit
 import NCMB
 
-class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
+class StickFormViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
+    
     // MARK: Properties
-    @IBOutlet weak var overViewTextField: UITextField!
     @IBOutlet weak var stampImageView: UIImageView!
-    @IBOutlet weak var overViewTextView: UITextView!
+    @IBOutlet weak var detailTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         // ナビゲーションバーを表示する
         navigationController?.setNavigationBarHidden(false, animated: true)
         
-        overViewTextView.text = ""
-        
+        detailTextView.text = ""
         
         // ツールバーを設定
         let toolBar = UIToolbar()
@@ -43,12 +41,12 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
         let cameraButtonItem = UIBarButtonItem(customView: cameraButton)
         toolBar.setItems([flexibleItem, libraryButtonItem, flexibleItem, cameraButtonItem, flexibleItem], animated: true)
 
-        // デリゲートを設定（これ上いらんよね？）
-        overViewTextField.delegate = self
-        overViewTextView.delegate = self
+        // デリゲートを設定
+        detailTextView.delegate = self
         
-        // テキストフィールドにツールバーを設定
-        overViewTextField.inputAccessoryView = toolBar
+        
+        // テキストビューにツールバーを設定
+        detailTextView.inputAccessoryView = toolBar
     }
     
     // MARK: Action
@@ -63,7 +61,7 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
         
         // StickLogicインスタンスを生成
         let stickLogic = StickLogic()
-        stickLogic.saveFile(data: data, detail: overViewTextField.text!)
+        stickLogic.saveFile(data: data, detail: detailTextView.text)
         
     }
     
@@ -114,9 +112,11 @@ class StickFormViewController: UIViewController, UITextFieldDelegate, UINavigati
     
     // MARK: Delegate Method
     // 右上の入力確定でキーボード閉じる
-    @IBAction func KeybOut(_ sender: Any) {overViewTextField.text = overViewTextView.text
+    @IBAction func KeybOut(_ sender: Any) {
         // キーボードを閉じる
-        overViewTextField.endEditing(true)    }
+        detailTextView.endEditing(true)
+        
+    }
     
     
     // 撮影が終わったら呼ばれる

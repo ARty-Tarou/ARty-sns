@@ -46,19 +46,34 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    // MARK: JSON
-    struct UserInfo: Codable{
+    // MARK: Codable
+    struct PullUserResult: Codable{
+        // ユーザーデータ
+        let userDetail: UserDetailData
+        // カレントユーザーがこのユーザーをフォローしているか
+        let follow: Bool
+    }
+    
+    struct UserDetailData: Codable{
         // ユーザーID
-        let userId: String?
-        // ユーザーアイコン
-        let iconImageName: String?
-        // UserData
-        let userData: UserData?
+        let userId: String
+        // TODO: ユーザーの誕生日（後々Date型に変更？）
+        let birthday: String?
+        // ユーザーアイコンのファイル名
+        let iconImageName: String
+        // ユーザーのプロフィールコメント
+        let selfIntroduction: String
+        // ユーザーのフォロワー数
+        let numberOfFollowed: Int
+        // ユーザーのフォロー数
+        let numberOfFollow: Int
+        // ユーザーのその他のデータ
+        let userData: UserData
     }
     
     struct UserData: Codable{
         // ユーザー名
-        let userName: String?
+        let userName: String
     }
     
     
@@ -66,6 +81,18 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func pullFollow(){
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullFollow.js", method: .post)
+
+        PullUserList(script: script)
+    }
+    
+    func pullFollower(){
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "pullFollower.js", method: .post)
+        
+        PullUserList(script: script)
+    }
+    
+    func PullUserList(script: NCMBScript){
         // ボディを設定
         let requestBody: [String: Any?] = ["userId": self.userId!, "currentUserId": currentUser?.objectId]
         // スクリプト実行
@@ -73,46 +100,56 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
             case let .success(data):
-                print("pullFollowScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                print("\(script.name)Script実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
                 
                 do{
                     let decoder = JSONDecoder()
-                    let json = try decoder.decode([UserInfo].self, from: data!)
+                    let json = try decoder.decode([PullUserResult].self, from: data!)
                     
-                    for followUser in json{
-                        // Userインスタンスを生成
+                    // 取得した人数分回す
+                    for userResult in json{
+                        // userインスタンスを生成
                         let user = User()
-                        user.setUserId(userId: followUser.userId!)
-                        user.setUserName(userName: (followUser.userData?.userName)!)
-                        user.setFollow(bool: true)
                         
-                        // ファイルストアからアイコンイメージを取得
-                        // ファイルを指定
-                        let file = NCMBFile(fileName: followUser.iconImageName!)
+                        // ユーザー情報を代入
+                        let userDetailData = userResult.userDetail
+                        user.setUserId(userId: userDetailData.userId)
+                        user.setUserName(userName: userDetailData.userData.userName)
+                        user.setSelfIntroduction(selfIntroduction: userDetailData.selfIntroduction)
+                        user.setNumberOfFollowed(numberOfFollowed: userDetailData.numberOfFollowed)
+                        user.setNumberOfFollow(numberOfFollow: userDetailData.numberOfFollow)
                         
-                        // ファイルストアからユーザーアイコンを取得
-                        file.fetchInBackground(callback: {result in
-                            switch result{
-                            case let .success(data):
-                                print("ユーザーアイコン取得に成功:\(file.fileName)")
-                                
-                                // データを画像に変換
-                                let image = data.flatMap(UIImage.init)
-                                
-                                // ユーザーアイコンをセット
-                                user.setUserIconImage(userIconImage: image!)
-                                
-                                // テーブルビューを更新
-                                print("テーブルビューを更新")
-                                DispatchQueue.global().async {
-                                    DispatchQueue.main.async {
-                                        self.userTableView.reloadData()
+                        user.setFollow(bool: userResult.follow)
+                        
+                        // デフォルトアイコンではない場合ファイルストアからユーザーアイコンを取得する
+                        if userDetailData.iconImageName != "firstIcon"{
+                            let file = NCMBFile(fileName: userDetailData.iconImageName)
+                            file.fetchInBackground(callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("ユーザーアイコン取得に成功:\(file.fileName)")
+                                    
+                                    // データをUIImageに変換
+                                    let image = data.flatMap(UIImage.init)
+                                    user.setUserIconImage(userIconImage: image!)
+                                    
+                                    // テーブルビューを更新
+                                    print("テーブルビューを更新")
+                                    DispatchQueue.global().async {
+                                        DispatchQueue.main.async {
+                                            self.userTableView.reloadData()
+                                        }
                                     }
+                                    
+                                case let .failure(error):
+                                    print("ユーザーアイコン取得に失敗:\(error)")
                                 }
-                            case let .failure(error):
-                                print("ユーザーアイコン取得に失敗:\(error)")
-                            }
-                        })
+                            })
+                        }else{
+                            // 初期アイコンを設定
+                            user.setUserIconImage(userIconImage: UIImage(named: "FirstIcon")!)
+                        }
+                        
                         // ユーザーリストに追加
                         self.userList.append(user)
                         
@@ -124,81 +161,12 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
                             }
                         }
                     }
+                    
                 }catch{
                     print("error")
                 }
             case let .failure(error):
-                print("pullFollowScript実行に失敗:\(error)")
-            }
-        })
-    }
-    
-    func pullFollower(){
-        // スクリプトインスタンスを生成
-        let script = NCMBScript(name: "pullFollower.js", method: .post)
-        // ボディを設定
-        let requestBody: [String: Any?] = ["userId": self.userId!, "currentUserId": currentUser?.objectId]
-        // スクリプト実行
-        // JSON形式でフォロワーユーザーリストを取得
-        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
-            switch result{
-            case let .success(data):
-                print("pullFollowerScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
-                
-                do{
-                    let decoder = JSONDecoder()
-                    let json = try decoder.decode([UserInfo].self, from: data!)
-                    
-                    for followerUser in json{
-                        // Userインスタンスを生成
-                        let user = User()
-                        user.setUserId(userId: followerUser.userId!)
-                        user.setUserName(userName: (followerUser.userData?.userName)!)
-                        
-                        // ファイルストアからアイコンイメージを取得
-                        // ファイルを指定
-                        let file = NCMBFile(fileName: followerUser.iconImageName!)
-                        
-                        // ファイルストアからユーザーアイコンを取得
-                        file.fetchInBackground(callback: {result in
-                            switch result{
-                            case let .success(data):
-                                print("ユーザーアイコン取得に成功:\(file.fileName)")
-                                
-                                // データを画像に変換
-                                let image = data.flatMap(UIImage.init)
-                                
-                                // ユーザーアイコンをセット
-                                user.setUserIconImage(userIconImage: image!)
-                                
-                                // テーブルビューを更新
-                                print("テーブルビューを更新")
-                                DispatchQueue.global().async {
-                                    DispatchQueue.main.async {
-                                        self.userTableView.reloadData()
-                                    }
-                                }
-                            case let .failure(error):
-                                print("ユーザーアイコン取得に失敗:\(error)")
-                            }
-                        })
-                        
-                        // ユーザーリストに追加
-                        self.userList.append(user)
-                        
-                        // テーブルビューを更新
-                        print("テーブルビューを更新")
-                        DispatchQueue.global().async {
-                            DispatchQueue.main.async {
-                                self.userTableView.reloadData()
-                            }
-                        }
-                    }
-                }catch{
-                    
-                }
-            case let .failure(error):
-                print("pullFollowerScript実行に失敗:\(error)")
+                print("\(script.name)Script実行に失敗:\(error)")
             }
         })
     }

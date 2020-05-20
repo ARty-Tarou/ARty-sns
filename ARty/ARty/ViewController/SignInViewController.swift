@@ -19,7 +19,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         
         // テキストフィールドデリゲートを設定
         userNameOrMailAddressTextField.delegate = self
@@ -135,13 +134,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
            let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
            let result = emailTest.evaluate(with: string)
            return result
-    }
-    
-
-    // MARK: テスト用
-    @IBAction func testButtonAction(_ sender: Any) {
-        // テスト画面に遷移
-        performSegue(withIdentifier: "test", sender: nil)
     }
     
 

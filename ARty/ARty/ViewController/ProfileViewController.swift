@@ -31,6 +31,9 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     // カレントユーザー
     let currentUser = NCMBUser.currentUser
     
+    // 何件読んだか
+    var skip = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,14 +44,45 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         // 画面部品にユーザーデータをセット
-        userNameLabel.text = user?.getUserName()
-        userIconImageView.image = user?.getUserIconImage()
+        var num = 0
+        if let userName = user?.getUserName(){
+            userNameLabel.text = userName
+            num += 1
+        }
+        if let userIcon = user?.getUserIconImage(){
+            userIconImageView.image = userIcon
+            num += 10
+        }
+        if let numberOfFollower = user?.getNumberOfFollowed(){
+            numberOfFollowerLabel.text = String(numberOfFollower)
+            num += 100
+        }
+        if let numberOfFollow = user?.getNumberOfFollow(){
+            numberOfFollowLabel.text = String(numberOfFollow)
+            num += 1000
+        }
+        if let selfIntroduction = user?.getSelfIntroduction(){
+            selfIntroductionTextView.text = selfIntroduction
+            num += 10000
+        }
+        if let userIconImage = user?.getUserIconImage(){
+            userIconImageView.image = userIconImage
+            num += 100000
+        }
+        if user?.getFollow() != nil{
+            num += 1000000
+        }
         
         // followButtonのレイアウトを設定
         followButtonLayout(bool: user?.getFollow())
         
         // 未取得のユーザーの情報を補完する
-        pullYourInform()
+        if num != 1111111{
+            print("未設定のユーザー情報を取得します")
+            pullYourInform()
+        }else{
+            print("ユーザー情報はすべて設定できています")
+        }
         
         // CollectionViewの設定
         stickCollectionView.register(UINib(nibName: "StickCell", bundle: nil), forCellWithReuseIdentifier: "stickCell")
@@ -64,7 +98,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         // Stampタブを選択状態にする
         stampTab.isEnabled = false
         
-        // stickを表示する
+        // stickを取得し表示する
         userStick()
         
     }
@@ -77,34 +111,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             if let currentUser = NCMBUser.currentUser{
                 if bool == true{
                     // フォローする
-                    // スクリプトインスタンスを生成
-                    let script = NCMBScript(name: "pushMyFollow.js", method: .post)
-                    // ボディを設定
-                    let requestBody: [String: Any?] = ["followerId": currentUser.objectId, "followedId": user?.getUserId()]
-                    // スクリプトを実行
-                    script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
-                        switch result{
-                        case .success:
-                            print("pushMyFollowScript実行に成功")
-                        case let .failure(error):
-                            print("pushMyFollowScript実行に失敗:\(error)")
-                        }
-                    })
+                    pushFollow()
                 }else{
                     // フォロー解除
-                    // スクリプトインスタンスを生成
-                    let script = NCMBScript(name: "undoFollow.js", method: .post)
-                    // ボディを設定
-                    let requestBody: [String: Any?] = ["followerId": currentUser.objectId, "followedId": user?.getUserId()]
-                    // スクリプトを実行
-                    script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
-                        switch result{
-                        case .success:
-                            print("undoFollowScript実行に成功")
-                        case let .failure(error):
-                            print("undoFollowScript実行に失敗:\(error)")
-                        }
-                    })
+                    undoFollow()
                 }
             }
         }
@@ -113,49 +123,59 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: Codable
     struct UserAllData: Codable{
         // UserInfo
-        let result: UserInfo?
+        let result: UserInfo
         // follow情報
-        let follow: Bool?
+        let follow: Bool
     }
     
     struct UserInfo: Codable{
         // userId
-        let userId: String?
+        let userId: String
         // iconImageName
-        let iconImageName: String?
+        let iconImageName: String
         // selfIntroduction
-        let selfIntroduction: String?
+        let selfIntroduction: String
         // birthDay
         let birthDay: String?
         // follow
-        let numberOfFollow: Int?
+        let numberOfFollow: Int
         // follower
-        let numberOfFollowed: Int?
+        let numberOfFollowed: Int
         // otherData
-        let userData: UserData?
+        let userData: UserData
     }
     
     struct UserData: Codable{
         // userName
-        let userName: String?
+        let userName: String
+    }
+    
+    struct SearchResult: Codable{
+        // StickData
+        let stickData: [StickData]
+        // skip
+        let skip: Int
     }
     
     struct StickData: Codable{
+        // 投稿の概要
+        let detail: String
         // 投稿のgood数
-        let good: Int?
-        // 投稿者のuserId
-        let userId: String?
-        // stampかstampArtか
-        let stamp: Bool?
-        // スタンプデータ
-        let staticData: StaticData?
+        let good: Int
+        // 投稿の閲覧数
+        let numberOfViews: Int
+        // 投稿者
+        let userId: String
+        // スタンプであるか
+        let stamp: Bool
+        // 投稿のその他の情報
+        let staticData: StaticData
     }
     
     struct StaticData: Codable{
         // スタンプ名
         let stampName: String?
-        // スタンプアート名
-        let stampArtName: String?
+        // TODO: スタンプアート名 let stampArtName: String?
     }
     
     // MARK: Method
@@ -178,39 +198,39 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                     
                     // フォローボタンを更新
                     if self.user?.getFollow() == nil || self.user?.getFollow() != json.follow{
-                        
+                        self.user?.setFollow(bool: json.follow)
+                        self.followButtonLayout(bool: self.user?.getFollow())
                     }
                     
-                    if let userInfo = json.result{
-                        DispatchQueue.global().async{
-                            DispatchQueue.main.async {
-                                self.selfIntroductionTextView.text = userInfo.selfIntroduction
-                                self.numberOfFollowLabel.text = String(userInfo.numberOfFollow!)
-                                self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed!)
-                                if self.userNameLabel.text == nil{
-                                    self.userNameLabel.text = userInfo.userData?.userName
-                                }
-                                if self.userIconImageView.image == nil{
-                                    // ファイルストアからファイルを取得
-                                    let file = NCMBFile(fileName: userInfo.iconImageName!)
-                                    file.fetchInBackground(callback: {result in
-                                        switch result{
-                                        case let .success(data):
-                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName!)")
-                                            
-                                            // データを画像に変換
-                                            let image = data.flatMap(UIImage.init)
-                                            
-                                            DispatchQueue.global().async{
-                                                DispatchQueue.main.async {
-                                                    self.userIconImageView.image = image
-                                                }
+                    let userInfo = json.result
+                    
+                    DispatchQueue.global().async{
+                        DispatchQueue.main.async {
+                            // ユーザー情報を更新
+                            self.selfIntroductionTextView.text = userInfo.selfIntroduction
+                            self.numberOfFollowLabel.text = String(userInfo.numberOfFollow)
+                            self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed)
+                            self.userNameLabel.text = userInfo.userData.userName
+                            if self.userIconImageView.image == nil && userInfo.iconImageName != "FirstIcon"{
+                                // ファイルストアからファイルを取得
+                                let file = NCMBFile(fileName: userInfo.iconImageName)
+                                file.fetchInBackground(callback: {result in
+                                    switch result{
+                                    case let .success(data):
+                                        print("ユーザーアイコン取得に成功:\(userInfo.iconImageName)")
+                                        
+                                        // データを画像に変換
+                                        let image = data.flatMap(UIImage.init)
+                                        
+                                        DispatchQueue.global().async{
+                                            DispatchQueue.main.async {
+                                                self.userIconImageView.image = image
                                             }
-                                        case let .failure(error):
-                                            print("ユーザーアイコンが取得できませんでした。:\(error)")
                                         }
-                                    })
-                                }
+                                    case let .failure(error):
+                                        print("ユーザーアイコンが取得できませんでした。:\(error)")
+                                    }
+                                })
                             }
                         }
                     }
@@ -239,50 +259,56 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 do{
                     let decoder = JSONDecoder()
-                    let json = try decoder.decode([StickData].self, from: data!)
+                    let json = try decoder.decode(SearchResult.self, from: data!)
                     
-                    // 取得したjsonのデータ数だけ回す
-                    for stick in json{
+                    self.skip = json.skip
+                    
+                    // スタンプリストを作成していく
+                    for stick in json.stickData{
+                        // スタンプインスタンスを生成
+                        
                         if stick.stamp == true{
                             // スタンプの場合
                             // スタンプインスタンスを生成
                             let stamp: Stamp = Stamp()
-                            stamp.setUserId(userId: stick.userId!)
-                            if let stampData = stick.staticData{
-                                print("stampName:\(String(describing: stampData.stampName))")
+                            stamp.setUserId(userId: stick.userId)
+                            
+                            // スタンプ・スタンプアートに関する情報をいれていく
+                            stamp.setUserId(userId: stick.userId)
+                            stamp.setDetail(detail: stick.detail)
+                            stamp.setNumberOfGood(numberOfGood: stick.good)
+                            stamp.setNumberOfViews(numberOfViews: stick.numberOfViews)
+                            
+                            // スタンプか、スタンプアートか
+                            if stick.stamp == true{
+                                // スタンプ名を代入
+                                stamp.setStampName(stampName: stick.staticData.stampName!)
                                 
-                                // スタンプ名をセット
-                                stamp.setStampName(stampName: stampData.stampName!)
-                                
-                                // ファイルストアから画像を取得
-                                // ファイルの指定
-                                let file = NCMBFile(fileName: stampData.stampName!)
-                                
-                                // ファイルの取得
-                                print("画像を取ってきます:\(stampData.stampName!)")
+                                // ファイルストアからスタンプを取得
+                                let file = NCMBFile(fileName: stamp.getStampName()!)
                                 file.fetchInBackground(callback: {result in
                                     switch result{
                                     case let .success(data):
-                                        print("画像取得に成功:\(stampData.stampName!)")
                                         
-                                        // データを画像に変換
-                                        if let image = data.flatMap(UIImage.init){
-                                            // スタンプに画像をセット
-                                            print("画像をセット:\(stampData.stampName!)")
-                                            stamp.setStampImage(stampImage: image)
-                                            
-                                            // コレクションビューを更新
-                                            print("コレクションビューを更新")
-                                            DispatchQueue.global().async {
-                                                DispatchQueue.main.async {
-                                                    self.stickCollectionView.reloadData()
-                                                }
+                                        // データをUIImageに変換
+                                        let image = data.flatMap(UIImage.init)
+                                        
+                                        // スタンプに画像を代入
+                                        stamp.setStampImage(stampImage: image)
+                                        
+                                        // コレクションビューを更新
+                                        print("コレクションビューを更新")
+                                        DispatchQueue.global().async {
+                                            DispatchQueue.main.async {
+                                                self.stickCollectionView.reloadData()
                                             }
                                         }
                                     case let .failure(error):
-                                        print("画像取得に失敗:\(error)")
+                                        print("スタンプ画像取得に失敗:\(error)")
                                     }
                                 })
+                            }else{
+                                // スタンプアート名を代入
                             }
                             
                             // スタンプリストに追加
@@ -310,20 +336,23 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func followButtonLayout(bool: Bool?){
-        // 自分だった場合Buttonを隠す
-        if user?.getUserId() == currentUser?.objectId{
-            followButton.isHidden = true
-            followButton.isEnabled = false
-        }else{
-            if bool == true{
-                followButton.setTitle("フォロー解除", for: .normal)
-                followButton.backgroundColor = UIColor.blue
-            }else{
-                followButton.setTitle("フォローする", for: .normal)
-                followButton.backgroundColor = UIColor.green
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                // 自分だった場合Buttonを隠す
+                if self.user?.getUserId() == self.currentUser?.objectId{
+                    self.followButton.isHidden = true
+                    self.followButton.isEnabled = false
+                }else{
+                    if bool == true{
+                        self.followButton.setTitle("フォロー解除", for: .normal)
+                        self.followButton.backgroundColor = UIColor.blue
+                    }else{
+                        self.followButton.setTitle("フォローする", for: .normal)
+                        self.followButton.backgroundColor = UIColor.green
+                    }
+                }
             }
         }
-
     }
     
     func pushFollow(){
@@ -345,6 +374,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     func follow(script: NCMBScript){
         // ボディを設定
         let requestBody: [String: Any?] = ["followerId": currentUser?.objectId, "followedUserId": user?.getUserId()]
+        print("followerId:\(String(describing: currentUser?.objectId))")
+        print("followedUserId:\(String(describing: user?.getUserId()))")
         
         // スクリプトを実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -365,10 +396,11 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if stampTab.isEnabled == false{
             // スタンプリストを表示
-            cell.userNameLabel.text = stamps[indexPath.row].userId
-            if let image = stamps[indexPath.row].stampImage{
+            if let image = stamps[indexPath.row].getStampImage(){
                 cell.productImageView.image = image
             }
+            cell.detailTextView.text = stamps[indexPath.row].getDetail()
+            cell.numberOfGood.text = String(stamps[indexPath.row].getNumberOfGood()!)
         }else{
             // スタンプアートリストを表示
         }
@@ -391,7 +423,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if stampTab.isEnabled == false{
             // スタンプの場合
-            print(stamps[indexPath.row].stampName!)
+            print(stamps[indexPath.row].getStampName())
         }else{
             // スタンプアートの場合
             
@@ -421,6 +453,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             // フォローしてます情報を更新
             user?.setFollow(bool: !bool)
             
+        }else{
+            print("フォロー情報がnilです")
         }
     }
     

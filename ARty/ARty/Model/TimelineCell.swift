@@ -15,7 +15,7 @@ class TimelineCell: UICollectionViewCell{
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userPraceLabel: UILabel!
     @IBOutlet weak var stampImageView: UIImageView!
-    @IBOutlet weak var overViewText: UITextView!
+    @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet weak var goodNum: UILabel!
     
 }

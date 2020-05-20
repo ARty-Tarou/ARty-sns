@@ -26,10 +26,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        // ナビゲーションバーを非表示にする
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        
         // CollectionViewの設定
         leftCollectionView.register(UINib(nibName: "SearchStickCell", bundle: nil), forCellWithReuseIdentifier: "searchStickCell")
         rightCollectionView.register(UINib(nibName: "SearchStickCell", bundle: nil), forCellWithReuseIdentifier: "searchStickCell")
@@ -52,63 +48,85 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        // ナビゲーションバーを非表示にする
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     // MARK: Codable
     
-    struct JSONResult: Codable{
+    struct PullStickResult: Codable{
         // StickData
-        let result: [StickData]
+        let result: [StickDetailData]
         // skip
         let skip: Int
     }
     
-    struct StickData: Codable{
-        // この投稿のgood数
-        let good: Int?
-        // 投稿者のuserId
-        let userId: String?
-        // stampかstampArtか
-        let stamp: Bool?
-        // スタンプデータ
-        let staticData: StaticData?
+    struct StickDetailData: Codable{
+        // 投稿のデータ
+        let stickData: StickData
+        // 投稿に対するユーザーのデータ
+        let userDetailData: UserDetailData
+        // フォローしているか
+        let follow: Bool
+        // グッドしているか
+        let good: Bool
     }
     
-    struct StaticData: Codable{
+    struct StickData: Codable{
+        // 投稿の概要
+        let detail: String
+        // 投稿のgood数
+        let good: Int
+        // 投稿の閲覧数
+        let numberOfViews: Int
+        // 投稿者
+        let userId: String
+        // スタンプであるか
+        let stamp: Bool
+        // 投稿のその他の情報
+        let staticData: StickStaticData
+    }
+    
+    struct StickStaticData: Codable{
         // スタンプ名
         let stampName: String?
-        // スタンプアート名
-        let stampArtName: String?
     }
     
-    struct UserAllData: Codable{
-        // ユーザー
-        let result: UserInfo?
-        // フォロー情報
-        let follow: Bool?
-    }
-    
-    struct UserInfo: Codable{
-        // ユーザーアイコンのファイル名
-        let iconImageName: String?
-        // ユーザーデータ
-        let userData: UserData?
+    struct UserDetailData: Codable{
+        // 投稿者のユーザーID
+        let userId: String
+        // TODO: 投稿者の誕生日（後々Date型に変更？)
+        let birthday: String?
+        // 投稿者のユーザーアイコンのファイル名
+        let iconImageName: String
+        // 投稿者のプロフィールコメント
+        let selfIntroduction: String
+        // ユーザーのフォロワー数
+        let numberOfFollowed: Int
+        // ユーザーのフォロー数
+        let numberOfFollow: Int
+        // ユーザーのその他情報
+        let userData: UserData
     }
     
     struct UserData: Codable{
         // ユーザー名
-        let userName: String?
+        let userName: String
     }
     
     // MARK: Method
     
     // 検索する文字列
     var searchWord: String? = nil
-    var stampSkip: Int = 0
-    var stampArtSkip: Int = 0
+    var stampSkip = 0
+    var stampArtSkip = 0
+    
     func pullSearchStampStick(){
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullSearchStampStick.js", method: .post)
         // ボディを設定
-        let requestBody: [String: Any?]  = ["searchWord": searchWord, "skip": stampSkip]
+        let requestBody: [String: Any?]  = ["searchWord": searchWord, "skip": stampSkip, "currentUserId": currentUser?.objectId]
         // スクリプトを実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
@@ -117,7 +135,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 
                 do{
                     let decoder = JSONDecoder()
-                    let json = try decoder.decode(JSONResult.self, from: data!)
+                    let json = try decoder.decode(PullStickResult.self, from: data!)
                     
                     self.stampSkip = json.skip
                     
@@ -128,117 +146,84 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                         // スタンプ、ユーザーインスタンスを生成
                         let stamp: Stamp = Stamp()
                         let user: User = User()
-                        user.setUserId(userId: stick.userId!)
-                        stamp.setGood(good: stick.good!)
                         
-                        if let stampData = stick.staticData{
-                            print("stampname:\(String(describing: stampData.stampName))")
-                            
-                            // スタンプ名をセット
-                            stamp.setStampName(stampName: stampData.stampName!)
-                            
-                            // ファイルストアから画像を取得
-                            // ファイルの指定
-                            let file = NCMBFile(fileName: stampData.stampName!)
-                            
-                            // ファイルの取得
-                            print("画像を取ってきます:\(stampData.stampName!)")
-                            
-                            file.fetchInBackground(callback: {result in
-                                switch result{
-                                case let .success(data):
-                                    print("画像取得に成功")
-                                    // データを画像に変換
-                                    if let image = data.flatMap(UIImage.init){
-                                        // スタンプに画像をセット
-                                        print("画像をセット:\(stampData.stampName!)")
-                                        stamp.setStampImage(stampImage: image)
-                                        
-                                        // コレクションビューを更新
-                                        print("コレクションビューを更新")
-                                        DispatchQueue.global().async {
-                                            DispatchQueue.main.async {
-                                                self.leftCollectionView.reloadData()
-                                            }
-                                        }
-                                    }
-                                case let .failure(error):
-                                    print("画像取得に失敗:\(error)")
-                                }
-                            })
-                        }
+                        // スタンプ・スタンプアートに関する情報を入れていく
+                        let stickData = stick.stickData
                         
-                        // ユーザー情報を取得
-                        // スクリプトインスタンスを生成
-                        let script = NCMBScript(name: "pullYourInform.js", method: .post)
+                        // 投稿の内容を代入
+                        stamp.setUserId(userId: stickData.userId)
+                        stamp.setDetail(detail: stickData.detail)
+                        stamp.setNumberOfGood(numberOfGood: stickData.good)
+                        stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                        stamp.setStampName(stampName: stickData.staticData.stampName!)
                         
-                        // スクリプトボディを設定
-                        let requestBody: [String: Any?] = ["userId": stick.userId!, "currentUserId": self.currentUser?.objectId]
-                        
-                        // スクリプトを実行
-                        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+                        // ファイルストアからスタンプを取得
+                        let file = NCMBFile(fileName: stamp.getStampName()!)
+                        file.fetchInBackground(callback: {result in
                             switch result{
                             case let .success(data):
-                                print("pullYourInformScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                                print("スタンプ画像取得に成功\(file.fileName)")
                                 
-                                do{
-                                    let decoder = JSONDecoder()
-                                    
-                                    let json = try decoder.decode(UserAllData.self, from: data!)
-                                    
-                                    // フォロー情報をセット
-                                    user.setFollow(bool: json.follow!)
-                                    if let userInfo = json.result{
-                                        if let userData = userInfo.userData{
-                                            // ユーザー名をセット
-                                            user.setUserName(userName: userData.userName!)
-                                        }
-                                        
-                                        // ファイルストアからユーザーアイコンを取得
-                                        print("ユーザーアイコンを取ってきます:\(userInfo.iconImageName!)")
-                                        let file = NCMBFile(fileName: userInfo.iconImageName!)
-                                        file.fetchInBackground(callback: {result in
-                                            switch result{
-                                            case let .success(data):
-                                                print("ユーザーアイコン取得に成功")
-                                                
-                                                // データを画像に変換
-                                                if let image = data.flatMap(UIImage.init){
-                                                    // ユーザーアイコンをセット
-                                                    user.setUserIconImage(userIconImage: image)
-                                                }
-                                                
-                                                // コレクションビューを更新
-                                                print("コレクションビューを更新")
-                                                DispatchQueue.global().async{
-                                                    DispatchQueue.main.async {
-                                                        self.leftCollectionView.reloadData()
-                                                    }
-                                                }
-                                            case let .failure(error):
-                                                print("ユーザーアイコン取得に失敗:\(error)")
-                                            }
-                                        })
-                                        // コレクションビューを更新
-                                        print("コレクションビューを更新")
-                                        DispatchQueue.global().async{
-                                            DispatchQueue.main.async {
-                                                self.leftCollectionView.reloadData()
-                                            }
-                                        }
+                                // データをUIImageに変換
+                                let image = data.flatMap(UIImage.init)
+                                // スタンプに画像を代入
+                                
+                                // コレクションビューを更新
+                                print("コレクションビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.leftCollectionView.reloadData()
                                     }
-                                    
-                                }catch{
-                                    print("error")
                                 }
                             case let .failure(error):
-                                print("pullYourInformScript実行に失敗:\(error)")
+                                print("スタンプ画像取得に失敗:\(error)")
                             }
                         })
                         
-                        // スタンプリストに追加
-                        self.stamps.append((stamp, user))
+                        // ユーザーに関する情報を入れていく
+                        let userDetailData = stick.userDetailData
                         
+                        // ユーザー情報を代入
+                        user.setUserId(userId: userDetailData.userId)
+                        user.setUserName(userName: userDetailData.userData.userName)
+                        user.setSelfIntroduction(selfIntroduction: userDetailData.selfIntroduction)
+                        user.setNumberOfFollowed(numberOfFollowed: userDetailData.numberOfFollowed)
+                        user.setNumberOfFollow(numberOfFollow: userDetailData.numberOfFollow)
+                        user.setFollow(bool: stick.follow)
+                        
+                        // デフォルトアイコンではない場合ファイルストアからユーザーアイコンを取得する
+                        if userDetailData.iconImageName != "firstIcon"{
+                            let file = NCMBFile(fileName: userDetailData.iconImageName)
+                            file.fetchInBackground(callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("ユーザーアイコン取得に成功:\(file.fileName)")
+                                    
+                                    // データをUIImageに変換
+                                    let image = data.flatMap(UIImage.init)
+                                    user.setUserIconImage(userIconImage: image!)
+                                    
+                                    // コレクションビューを更新
+                                    print("コレクションビューを更新")
+                                    DispatchQueue.global().async {
+                                        DispatchQueue.main.async {
+                                            self.leftCollectionView.reloadData()
+                                        }
+                                    }
+                                    
+                                    
+                                case let .failure(error):
+                                    print("ユーザーアイコン取得に失敗:\(error)")
+                                }
+                            })
+                        }else{
+                            // 初期アイコンを設定
+                            user.setUserIconImage(userIconImage: UIImage(named: "FirstIcon")!)
+                        }
+                        
+                        // スタンプリストに追加
+                        self.stamps.append((stamp,user))
+
                         // コレクションビューを更新
                         print("コレクションビューを更新")
                         DispatchQueue.global().async{
@@ -256,6 +241,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
             }
         })
     }
+    
     
     func pullSearchStampArtStick(){
         // スクリプトインスタンスを生成
@@ -280,21 +266,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         })
     }
     
-    @objc func onGoodButton(_ sender: UIButton){
-        // TODO: スタンプかスタンプアートかを確認しないといけない(tagに見分ける情報を付与するか？)
-        print("タップされたセルのButtonのtag:\(sender.tag)")
-        
-        // TODO:すでにグッドされているか判定→されていなかったらグッドするよ処理をする
-        // TODO:されていたらグッドやめるよ処理をする
-        
-        
-    }
-    
     // MARK: Action
     @IBAction func searchButtonAction(_ sender: Any) {
         if searchTextField.text == ""{
             print("検索文字列が入力されてないよ")
         }else{
+            // スタンプ・スタンプアートリストを初期化
+            stamps = []
+            stampArts = []
+            
             print("検索するよ:\(String(describing: searchTextField.text))")
             searchWord = searchTextField.text
             stampSkip = 0
@@ -304,6 +284,36 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
     }
     
+    @objc func onStampGoodButton(_ sender: UIButton){
+        print("タップされたstampGoodButtonのtag:\(sender.tag)")
+        
+        // TODO:すでにグッドされているか判定→されていなかったらグッドするよ処理をする
+        // TODO:されていたらグッドやめるよ処理をする
+        
+    }
+    
+    @objc func onStampArtGoodButton(_ sender: UIButton){
+        print("タップされたstampArtGoodButtonのtag:\(sender.tag)")
+        
+        // TODO:すでにグッドされているか判定→されていなかったらグッドするよ処理をする
+        // TODO:されていたらグッドやめるよ処理をする
+    }
+    
+    @objc func onStampUserIconButton(_ sender: UIButton){
+        // 確認
+        print("タップされたuserIconButtonのtag:\(sender.tag)")
+        print("タップされたアイコンのuserId:\(String(describing: self.stamps[sender.tag].1.getUserId()))")
+        
+        // プロフィール画面へ遷移
+        performSegue(withIdentifier: "profile", sender: self.stamps[sender.tag].1)
+        
+    }
+    
+    @objc func onStampArtUserIconButton(_ sender: UIButton){
+        print("タップされたuserIconButtonのtag:\(sender.tag)")
+        
+        // プロフィール画面に遷移するよ
+    }
     
     // MARK: UITextField
     
@@ -324,29 +334,29 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         // セルに情報を付加
         if collectionView == leftCollectionView{
             // Stampのセル
-            cell.goodButton.tag = indexPath.row
-            print("left:\(indexPath.row)")
-            
             // セルに情報を付加
             cell.userName.text = stamps[indexPath.row].1.getUserName()
             if let userIcon = self.stamps[indexPath.row].1.getUserIconImage(){
-                cell.userIconImageView.image = userIcon
+                cell.userIconButton.setImage(userIcon, for: .normal)
             }
-            if let stampImage = self.stamps[indexPath.row].0.stampImage{
+            if let stampImage = self.stamps[indexPath.row].0.getStampImage(){
                 cell.stickImageView.image = stampImage
             }
-            cell.numberOfGood.text = String(self.stamps[indexPath.row].0.good!)
+            cell.detailTextView.text = self.stamps[indexPath.row].0.getDetail()
+            cell.numberOfGood.text = String(self.stamps[indexPath.row].0.getNumberOfGood()!)
+            
+            // goodButtonにタグを設定し、アクションを追加
+            cell.goodButton.tag = indexPath.row
+            cell.goodButton.addTarget(self, action:  #selector(self.onStampGoodButton(_:)), for: .touchUpInside)
+            
+            // userIconButtonにタグを設定し、アクションを追加
+            cell.userIconButton.tag = indexPath.row
+            cell.userIconButton.addTarget(self, action: #selector(self.onStampUserIconButton(_:)), for: .touchUpInside)
             
         }else{
             // StampArtのセル
-            cell.goodButton.tag = indexPath.row
-            print("right:\(indexPath.row)")
             
-            cell.userName.text = "right"
         }
-        
-        // goodButtonにアクションを追加
-        cell.goodButton.addTarget(self, action:  #selector(self.onGoodButton(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -367,6 +377,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        if segue.identifier == "profile"{
+            // 遷移先ViewControllerの取得
+            let profileViewController = segue.destination as! ProfileViewController
+            
+            // プロフィール画面にユーザー情報を渡す
+            let user = sender as? User
+            profileViewController.user = user
+            
+        }
+    }
     
 }
