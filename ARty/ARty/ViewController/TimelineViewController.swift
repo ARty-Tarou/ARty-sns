@@ -19,6 +19,8 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // タイムラインリスト
     var timelineList: [(Stamp, User)] = []
     
+    // goodが押された回数
+    var timelineGoodCount: [Int] = []
     
     // 何件読んだか
     var skip = 0
@@ -45,6 +47,29 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     override func viewDidAppear(_ animated: Bool) {
         // ナビゲーションバーを非表示にする
         navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        // GoodCountを初期化
+        timelineGoodCount = [Int](repeating: 0, count: timelineList.count)
+    }
+    
+        override func viewWillDisappear(_ animated: Bool) {
+        // 画面遷移するときに実行
+        let goodLogic = GoodLogic()
+        
+        var index = 0
+        for count in timelineGoodCount{
+            if count % 2 == 1{
+                // Good処理を行う
+                let objectId = timelineList[index].0.getObjectId()
+                let bool = timelineList[index].0.getGood()
+                if bool == true{
+                    goodLogic.pushGood(objectId: objectId!)
+                }else if bool == false{
+                    goodLogic.undoGood(objectId: objectId!)
+                }
+            }
+            index += 1
+        }
     }
     
     // MARK: Codable
@@ -66,6 +91,8 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     
     struct StickData: Codable{
+        // 投稿のobjectId
+        let objectId: String
         // 投稿の概要
         let detail: String
         // 投稿のgood数
@@ -118,7 +145,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         guard let currentUser = NCMBUser.currentUser else{
             fatalError("カレントユーザーが取得できなかったよ")
         }
-        print("currentUser:\(currentUser.objectId)")
+        print("currentUser:\(String(describing: currentUser.objectId))")
         let requestBody: [String: Any?] = ["userId": currentUser.objectId]
         
         // スクリプト実行
@@ -135,6 +162,11 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                     
                     self.skip = json.skip
                     
+                    print("timeline件数:\(json.result.count)")
+                    
+                    // Good押されましたカウントを初期化
+                    self.timelineGoodCount = [Int](repeating: 0, count: json.result.count)
+                    
                     // timelineListを作成していく
                     for timelineData in json.result{
                         // スタンプ、ユーザーインスタンスを生成
@@ -145,10 +177,14 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                         let stickData = timelineData.stickData
                         
                         // 投稿の内容を代入
+                        stamp.setObjectId(objectId: stickData.objectId)
                         stamp.setUserId(userId: stickData.userId)
                         stamp.setDetail(detail: stickData.detail)
                         stamp.setNumberOfGood(numberOfGood: stickData.good)
                         stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                        
+                        // カレントユーザーがこの投稿をGoodしているか
+                        stamp.setGood(good: timelineData.good)
                         
                         // スタンプか、スタンプアートか
                         if stickData.stamp == true{
@@ -241,13 +277,42 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                 print("pullTimelineScript実行に失敗:\(error)")
             }
         })
-        
+    }
+    
+    func goodButtonLayout(button: UIButton, bool: Bool?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                if bool == true{
+                    button.setImage(UIImage(named: "gooded"), for: .normal)
+                }else{
+                    button.setImage(UIImage(named: "good"), for: .normal)
+                }
+            }
+        }
     }
     
     // MARK: Action
     @IBAction func stickButtonAction(_ sender: Any) {
         // 投稿フォーム画面に遷移
         performSegue(withIdentifier: "stick", sender: nil)
+    }
+    
+    @objc func onGoodButton(_ sender: UIButton){
+        print("タップされたGoodButtonのtag:\(sender.tag)")
+        print("タップされたGoodButtonのStickId:\(String(describing: timelineList[sender.tag].0.getObjectId()))")
+        
+        // 元々Goodしているか取得
+        let bool = timelineList[sender.tag].0.getGood()!
+        
+        // Goodしているか情報を更新
+        timelineList[sender.tag].0.setGood(good: !bool)
+        
+        // ボタンのレイアウトを変更
+        goodButtonLayout(button: sender, bool: !bool)
+        
+        // Goodが押された回数をカウント
+        self.timelineGoodCount[sender.tag] += 1
+        print("timelineGoodCount[\(sender.tag)]:\(timelineGoodCount[sender.tag])")
     }
     
     @objc func onUserIcon(_ sender: UIButton){
@@ -274,10 +339,14 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             cell.stampImageView.image = stampImage
         }
         cell.detailTextView.text = self.timelineList[indexPath.row].0.getDetail()
-        cell.goodNum.text = String(self.timelineList[indexPath.row].0.getNumberOfGood()!)
+        cell.numberOfGood.text = String(self.timelineList[indexPath.row].0.getNumberOfGood()!)
         
+        // goodButtonを設定
+        goodButtonLayout(button: cell.goodButton, bool: self.timelineList[indexPath.row].0.getGood())
+        cell.goodButton.tag = indexPath.row
+        cell.goodButton.addTarget(self, action:  #selector(self.onGoodButton(_:)), for: .touchUpInside)
         
-        // セルのボタンにアクションを設定
+        // userIconButtonを設定
         cell.userIconButton.tag = indexPath.row
         cell.userIconButton.addTarget(self, action: #selector(self.onUserIcon(_ :)), for: .touchUpInside)
         
@@ -292,7 +361,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
-        print(timelineList[indexPath.row].0.getStampName())
+        print(timelineList[indexPath.row].0.getStampName()!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

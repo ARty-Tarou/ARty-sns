@@ -251,7 +251,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         // ボディ設定
         let requestBody: [String: Any?] = ["userId": self.user?.getUserId()]
         
-        // スクリプト実行 JSON形式でこのユーザーのStickリストを取得
+        // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
             case let .success(data):

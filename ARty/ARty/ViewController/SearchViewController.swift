@@ -23,6 +23,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     var stamps: [(Stamp, User)] = []
     var stampArts: [(Stamp, User)] = []
     
+    // Goodが押された回数
+    var stampGoodCount: [Int] = []
+    var stampArtGoodCount: [Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +55,32 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     override func viewDidAppear(_ animated: Bool) {
         // ナビゲーションバーを非表示にする
         navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        // GoodCountを初期化
+        stampGoodCount = [Int](repeating: 0, count: stamps.count)
+        stampArtGoodCount = [Int](repeating: 0, count: stampArts.count)
+    }
+    
+        override func viewWillDisappear(_ animated: Bool) {
+        // 画面遷移するときに実行
+        
+        
+        let goodLogic = GoodLogic()
+        
+        var index = 0
+        for count in stampGoodCount{
+            if count % 2 == 1{
+                // Good処理を行う
+                let objectId = stamps[index].0.getObjectId()
+                let bool = stamps[index].0.getGood()
+                if bool == true{
+                    goodLogic.pushGood(objectId: objectId!)
+                }else if bool == false{
+                    goodLogic.undoGood(objectId: objectId!)
+                }
+            }
+            index += 1
+        }
     }
     
     // MARK: Codable
@@ -74,6 +104,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     }
     
     struct StickData: Codable{
+        // 投稿のobjectId
+        let objectId: String
         // 投稿の概要
         let detail: String
         // 投稿のgood数
@@ -141,6 +173,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                     
                     print("stamp件数:\(json.result.count)件")
                     
+                    // Good押されましたカウントを初期化
+                    self.stampGoodCount = [Int](repeating: 0, count: json.result.count)
+                    
                     // 取得した件数だけ回します
                     for stick in json.result{
                         // スタンプ、ユーザーインスタンスを生成
@@ -151,11 +186,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                         let stickData = stick.stickData
                         
                         // 投稿の内容を代入
+                        stamp.setObjectId(objectId: stickData.objectId)
                         stamp.setUserId(userId: stickData.userId)
                         stamp.setDetail(detail: stickData.detail)
                         stamp.setNumberOfGood(numberOfGood: stickData.good)
                         stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
                         stamp.setStampName(stampName: stickData.staticData.stampName!)
+                        
+                        // カレントユーザーがこの投稿をGoodしているか
+                        stamp.setGood(good: stick.good)
                         
                         // ファイルストアからスタンプを取得
                         let file = NCMBFile(fileName: stamp.getStampName()!)
@@ -167,6 +206,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                                 // データをUIImageに変換
                                 let image = data.flatMap(UIImage.init)
                                 // スタンプに画像を代入
+                                stamp.setStampImage(stampImage: image)
                                 
                                 // コレクションビューを更新
                                 print("コレクションビューを更新")
@@ -266,6 +306,18 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         })
     }
     
+    func goodButtonLayout(button: UIButton, bool: Bool?){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                if bool == true{
+                    button.setImage(UIImage(named: "gooded"), for: .normal)
+                }else{
+                    button.setImage(UIImage(named: "good"), for: .normal)
+                }
+            }
+        }
+    }
+    
     // MARK: Action
     @IBAction func searchButtonAction(_ sender: Any) {
         if searchTextField.text == ""{
@@ -286,9 +338,20 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     @objc func onStampGoodButton(_ sender: UIButton){
         print("タップされたstampGoodButtonのtag:\(sender.tag)")
+        print("タップされたGoodButtonのobjectId:\(String(describing: stamps[sender.tag].0.getObjectId()))")
         
-        // TODO:すでにグッドされているか判定→されていなかったらグッドするよ処理をする
-        // TODO:されていたらグッドやめるよ処理をする
+        // 元々Goodしているか取得
+        let bool = stamps[sender.tag].0.getGood()!
+        
+        // Goodしているか情報を更新
+        stamps[sender.tag].0.setGood(good: !bool)
+        
+        // ボタンのレイアウトを変更
+        goodButtonLayout(button: sender, bool: !bool)
+        
+        // Goodが押された回数をカウント
+        self.stampGoodCount[sender.tag] += 1
+        print("stampGoodCount[\(sender.tag)]:\(stampGoodCount[sender.tag])")
         
     }
     
@@ -345,11 +408,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
             cell.detailTextView.text = self.stamps[indexPath.row].0.getDetail()
             cell.numberOfGood.text = String(self.stamps[indexPath.row].0.getNumberOfGood()!)
             
-            // goodButtonにタグを設定し、アクションを追加
+            // goodButtonを設定
+            goodButtonLayout(button: cell.goodButton, bool: self.stamps[indexPath.row].0.getGood())
             cell.goodButton.tag = indexPath.row
             cell.goodButton.addTarget(self, action:  #selector(self.onStampGoodButton(_:)), for: .touchUpInside)
             
-            // userIconButtonにタグを設定し、アクションを追加
+            // userIconButtonを設定
             cell.userIconButton.tag = indexPath.row
             cell.userIconButton.addTarget(self, action: #selector(self.onStampUserIconButton(_:)), for: .touchUpInside)
             

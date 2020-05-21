@@ -27,6 +27,9 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     // スタンプリスト
     var stamps: [(Stamp)] = []
     
+    // 何件読んだか
+    var skip = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,38 +56,51 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         // Stampタブを選択状態にする
         stampTab.isEnabled = false
         
-        // UserProductを表示する
+        // UserStickを表示する
         userStick()
     }
     
     // MARK: JSON
     struct UserInfo: Codable{
-        // userIcon
-        let iconImageName: String?
+        // iconImageName
+        let iconImageName: String
         // selfIntroduction
-        let selfIntroduction: String?
+        let selfIntroduction: String
+        // birthDay
+        let birthDay: String?
         // follow
-        let numberOfFollow: Int?
+        let numberOfFollow: Int
         // follower
-        let numberOfFollowed: Int?
+        let numberOfFollowed: Int
+    }
+    
+    struct SearchResult: Codable{
+        // StickData
+        let result: [StickData]
+        // skip
+        let skip: Int
     }
     
     struct StickData: Codable{
+        // 投稿の概要
+        let detail: String
         // 投稿のgood数
-        let good: Int?
-        // 投稿者のuserId
-        let userId: String?
-        // stampかstampArtか
-        let stamp: Bool?
-        // スタンプデータ
-        let staticData: StaticData?
+        let good: Int
+        // 投稿の閲覧数
+        let numberOfViews: Int
+        // 投稿者
+        let userId: String
+        // スタンプであるか
+        let stamp: Bool
+        // 投稿のその他の情報
+        //let staticData: StaticData
     }
     
     struct StaticData: Codable{
         // スタンプ名
         let stampName: String?
         // スタンプアート名
-        let stampArtName: String?
+        // let stampArtName: String?
     }
     
     // MARK: Methods
@@ -111,16 +127,16 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                         DispatchQueue.global().async{
                             DispatchQueue.main.async {
                                 self.selfIntroductionTextView.text = userInfo.selfIntroduction
-                                self.numberOfFollowLabel.text = String(userInfo.numberOfFollow!)
-                                self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed!)
+                                self.numberOfFollowLabel.text = String(userInfo.numberOfFollow)
+                                self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed)
                                 
                                 if self.userIconImageView.image == nil{
                                     // ファイルストアからファイルを取得
-                                    let file = NCMBFile(fileName: userInfo.iconImageName!)
+                                    let file = NCMBFile(fileName: userInfo.iconImageName)
                                     file.fetchInBackground(callback: {result in
                                         switch result{
                                         case let .success(data):
-                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName!)")
+                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName)")
                                             
                                             // データを画像に変換
                                             let image = data.flatMap(UIImage.init)
@@ -155,7 +171,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         // ボディ設定
         let requestBody: [String: Any?] = ["userId": self.user?.objectId]
         
-        // スクリプト実行 JSON形式でユーザーのStickリストを取得
+        // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
             case let .success(data):
@@ -163,38 +179,43 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 do{
                     let decoder = JSONDecoder()
-                    let json = try decoder.decode([StickData].self, from: data!)
+                    let json = try decoder.decode(SearchResult.self, from: data!)
                     
-                    // 取得したjsonのデータ数だけ回す
-                    for stick in json{
+                    self.skip = json.skip
+                    
+                    // スタンプリストを作成していく
+                    /*
+                    for stick in json.result{
+                        // スタンプインスタンスを生成
+                        
                         if stick.stamp == true{
                             // スタンプの場合
                             // スタンプインスタンスを生成
                             let stamp: Stamp = Stamp()
-                            stamp.setUserId(userId: stick.userId!)
-                            if let stampData = stick.staticData{
-                                print("stampName:\(String(describing: stampData.stampName))")
+                            stamp.setUserId(userId: stick.userId)
+                            
+                            // スタンプ・スタンプアートに関する情報をいれていく
+                            stamp.setUserId(userId: stick.userId)
+                            stamp.setDetail(detail: stick.detail)
+                            stamp.setNumberOfGood(numberOfGood: stick.good)
+                            stamp.setNumberOfViews(numberOfViews: stick.numberOfViews)
+                            
+                            // スタンプか、スタンプアートか
+                            if stick.stamp == true{
+                                // スタンプ名を代入
+                                stamp.setStampName(stampName: stick.staticData.stampName!)
                                 
-                                // スタンプ名をセット
-                                stamp.setStampName(stampName: stampData.stampName!)
-                                
-                                // ファイルストアから画像を取得
-                                // ファイルの指定
-                                let file = NCMBFile(fileName: stampData.stampName!)
-                                
-                                // ファイルの取得
-                                print("画像を取ってきます:\(stampData.stampName!)")
+                                // ファイルストアからスタンプを取得
+                                let file = NCMBFile(fileName: stamp.getStampName()!)
                                 file.fetchInBackground(callback: {result in
                                     switch result{
                                     case let .success(data):
-                                        print("画像取得に成功:\(stampData.stampName!)")
                                         
-                                        // データを画像に変換
-                                        if let image = data.flatMap(UIImage.init){
-                                            // スタンプに画像をセット
-                                            print("画像をセット:\(stampData.stampName!)")
-                                            stamp.setStampImage(stampImage: image)
-                                        }
+                                        // データをUIImageに変換
+                                        let image = data.flatMap(UIImage.init)
+                                        
+                                        // スタンプに画像を代入
+                                        stamp.setStampImage(stampImage: image)
                                         
                                         // コレクションビューを更新
                                         print("コレクションビューを更新")
@@ -204,9 +225,11 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                                             }
                                         }
                                     case let .failure(error):
-                                        print("画像取得に失敗:\(error)")
+                                        print("スタンプ画像取得に失敗:\(error)")
                                     }
                                 })
+                            }else{
+                                // スタンプアート名を代入
                             }
                             
                             // スタンプリストに追加
@@ -219,18 +242,20 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                                 }
                             }
                         }else{
-                            // スタンプアートの場合(スタンプアートリストに入れていく。)
+                            // スタンプアートの場合（スタンプアートリストに入れていく。)
+                            
                         }
-                    }
+                    }*/
                 }catch{
                     print("error")
                 }
                 
             case let .failure(error):
-                print("upllMyStickScript実行に失敗:\(error)")
+                print("pullMyStickScript実行に失敗:\(error)")
             }
         })
     }
+    
     
     // MARK: UICollectionViewDataSource
     
@@ -273,6 +298,16 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     // MARK: Actions
+    
+    @IBAction func followListButtonAction(_ sender: Any) {
+        // ユーザーテーブル画面へ遷移する
+        performSegue(withIdentifier: "userTable", sender: 0)
+    }
+    
+    @IBAction func followerListButtonAction(_ sender: Any) {
+        // ユーザーテーブル画面へ遷移する
+        performSegue(withIdentifier: "userTable", sender: 1)
+    }
     
     @IBAction func logoutButtonAction(_ sender: Any) {
         // TODO: ログアウト処理
@@ -331,5 +366,16 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
             }
         }
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "userTable"{
+            // 遷移先ViewControllerの取得
+            let userTableViewController = segue.destination as! UserTableViewController
+            
+            // プロフィール画面にユーザー情報を渡す
+            userTableViewController.userId = self.user?.objectId
+            let category = sender as? Int
+            userTableViewController.category = category
+        }
+    }
  }

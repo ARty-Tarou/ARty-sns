@@ -78,7 +78,8 @@
             </collectionViewCellContentView>
             <connections>
                 <outlet property="detailTextView" destination="BXJ-hE-C4s" id="GUn-Na-oRJ"/>
-                <outlet property="goodNum" destination="lJD-DE-tnT" id="7Dm-4O-A5a"/>
+                <outlet property="goodButton" destination="y5G-tD-A5Z" id="Sxf-eg-vUu"/>
+                <outlet property="numberOfGood" destination="lJD-DE-tnT" id="dbN-ej-Fa0"/>
                 <outlet property="stampImageView" destination="xEP-hC-MeR" id="MLb-tS-3Yo"/>
                 <outlet property="userIconButton" destination="hEa-xH-c8q" id="USB-g2-eYc"/>
                 <outlet property="userNameLabel" destination="C9o-Qp-3mm" id="nLb-X8-OBW"/>

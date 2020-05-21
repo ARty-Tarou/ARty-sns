@@ -35,6 +35,7 @@
 		CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E566244D540300EF5DED /* Timeline.storyboard */; };
 		CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E568244D544C00EF5DED /* Tab.storyboard */; };
 		CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */; };
+		CC7A014A247662EB00305B94 /* GoodLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7A0149247662EB00305B94 /* GoodLogic.swift */; };
 		CC7C24E82450654F005431B5 /* Stamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24E72450654F005431B5 /* Stamp.swift */; };
 		CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C24ED2451D28E005431B5 /* StickCell.swift */; };
 		CC7C24F22452D042005431B5 /* StickCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7C24F12452D042005431B5 /* StickCell.xib */; };
@@ -87,6 +88,7 @@
 		CC61E566244D540300EF5DED /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		CC61E568244D544C00EF5DED /* Tab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tab.storyboard; sourceTree = "<group>"; };
 		CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CC7A0149247662EB00305B94 /* GoodLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodLogic.swift; sourceTree = "<group>"; };
 		CC7C24E72450654F005431B5 /* Stamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamp.swift; sourceTree = "<group>"; };
 		CC7C24ED2451D28E005431B5 /* StickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickCell.swift; sourceTree = "<group>"; };
 		CC7C24F12452D042005431B5 /* StickCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickCell.xib; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				CCCDC551244EB98900E4AECE /* LogoutLogic.swift */,
 				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
 				CC88A31B24700D2B003FC79C /* SearchStickCell.swift */,
+				CC7A0149247662EB00305B94 /* GoodLogic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */,
 				08D74602246D5B7800245DDD /* SubHelpViewController.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
+				CC7A014A247662EB00305B94 /* GoodLogic.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */,
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
 				CC7D8187246BD69800351D2A /* UserTableViewController.swift in Sources */,

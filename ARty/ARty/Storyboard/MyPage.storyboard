@@ -101,11 +101,17 @@
                                 <rect key="frame" x="207" y="210" width="58" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Follower"/>
+                                <connections>
+                                    <action selector="followerListButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="g73-gn-W21"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8m-J6-Nx3">
                                 <rect key="frame" x="332" y="210" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Follow"/>
+                                <connections>
+                                    <action selector="followListButtonAction:" destination="N9I-aF-UDC" eventType="touchUpInside" id="vZQ-Es-ZhB"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGb-xu-2kK">
                                 <rect key="frame" x="332" y="248" width="50" height="21"/>
@@ -146,6 +152,7 @@
                         <outlet property="userNameLabel" destination="p9y-Eg-aDA" id="MNZ-SU-lwM"/>
                         <segue destination="Rdj-bm-9Yi" kind="show" identifier="change" id="Vzi-AY-hBT"/>
                         <segue destination="krY-ZA-rjE" kind="show" identifier="logout" id="Ew2-7Q-jec"/>
+                        <segue destination="Rfp-iR-uXp" kind="show" identifier="userTable" id="cZ1-eV-svC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -160,7 +167,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3DB-vd-8fb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1590" y="840"/>
+            <point key="canvasLocation" x="1590" y="980"/>
         </scene>
         <!--Main-->
         <scene sceneID="xXq-ys-LMx">
@@ -170,7 +177,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLD-5E-qvY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1590" y="927"/>
+            <point key="canvasLocation" x="1570" y="1047"/>
+        </scene>
+        <!--UserTable-->
+        <scene sceneID="8SW-ic-2im">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserTable" id="Rfp-iR-uXp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="G7V-3t-Wuo"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qAn-EQ-dGi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1588" y="1184"/>
         </scene>
         <!--Change My Data View Controller-->
         <scene sceneID="qaH-pN-NGj">

@@ -11,6 +11,7 @@ import UIKit
 class Stamp {
 
     // MARK: Properties
+    private var objectId: String?
     private var stampName: String?
     private var stampImage: UIImage?
     private var userId: String?
@@ -38,6 +39,14 @@ class Stamp {
     }
     
     // MARK: Setter & Getter
+    func setObjectId(objectId: String){
+        self.objectId = objectId
+    }
+    
+    func getObjectId() -> String?{
+        return objectId
+    }
+    
     func setStampName(stampName: String){
         self.stampName = stampName
     }
