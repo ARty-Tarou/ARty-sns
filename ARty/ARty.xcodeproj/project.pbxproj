@@ -25,6 +25,7 @@
 		CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC115C7C2469328400461C49 /* ProfileViewController.swift */; };
 		CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1324902466363B00F6CF0A /* TimelineCell.swift */; };
 		CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC1324922466CA9200F6CF0A /* TimelineCell.xib */; };
+		CC22ABE82478093400A578BE /* ChangeMyData.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC22ABE72478093400A578BE /* ChangeMyData.storyboard */; };
 		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
 		CC5A7A2424619650009A923C /* ActivityIndicatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */; };
 		CC61E55D244D4E0900EF5DED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61E55C244D4E0900EF5DED /* User.swift */; };
@@ -78,6 +79,7 @@
 		CC115C7C2469328400461C49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CC1324902466363B00F6CF0A /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		CC1324922466CA9200F6CF0A /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
+		CC22ABE72478093400A578BE /* ChangeMyData.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChangeMyData.storyboard; sourceTree = "<group>"; };
 		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorLogic.swift; sourceTree = "<group>"; };
 		CC61E55C244D4E0900EF5DED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				CC61E568244D544C00EF5DED /* Tab.storyboard */,
 				CC61E560244D539600EF5DED /* Trend.storyboard */,
 				CC61E562244D53A500EF5DED /* Search.storyboard */,
+				CC22ABE72478093400A578BE /* ChangeMyData.storyboard */,
 				CC61E564244D53DD00EF5DED /* MyPage.storyboard */,
 				CC115C7A246931F600461C49 /* Profile.storyboard */,
 				CC61E566244D540300EF5DED /* Timeline.storyboard */,
@@ -301,6 +304,7 @@
 				08B4186B244F1F300053AFCC /* SigninFailed.storyboard in Resources */,
 				CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */,
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
+				CC22ABE82478093400A578BE /* ChangeMyData.storyboard in Resources */,
 				CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */,
 				CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */,
 				CC88A31A24700A4F003FC79C /* SearchStickCell.xib in Resources */,

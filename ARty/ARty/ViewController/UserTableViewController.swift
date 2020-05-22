@@ -46,6 +46,11 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        // ナビゲーションバーを表示する
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     // MARK: Codable
     struct PullUserResult: Codable{
         // ユーザーデータ

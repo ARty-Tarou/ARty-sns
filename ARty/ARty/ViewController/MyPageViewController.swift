@@ -22,7 +22,8 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var myStickCollectionView: UICollectionView!
     
     // カレントユーザー
-    let user = NCMBUser.currentUser
+    let currentUser = NCMBUser.currentUser
+    var currentUserDetail: User?
     
     // スタンプリスト
     var stamps: [(Stamp)] = []
@@ -33,11 +34,8 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ナビゲーションバーを非表示にする
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        
         // userNameLabelにユーザー名を設定
-        userNameLabel.text = user?.userName
+        userNameLabel.text = currentUser?.userName
         
         //　未取得のユーザー情報を補完
         pullMyInform()
@@ -60,18 +58,33 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         userStick()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        // ナビゲーションバーを非表示にする
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     // MARK: JSON
-    struct UserInfo: Codable{
-        // iconImageName
-        let iconImageName: String
-        // selfIntroduction
-        let selfIntroduction: String
-        // birthDay
-        let birthDay: String?
-        // follow
-        let numberOfFollow: Int
-        // follower
-        let numberOfFollowed: Int
+    struct UserDetailData: Codable{
+        // 投稿者のユーザーID
+         let userId: String
+         // TODO: 投稿者の誕生日（後々Date型に変更？)
+         let birthday: String?
+         // 投稿者のユーザーアイコンのファイル名
+         let iconImageName: String
+         // 投稿者のプロフィールコメント
+         let selfIntroduction: String
+         // ユーザーのフォロワー数
+         let numberOfFollowed: Int
+         // ユーザーのフォロー数
+         let numberOfFollow: Int
+         // ユーザーのその他情報
+         let userData: UserData
+    }
+    
+    struct UserData: Codable{
+        // ユーザー名
+        let userName: String
     }
     
     struct SearchResult: Codable{
@@ -81,7 +94,21 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         let skip: Int
     }
     
+    struct PullStickResult: Codable{
+        // StickData
+        let result: [StickDetailData]
+        // skip
+        let skip: Int
+    }
+    
+    struct StickDetailData: Codable{
+        // 投稿のデータ
+        let stickData: StickData
+    }
+    
     struct StickData: Codable{
+        // 投稿のobjectId
+        let objectId: String
         // 投稿の概要
         let detail: String
         // 投稿のgood数
@@ -93,7 +120,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         // スタンプであるか
         let stamp: Bool
         // 投稿のその他の情報
-        //let staticData: StaticData
+        let staticData: StaticData
     }
     
     struct StaticData: Codable{
@@ -110,7 +137,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         let script = NCMBScript(name: "pullMyInform.js", method: .post)
         
         // ボディ設定
-        let requestBody:[String: Any?] = ["userId": self.user?.objectId]
+        let requestBody:[String: Any?] = ["userId": self.currentUser?.objectId]
         
         // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -121,39 +148,51 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                 do{
                     let decoder = JSONDecoder()
                     
-                    let json = try decoder.decode([UserInfo].self, from: data!)
+                    let json = try decoder.decode([UserDetailData].self, from: data!)
                     
-                    if let userInfo = json.first{
-                        DispatchQueue.global().async{
-                            DispatchQueue.main.async {
-                                self.selfIntroductionTextView.text = userInfo.selfIntroduction
-                                self.numberOfFollowLabel.text = String(userInfo.numberOfFollow)
-                                self.numberOfFollowerLabel.text = String(userInfo.numberOfFollowed)
+                    // ユーザーに関する情報を入れていく
+                    let userDetailData = json.first
+                    let user = User()
+                    
+                    // ユーザー情報を代入
+                    user.setUserId(userId: userDetailData!.userId)
+                    user.setUserName(userName: (userDetailData?.userData.userName)!)
+                    user.setSelfIntroduction(selfIntroduction: userDetailData!.selfIntroduction)
+                    user.setNumberOfFollowed(numberOfFollowed: userDetailData!.numberOfFollowed)
+                    user.setNumberOfFollow(numberOfFollow: userDetailData!.numberOfFollow)
+                    
+                    self.currentUserDetail = user
+                    
+                    if userDetailData?.iconImageName != "firstIcon"{
+                        let file = NCMBFile(fileName: userDetailData!.iconImageName)
+                        file.fetchInBackground(callback: {result in
+                            switch result{
+                            case let .success(data):
+                                print("ユーザーアイコン取得に成功:\(file.fileName)")
                                 
-                                if self.userIconImageView.image == nil{
-                                    // ファイルストアからファイルを取得
-                                    let file = NCMBFile(fileName: userInfo.iconImageName)
-                                    file.fetchInBackground(callback: {result in
-                                        switch result{
-                                        case let .success(data):
-                                            print("ユーザーアイコン取得に成功:\(userInfo.iconImageName)")
-                                            
-                                            // データを画像に変換
-                                            let image = data.flatMap(UIImage.init)
-                                            
-                                            DispatchQueue.global().async{
-                                                DispatchQueue.main.async {
-                                                    self.userIconImageView.image = image
-                                                }
-                                            }
-                                        case let .failure(error):
-                                            print("ユーザーアイコンが取得できませんでした。:\(error)")
-                                        }
-                                    })
+                                // データをUIImageに変換
+                                let image = data.flatMap(UIImage.init)
+                                self.currentUserDetail?.setUserIconImage(userIconImage: image!)
+                                
+                                // userIconImageViewに反映
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.userIconImageView.image = image
+                                    }
                                 }
+                                
+                            case let .failure(error):
+                                print("ユーザーアイコン取得に失敗:\(error)")
                             }
-                        }
+                        })
+                    }else{
+                        // 初期アイコンを設定
+                        self.currentUserDetail?.setUserIconImage(userIconImage: UIImage(named: "FirstIcon")!)
                     }
+                    
+                    // 画面部品を更新
+                    self.setUserDetail()
+                    
                 }catch{
                     print("error")
                 }
@@ -169,7 +208,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         let script = NCMBScript(name: "pullMyStick.js", method: .post)
         
         // ボディ設定
-        let requestBody: [String: Any?] = ["userId": self.user?.objectId]
+        let requestBody: [String: Any?] = ["userId": self.currentUser?.objectId, "skip": skip]
         
         // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -179,73 +218,70 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
                 do{
                     let decoder = JSONDecoder()
-                    let json = try decoder.decode(SearchResult.self, from: data!)
+                    let json = try decoder.decode(PullStickResult.self, from: data!)
                     
                     self.skip = json.skip
                     
                     // スタンプリストを作成していく
-                    /*
-                    for stick in json.result{
-                        // スタンプインスタンスを生成
+                    for stickDetailData in json.result{
                         
-                        if stick.stamp == true{
-                            // スタンプの場合
-                            // スタンプインスタンスを生成
-                            let stamp: Stamp = Stamp()
-                            stamp.setUserId(userId: stick.userId)
-                            
-                            // スタンプ・スタンプアートに関する情報をいれていく
-                            stamp.setUserId(userId: stick.userId)
-                            stamp.setDetail(detail: stick.detail)
-                            stamp.setNumberOfGood(numberOfGood: stick.good)
-                            stamp.setNumberOfViews(numberOfViews: stick.numberOfViews)
-                            
-                            // スタンプか、スタンプアートか
-                            if stick.stamp == true{
-                                // スタンプ名を代入
-                                stamp.setStampName(stampName: stick.staticData.stampName!)
-                                
-                                // ファイルストアからスタンプを取得
-                                let file = NCMBFile(fileName: stamp.getStampName()!)
-                                file.fetchInBackground(callback: {result in
-                                    switch result{
-                                    case let .success(data):
-                                        
-                                        // データをUIImageに変換
-                                        let image = data.flatMap(UIImage.init)
-                                        
-                                        // スタンプに画像を代入
-                                        stamp.setStampImage(stampImage: image)
-                                        
-                                        // コレクションビューを更新
-                                        print("コレクションビューを更新")
-                                        DispatchQueue.global().async {
-                                            DispatchQueue.main.async {
-                                                self.myStickCollectionView.reloadData()
-                                            }
+                        // スタンプインスタンスを生成
+                        let stamp: Stamp = Stamp()
+                        
+                        // スタンプ・スタンプアートに関する情報を入れていく
+                        let stickData = stickDetailData.stickData
+                        
+                        // 投稿の内容を代入
+                        stamp.setObjectId(objectId: stickData.objectId)
+                        stamp.setUserId(userId: stickData.userId)
+                        stamp.setDetail(detail: stickData.detail)
+                        stamp.setNumberOfGood(numberOfGood: stickData.good)
+                        stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                        
+                        // スタンプか、スタンプアートか
+                        if stickData.stamp == true{
+                            // スタンプ名を代入
+                            stamp.setStampName(stampName: stickData.staticData.stampName!)
+                            // ファイルストアからスタンプを取得
+                            let file = NCMBFile(fileName: stamp.getStampName()!)
+                            file.fetchInBackground(callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("スタンプ画像取得に成功\(file.fileName)")
+                                    
+                                    // データをUIImageに変換
+                                    let image = data.flatMap(UIImage.init)
+                                    // スタンプに画像を代入
+                                    stamp.setStampImage(stampImage: image)
+                                    
+                                    // コレクションビューを更新
+                                    print("コレクションビューを更新")
+                                    DispatchQueue.global().async {
+                                        DispatchQueue.main.async {
+                                            self.myStickCollectionView.reloadData()
                                         }
-                                    case let .failure(error):
-                                        print("スタンプ画像取得に失敗:\(error)")
                                     }
-                                })
-                            }else{
-                                // スタンプアート名を代入
-                            }
-                            
-                            // スタンプリストに追加
-                            self.stamps.append(stamp)
-                            // コレクションビューを更新
-                            print("コレクションビューを更新")
-                            DispatchQueue.global().async {
-                                DispatchQueue.main.async {
-                                    self.myStickCollectionView.reloadData()
+                                    
+                                case let .failure(error):
+                                    print("スタンプ画像取得に失敗\(error)")
                                 }
-                            }
+                            })
                         }else{
-                            // スタンプアートの場合（スタンプアートリストに入れていく。)
-                            
+                            // スタンプアート名を代入
                         }
-                    }*/
+                        
+                        // スタンプリストに追加
+                        self.stamps.append(stamp)
+                        
+                        // コレクションビューを更新
+                        print("コレクションビューを更新")
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.async {
+                                self.myStickCollectionView.reloadData()
+                            }
+                        }
+                        
+                    }
                 }catch{
                     print("error")
                 }
@@ -256,44 +292,14 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         })
     }
     
-    
-    // MARK: UICollectionViewDataSource
-    
-    // セルを返す
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stickCell", for: indexPath) as! StickCell
-        
-        if stampTab.isEnabled == false{
-            // スタンプリストを表示
-            if let image = stamps[indexPath.row].getStampImage(){
-                cell.productImageView.image = image
+    // 画面部品にユーザー情報を付与する
+    func setUserDetail(){
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.selfIntroductionTextView.text = self.currentUserDetail?.getSelfIntroduction()
+                self.numberOfFollowLabel.text = String((self.currentUserDetail?.getNumberOfFollow())!)
+                self.numberOfFollowerLabel.text = String((self.currentUserDetail?.getNumberOfFollowed())!)
             }
-        }else{
-            // スタンプアートリストを表示
-        }
-        return cell
-        
-    }
-    
-    // セル数を返す
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        if stampTab.isEnabled == false{
-             // スタンプの場合
-             return stamps.count
-         }else{
-             // スタンプアートの場合
-             return 0
-         }
-    }
-    
-    // セルが選択されたとき
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        if stampTab.isEnabled == false{
-            // スタンプの場合
-            print(stamps[indexPath.row].getStampName())
-        }else{
-            // スタンプアートの場合
-            
         }
     }
     
@@ -333,7 +339,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     // changeボタンをタップしたとき
     @IBAction func changeButtonAction(_ sender: Any) {
         // 変更画面へ遷移
-        performSegue(withIdentifier: "change", sender: nil)
+        performSegue(withIdentifier: "changeMyData", sender: nil)
         
     }
     
@@ -367,15 +373,64 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    // MARK: UICollectionViewDataSource
+    
+    // セルを返す
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stickCell", for: indexPath) as! StickCell
+        
+        if stampTab.isEnabled == false{
+            // スタンプリストを表示
+            if let image = stamps[indexPath.row].getStampImage(){
+                cell.productImageView.image = image
+            }
+            cell.detailTextView.text = stamps[indexPath.row].getDetail()
+            cell.numberOfGood.text = String(stamps[indexPath.row].getNumberOfGood()!)
+        }else{
+            // スタンプアートリストを表示
+        }
+        return cell
+        
+    }
+    
+    // セル数を返す
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        if stampTab.isEnabled == false{
+             // スタンプの場合
+             return stamps.count
+         }else{
+             // スタンプアートの場合
+             return 0
+         }
+    }
+    
+    // セルが選択されたとき
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        if stampTab.isEnabled == false{
+            // スタンプの場合
+            print(stamps[indexPath.row].getStampName())
+        }else{
+            // スタンプアートの場合
+            
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "userTable"{
             // 遷移先ViewControllerの取得
             let userTableViewController = segue.destination as! UserTableViewController
             
             // プロフィール画面にユーザー情報を渡す
-            userTableViewController.userId = self.user?.objectId
+            userTableViewController.userId = self.currentUser?.objectId
             let category = sender as? Int
             userTableViewController.category = category
+        }else if segue.identifier == "changeMyData"{
+            // 遷移先ViewControllerの取得
+            let changeMyDataViewController = segue.destination as! ChangeMyDataViewController
+            
+            // ChangeMyDataにユーザー情報を渡す
+            changeMyDataViewController.currentUserDetailData = self.currentUserDetail
+            
         }
     }
  }

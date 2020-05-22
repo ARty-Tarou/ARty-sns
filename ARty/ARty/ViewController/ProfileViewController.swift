@@ -40,9 +40,6 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         // 確認用:引数を出力
         print("情報を表示\(String(describing: user?.getUserId()))")
         
-        // ナビゲーションバーを表示する
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
         // 画面部品にユーザーデータをセット
         var num = 0
         if let userName = user?.getUserName(){
@@ -103,6 +100,11 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        // ナビゲーションバーを表示する
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         // プロフィール画面から移動する時、処理を行う
         if count % 2 == 1{
@@ -150,14 +152,21 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         let userName: String
     }
     
-    struct SearchResult: Codable{
+    struct PullStickResult: Codable{
         // StickData
-        let stickData: [StickData]
+        let result: [StickDetailData]
         // skip
         let skip: Int
     }
     
+    struct StickDetailData: Codable{
+        // 投稿のデータ
+        let stickData: StickData
+    }
+    
     struct StickData: Codable{
+        // 投稿のobjectId
+        let objectId: String
         // 投稿の概要
         let detail: String
         // 投稿のgood数
@@ -249,7 +258,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         let script = NCMBScript(name: "pullYourStick.js", method: .post)
         
         // ボディ設定
-        let requestBody: [String: Any?] = ["userId": self.user?.getUserId()]
+        let requestBody: [String: Any?] = ["userId": self.user?.getUserId(), "skip": skip]
         
         // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -259,71 +268,69 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 do{
                     let decoder = JSONDecoder()
-                    let json = try decoder.decode(SearchResult.self, from: data!)
+                    let json = try decoder.decode(PullStickResult.self, from: data!)
                     
                     self.skip = json.skip
                     
                     // スタンプリストを作成していく
-                    for stick in json.stickData{
-                        // スタンプインスタンスを生成
+                    for stickDetailData in json.result{
                         
-                        if stick.stamp == true{
-                            // スタンプの場合
-                            // スタンプインスタンスを生成
-                            let stamp: Stamp = Stamp()
-                            stamp.setUserId(userId: stick.userId)
-                            
-                            // スタンプ・スタンプアートに関する情報をいれていく
-                            stamp.setUserId(userId: stick.userId)
-                            stamp.setDetail(detail: stick.detail)
-                            stamp.setNumberOfGood(numberOfGood: stick.good)
-                            stamp.setNumberOfViews(numberOfViews: stick.numberOfViews)
-                            
-                            // スタンプか、スタンプアートか
-                            if stick.stamp == true{
-                                // スタンプ名を代入
-                                stamp.setStampName(stampName: stick.staticData.stampName!)
-                                
-                                // ファイルストアからスタンプを取得
-                                let file = NCMBFile(fileName: stamp.getStampName()!)
-                                file.fetchInBackground(callback: {result in
-                                    switch result{
-                                    case let .success(data):
-                                        
-                                        // データをUIImageに変換
-                                        let image = data.flatMap(UIImage.init)
-                                        
-                                        // スタンプに画像を代入
-                                        stamp.setStampImage(stampImage: image)
-                                        
-                                        // コレクションビューを更新
-                                        print("コレクションビューを更新")
-                                        DispatchQueue.global().async {
-                                            DispatchQueue.main.async {
-                                                self.stickCollectionView.reloadData()
-                                            }
+                        // スタンプインスタンスを生成
+                        let stamp: Stamp = Stamp()
+                        
+                        // スタンプ・スタンプアートに関する情報を入れていく
+                        let stickData = stickDetailData.stickData
+                        
+                        // 投稿の内容を代入
+                        stamp.setObjectId(objectId: stickData.objectId)
+                        stamp.setUserId(userId: stickData.userId)
+                        stamp.setDetail(detail: stickData.detail)
+                        stamp.setNumberOfGood(numberOfGood: stickData.good)
+                        stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                        
+                        // スタンプか、スタンプアートか
+                        if stickData.stamp == true{
+                            // スタンプ名を代入
+                            stamp.setStampName(stampName: stickData.staticData.stampName!)
+                            // ファイルストアからスタンプを取得
+                            let file = NCMBFile(fileName: stamp.getStampName()!)
+                            file.fetchInBackground(callback: {result in
+                                switch result{
+                                case let .success(data):
+                                    print("スタンプ画像取得に成功\(file.fileName)")
+                                    
+                                    // データをUIImageに変換
+                                    let image = data.flatMap(UIImage.init)
+                                    // スタンプに画像を代入
+                                    stamp.setStampImage(stampImage: image)
+                                    
+                                    // コレクションビューを更新
+                                    print("コレクションビューを更新")
+                                    DispatchQueue.global().async {
+                                        DispatchQueue.main.async {
+                                            self.stickCollectionView.reloadData()
                                         }
-                                    case let .failure(error):
-                                        print("スタンプ画像取得に失敗:\(error)")
                                     }
-                                })
-                            }else{
-                                // スタンプアート名を代入
-                            }
-                            
-                            // スタンプリストに追加
-                            self.stamps.append(stamp)
-                            // コレクションビューを更新
-                            print("コレクションビューを更新")
-                            DispatchQueue.global().async {
-                                DispatchQueue.main.async {
-                                    self.stickCollectionView.reloadData()
+                                    
+                                case let .failure(error):
+                                    print("スタンプ画像取得に失敗\(error)")
                                 }
-                            }
+                            })
                         }else{
-                            // スタンプアートの場合（スタンプアートリストに入れていく。)
-                            
+                            // スタンプアート名を代入
                         }
+                        
+                        // スタンプリストに追加
+                        self.stamps.append(stamp)
+                        
+                        // コレクションビューを更新
+                        print("コレクションビューを更新")
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.async {
+                                self.stickCollectionView.reloadData()
+                            }
+                        }
+                        
                     }
                 }catch{
                     print("error")

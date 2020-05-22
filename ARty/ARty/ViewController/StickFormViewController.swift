@@ -18,9 +18,6 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ナビゲーションバーを表示する
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
         detailTextView.text = ""
         
         // ツールバーを設定
@@ -47,6 +44,11 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         
         // テキストビューにツールバーを設定
         detailTextView.inputAccessoryView = toolBar
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // ナビゲーションバーを表示する
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     // MARK: Action

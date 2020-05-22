@@ -70,20 +70,20 @@ class User{
         self.selfIntroduction = selfIntroduction
     }
     
-    func setNumberOfFollowed(numberOfFollowed: Int){
-        self.numberOfFollowed = numberOfFollowed
-    }
-    
     func getNumberOfFollowed() -> Int?{
         return numberOfFollowed
     }
     
-    func setNumberOfFollow(numberOfFollow: Int){
-        self.numberOfFollow = numberOfFollow
+    func setNumberOfFollowed(numberOfFollowed: Int){
+        self.numberOfFollowed = numberOfFollowed
     }
     
     func getNumberOfFollow() -> Int?{
         return numberOfFollow
+    }
+    
+    func setNumberOfFollow(numberOfFollow: Int){
+        self.numberOfFollow = numberOfFollow
     }
     
     func getMailAddress() -> String?{

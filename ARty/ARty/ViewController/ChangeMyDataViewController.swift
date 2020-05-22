@@ -14,24 +14,29 @@ class ChangeMyDataViewController: UIViewController, UITextFieldDelegate {
     // MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var selfIntroductionTextField: UITextField!
+    
+    // ユーザー情報
+    var currentUserDetailData: User?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
+        // デリゲートを設定
         userNameTextField.delegate = self
         selfIntroductionTextField.delegate = self
         
+        // ユーザー情報を付与
         if let user = NCMBUser.currentUser{
             userNameTextField.text = user.userName
             selfIntroductionTextField.text = ""
         }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         // ナビゲーションバーを非表示にする
         navigationController?.setNavigationBarHidden(true, animated: true)
-
     }
     
     // MARK: Actions
