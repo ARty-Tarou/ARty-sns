@@ -19,14 +19,13 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     let currentUser = NCMBUser.currentUser
     
     // スタンプリスト
-    var stamps: [(Stamp, User)] = []
-    var stampArts: [(Stamp, User)] = []
+    var stampList: [(Stamp, User)] = []
+    var stampArtList: [(Stamp, User)] = []
     
     // Goodが押された回数
     var stampGoodCount: [Int] = []
     var stampArtGoodCount: [Int] = []
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,8 +55,8 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
         navigationController?.setNavigationBarHidden(true, animated: true)
         
         // GoodCountを初期化
-        stampGoodCount = [Int](repeating: 0, count: stamps.count)
-        stampArtGoodCount = [Int](repeating: 0, count: stampArts.count)
+        stampGoodCount = [Int](repeating: 0, count: stampList.count)
+        stampArtGoodCount = [Int](repeating: 0, count: stampArtList.count)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,8 +67,8 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
         for count in stampGoodCount{
             if count % 2 == 1{
                 // Good処理を行う
-                let objectId = stamps[index].0.getObjectId()
-                let bool = stamps[index].0.getGood()
+                let objectId = stampList[index].0.getObjectId()
+                let bool = stampList[index].0.getGood()
                 if bool == true{
                     goodLogic.pushGood(objectId: objectId!)
                 }else if bool == false{
@@ -84,8 +83,6 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     struct PullStickResult: Codable{
         // StickData
         let result: [StickDetailData]
-        // skip
-        let skip: Int
     }
     
     struct StickDetailData: Codable{
@@ -144,16 +141,12 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     // MARK: Method
-    
-    var stampSkip = 0
-    var stampArtSkip = 0
-    
     func pullStampTrend(){
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullStampTrend.js", method: .post)
         
         // ボディを設定
-        let requestBody: [String: Any?] = ["userId": currentUser?.objectId, "skip": stampSkip]
+        let requestBody: [String: Any?] = ["userId": currentUser?.objectId]
         
         // スクリプトを実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -164,8 +157,6 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
                 do{
                     let decoder = JSONDecoder()
                     let json = try decoder.decode(PullStickResult.self, from: data!)
-                    
-                    self.stampSkip = json.skip
                     
                     print("stamp件数:\(json.result.count)件")
                     
@@ -258,7 +249,7 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
                         }
                         
                         // スタンプリストに追加
-                        self.stamps.append((stamp,user))
+                        self.stampList.append((stamp,user))
 
                         // コレクションビューを更新
                         print("コレクションビューを更新")
@@ -316,15 +307,37 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
         performSegue(withIdentifier: "stick", sender: nil)
     }
     
+    @IBAction func reloadButtonAction(_ sender: Any) {
+        // リロードボタンが押されたとき
+        // スタンプリストを初期化
+        stampList = []
+        stampArtList = []
+        
+        // コレクションビューを更新
+        print("コレクションビューを更新")
+        DispatchQueue.global().async{
+            DispatchQueue.main.async {
+                self.leftCollectionView.reloadData()
+                self.rightCollectionView.reloadData()
+            }
+        }
+        
+        
+        // Stickを取得
+        pullStampTrend()
+        pullStampArtTrend()
+    }
+    
+    
     @objc func onStampGoodButton(_ sender: UIButton){
         print("タップされたstampGoodButtonのtag:\(sender.tag)")
-        print("タップされたGoodButtonのobjectId:\(String(describing: stamps[sender.tag].0.getObjectId()))")
+        print("タップされたGoodButtonのobjectId:\(String(describing: stampList[sender.tag].0.getObjectId()))")
         
         // 元々Goodしているか取得
-        let bool = stamps[sender.tag].0.getGood()!
+        let bool = stampList[sender.tag].0.getGood()!
         
         // Goodしているか情報を更新
-        stamps[sender.tag].0.setGood(good: !bool)
+        stampList[sender.tag].0.setGood(good: !bool)
         
         // ボタンのレイアウトを変更
         goodButtonLayout(button: sender, bool: !bool)
@@ -344,10 +357,10 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
      @objc func onStampUserIconButton(_ sender: UIButton){
          // 確認
          print("タップされたuserIconButtonのtag:\(sender.tag)")
-         print("タップされたアイコンのuserId:\(String(describing: self.stamps[sender.tag].1.getUserId()))")
+         print("タップされたアイコンのuserId:\(String(describing: self.stampList[sender.tag].1.getUserId()))")
          
          // プロフィール画面へ遷移
-         performSegue(withIdentifier: "profile", sender: self.stamps[sender.tag].1)
+         performSegue(withIdentifier: "profile", sender: self.stampList[sender.tag].1)
          
      }
      
@@ -367,18 +380,18 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
         if collectionView == leftCollectionView{
             // Stampのセル
             // セルに情報を付加
-            cell.userName.text = stamps[indexPath.row].1.getUserName()
-            if let userIcon = self.stamps[indexPath.row].1.getUserIconImage(){
+            cell.userName.text = stampList[indexPath.row].1.getUserName()
+            if let userIcon = self.stampList[indexPath.row].1.getUserIconImage(){
                 cell.userIconButton.setImage(userIcon, for: .normal)
             }
-            if let stampImage = self.stamps[indexPath.row].0.getStampImage(){
+            if let stampImage = self.stampList[indexPath.row].0.getStampImage(){
                 cell.stickImageView.image = stampImage
             }
-            cell.detailTextView.text = self.stamps[indexPath.row].0.getDetail()
-            cell.numberOfGood.text = String(self.stamps[indexPath.row].0.getNumberOfGood()!)
+            cell.detailTextView.text = self.stampList[indexPath.row].0.getDetail()
+            cell.numberOfGood.text = String(self.stampList[indexPath.row].0.getNumberOfGood()!)
             
             // goodButtonを設定
-            goodButtonLayout(button: cell.goodButton, bool: self.stamps[indexPath.row].0.getGood())
+            goodButtonLayout(button: cell.goodButton, bool: self.stampList[indexPath.row].0.getGood())
             cell.goodButton.tag = indexPath.row
             cell.goodButton.addTarget(self, action:  #selector(self.onStampGoodButton(_:)), for: .touchUpInside)
             
@@ -398,10 +411,10 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == leftCollectionView{
             // Stampのセル
-            return stamps.count
+            return stampList.count
         }else{
             // Stampのセル
-            return stampArts.count
+            return stampArtList.count
         }
     }
     

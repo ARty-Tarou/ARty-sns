@@ -11,8 +11,6 @@ import NCMB
 
 class TimelineViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    
-    
     // MARK: Properties
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -25,6 +23,9 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // 何件読んだか
     var skip = 0
     
+    // 追加取得可能か
+    var updateIsEnable = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +36,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         
         // Cellのレイアウトを設定
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 370, height: 745)
+        layout.itemSize = CGSize(width: 370, height: 678)
         layout.scrollDirection = .horizontal
         collectionView.collectionViewLayout = layout
         
@@ -146,10 +147,10 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             fatalError("カレントユーザーが取得できなかったよ")
         }
         print("currentUser:\(String(describing: currentUser.objectId))")
-        let requestBody: [String: Any?] = ["userId": currentUser.objectId]
+        let requestBody: [String: Any?] = ["userId": currentUser.objectId, "skip": skip]
         
         // スクリプト実行
-        // JSON形式でタイムラインを取得
+        // タイムラインを取得
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
             case let .success(data):
@@ -160,7 +161,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                     
                     let json = try decoder.decode(PullStickResult.self, from: data!)
                     
-                    self.skip = json.skip
+                    self.skip += json.skip
                     
                     print("timeline件数:\(json.result.count)")
                     
@@ -297,6 +298,28 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         performSegue(withIdentifier: "stick", sender: nil)
     }
     
+    @IBAction func reloadButtonAction(_ sender: Any) {
+        // リロードボタンが押されたとき
+        // skipを初期化する
+        self.skip = 0
+        
+        // タイムラインリストを初期化
+        timelineList = []
+        
+        // コレクションビューを更新
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                // コレクションビューを更新
+                print("コレクションビューを更新")
+                self.collectionView.reloadData()
+            }
+        }
+        
+        // Stickを取得する
+        pullTimeline()
+    }
+    
+    
     @objc func onGoodButton(_ sender: UIButton){
         print("タップされたGoodButtonのtag:\(sender.tag)")
         print("タップされたGoodButtonのStickId:\(String(describing: timelineList[sender.tag].0.getObjectId()))")
@@ -350,6 +373,12 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.userIconButton.tag = indexPath.row
         cell.userIconButton.addTarget(self, action: #selector(self.onUserIcon(_ :)), for: .touchUpInside)
         
+        // 最後まで追加終了したら追加取得可能にする
+        if indexPath.row == timelineList.count - 1 {
+            print("タイムラインセル追加したよ")
+            updateIsEnable = true
+        }
+        
         return cell
     }
     
@@ -362,6 +391,20 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
         print(timelineList[indexPath.row].0.getStampName()!)
+    }
+    
+    // スクロールされたとき
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 最後までスクロールされたか
+        if collectionView.contentOffset.x + collectionView.frame.size.width > collectionView.contentSize.width && collectionView.isDragging && updateIsEnable {
+            print("一番最後にきたよ:\(updateIsEnable)")
+            // 追加のタイムラインを取得
+            pullTimeline()
+            
+            // 一時的に更新不可能にする
+            updateIsEnable = false
+
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

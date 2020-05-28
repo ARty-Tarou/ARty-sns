@@ -113,6 +113,14 @@
                                     <action selector="followButtonAction:" destination="ugj-qO-ftD" eventType="touchUpInside" id="7X1-rR-zVG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAJ-qf-PgK" userLabel="Reload Button">
+                                <rect key="frame" x="315" y="407" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="reload"/>
+                                <connections>
+                                    <action selector="reloadButtonAction:" destination="ugj-qO-ftD" eventType="touchUpInside" id="dWp-Q4-wBh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="w5s-56-3A8"/>
@@ -146,4 +154,7 @@
             <point key="canvasLocation" x="605" y="-54"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="reload" width="430" height="450"/>
+    </resources>
 </document>

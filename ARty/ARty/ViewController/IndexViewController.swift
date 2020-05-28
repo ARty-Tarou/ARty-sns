@@ -17,50 +17,41 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        /*
         // ログインしているかチェック
-        let bool = loginCheck()
-        
-        if bool{
-            // タブビューへ遷移
-            performSegue(withIdentifier: "skip", sender: nil)
-        }
-        */
-        let user = NCMBUser.currentUser
-        print("セッショントークン:\(user?.sessionToken)")
-        
+        //loginCheck()
+ 
         // テキストフィールドのデリゲートを設定
         mailAddressTextField.delegate = self
         passwordTextField.delegate = self
         
     }
     
-    //Returnキーが押され、テキストフィールドの入力が完了する直前に呼ばれる
+    //テキストフィールドの入力が完了する直前に呼ばれる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
         textField.resignFirstResponder()
         
-        // デバッグ用 mailAddress、passwordのどちらのテキストフィールドか判定
-        if textField == mailAddressTextField{
-            print("mailAddress")
-        }else if textField == passwordTextField{
-            print("password")
-        }
         return true
     }
     
     // MARK: Method
     // ログインしているかチェックする
-    func loginCheck() -> Bool{
+    func loginCheck(){
         
-        if NCMBUser.currentUser != nil{
-            print("ログイン済み")
-            return true
-        }else{
-            print("未ログイン")
-            return false
+        if let user = NCMBUser.currentUser {
+            user.fetchInBackground(callback: {result in
+                switch result {
+                case .success:
+                    print("ユーザー情報取得成功")
+                    
+                    // タブビューへ遷移
+                    self.performSegue(withIdentifier: "tab", sender: nil)
+                    
+                case let .failure(error):
+                    print("ユーザー情報取得失敗:\(error)")
+                }
+            })
         }
     }
     
@@ -99,7 +90,7 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
         // SignUp画面のインスタンスを格納
         if let signUpViewController = segue.destination as? SignUpViewController{
             // デバッグ用出力
-            print("signIn画面へ")
+            print("signUp画面へ")
             
             // ユーザー情報を渡す
             signUpViewController.user = user

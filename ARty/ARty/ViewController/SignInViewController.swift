@@ -70,7 +70,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         // ログインに失敗した場合の処理
                         print("ログインに失敗しました\(error)")
                         // activityIndicatorを終了
-                        activityIndicatorLogic.stopActivityIndecator(view: self.view)
+                        DispatchQueue.global().async{
+                            DispatchQueue.main.async {
+                                // activityIndicatorを終了
+                                activityIndicatorLogic.stopActivityIndecator(view: self.view)
+                                // 画面遷移
+                                self.performSegue(withIdentifier: "failed", sender: nil)
+                                
+                            }
+                        }
                     }
                 })
             }else{

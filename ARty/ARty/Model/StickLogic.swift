@@ -13,7 +13,7 @@ class StickLogic{
         }
         
         // 日付を取得
-        let date: Date = Date()
+        let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd.HH.mm.ss"
         print("date:\(dateFormatter.string(from: date))")

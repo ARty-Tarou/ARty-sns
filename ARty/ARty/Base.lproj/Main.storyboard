@@ -46,7 +46,7 @@
                                 <rect key="frame" x="57" y="564" width="300" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBK-ha-87s" userLabel="DicisionButton">
                                 <rect key="frame" x="132" y="643" width="150" height="60"/>
@@ -80,7 +80,7 @@
                         <outlet property="passwordTextField" destination="Eyn-Gr-4PK" id="STn-Mm-Y6b"/>
                         <segue destination="7tc-9M-2Gt" kind="show" identifier="decision" id="NSy-i7-OGa"/>
                         <segue destination="ek5-7f-0uS" kind="show" identifier="signIn" id="NjU-Le-KVr"/>
-                        <segue destination="79J-uw-sTp" kind="show" identifier="skip" id="rWv-7I-Wwu"/>
+                        <segue destination="79J-uw-sTp" kind="show" identifier="tab" id="rWv-7I-Wwu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

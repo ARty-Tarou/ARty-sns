@@ -20,12 +20,23 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     let currentUser = NCMBUser.currentUser
     
     // スタンプリスト
-    var stamps: [(Stamp, User)] = []
-    var stampArts: [(Stamp, User)] = []
+    var stampList: [(Stamp, User)] = []
+    var stampArtList: [(Stamp, User)] = []
+    
+    // 検索する文字列
+    var searchWord: String? = nil
+    
+    // skip
+    var stampSkip = 0
+    var stampArtSkip = 0
     
     // Goodが押された回数
     var stampGoodCount: [Int] = []
     var stampArtGoodCount: [Int] = []
+    
+    // 追加取得可能か
+    var stampUpdateIsEnable = false
+    var stampArtUpdateIsEnable = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,13 +68,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         navigationController?.setNavigationBarHidden(true, animated: true)
         
         // GoodCountを初期化
-        stampGoodCount = [Int](repeating: 0, count: stamps.count)
-        stampArtGoodCount = [Int](repeating: 0, count: stampArts.count)
+        stampGoodCount = [Int](repeating: 0, count: stampList.count)
+        stampArtGoodCount = [Int](repeating: 0, count: stampArtList.count)
     }
     
         override func viewWillDisappear(_ animated: Bool) {
         // 画面遷移するときに実行
-        
         
         let goodLogic = GoodLogic()
         
@@ -71,8 +81,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         for count in stampGoodCount{
             if count % 2 == 1{
                 // Good処理を行う
-                let objectId = stamps[index].0.getObjectId()
-                let bool = stamps[index].0.getGood()
+                let objectId = stampList[index].0.getObjectId()
+                let bool = stampList[index].0.getGood()
                 if bool == true{
                     goodLogic.pushGood(objectId: objectId!)
                 }else if bool == false{
@@ -148,12 +158,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     }
     
     // MARK: Method
-    
-    // 検索する文字列
-    var searchWord: String? = nil
-    var stampSkip = 0
-    var stampArtSkip = 0
-    
     func pullSearchStampStick(){
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullSearchStampStick.js", method: .post)
@@ -169,7 +173,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                     let decoder = JSONDecoder()
                     let json = try decoder.decode(PullStickResult.self, from: data!)
                     
-                    self.stampSkip = json.skip
+                    // 読んだ件数を保存
+                    self.stampSkip += json.skip
                     
                     print("stamp件数:\(json.result.count)件")
                     
@@ -262,7 +267,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                         }
                         
                         // スタンプリストに追加
-                        self.stamps.append((stamp,user))
+                        self.stampList.append((stamp,user))
 
                         // コレクションビューを更新
                         print("コレクションビューを更新")
@@ -323,9 +328,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         if searchTextField.text == ""{
             print("検索文字列が入力されてないよ")
         }else{
+            // skipを初期化
+            stampSkip = 0
+            stampArtSkip = 0
+            
             // スタンプ・スタンプアートリストを初期化
-            stamps = []
-            stampArts = []
+            stampList = []
+            stampArtList = []
             
             print("検索するよ:\(String(describing: searchTextField.text))")
             searchWord = searchTextField.text
@@ -338,13 +347,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     @objc func onStampGoodButton(_ sender: UIButton){
         print("タップされたstampGoodButtonのtag:\(sender.tag)")
-        print("タップされたGoodButtonのobjectId:\(String(describing: stamps[sender.tag].0.getObjectId()))")
+        print("タップされたGoodButtonのobjectId:\(String(describing: stampList[sender.tag].0.getObjectId()))")
         
         // 元々Goodしているか取得
-        let bool = stamps[sender.tag].0.getGood()!
+        let bool = stampList[sender.tag].0.getGood()!
         
         // Goodしているか情報を更新
-        stamps[sender.tag].0.setGood(good: !bool)
+        stampList[sender.tag].0.setGood(good: !bool)
         
         // ボタンのレイアウトを変更
         goodButtonLayout(button: sender, bool: !bool)
@@ -365,10 +374,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     @objc func onStampUserIconButton(_ sender: UIButton){
         // 確認
         print("タップされたuserIconButtonのtag:\(sender.tag)")
-        print("タップされたアイコンのuserId:\(String(describing: self.stamps[sender.tag].1.getUserId()))")
+        print("タップされたアイコンのuserId:\(String(describing: self.stampList[sender.tag].1.getUserId()))")
         
         // プロフィール画面へ遷移
-        performSegue(withIdentifier: "profile", sender: self.stamps[sender.tag].1)
+        performSegue(withIdentifier: "profile", sender: self.stampList[sender.tag].1)
         
     }
     
@@ -398,18 +407,18 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         if collectionView == leftCollectionView{
             // Stampのセル
             // セルに情報を付加
-            cell.userName.text = stamps[indexPath.row].1.getUserName()
-            if let userIcon = self.stamps[indexPath.row].1.getUserIconImage(){
+            cell.userName.text = stampList[indexPath.row].1.getUserName()
+            if let userIcon = self.stampList[indexPath.row].1.getUserIconImage(){
                 cell.userIconButton.setImage(userIcon, for: .normal)
             }
-            if let stampImage = self.stamps[indexPath.row].0.getStampImage(){
+            if let stampImage = self.stampList[indexPath.row].0.getStampImage(){
                 cell.stickImageView.image = stampImage
             }
-            cell.detailTextView.text = self.stamps[indexPath.row].0.getDetail()
-            cell.numberOfGood.text = String(self.stamps[indexPath.row].0.getNumberOfGood()!)
+            cell.detailTextView.text = self.stampList[indexPath.row].0.getDetail()
+            cell.numberOfGood.text = String(self.stampList[indexPath.row].0.getNumberOfGood()!)
             
             // goodButtonを設定
-            goodButtonLayout(button: cell.goodButton, bool: self.stamps[indexPath.row].0.getGood())
+            goodButtonLayout(button: cell.goodButton, bool: self.stampList[indexPath.row].0.getGood())
             cell.goodButton.tag = indexPath.row
             cell.goodButton.addTarget(self, action:  #selector(self.onStampGoodButton(_:)), for: .touchUpInside)
             
@@ -422,6 +431,17 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
             
         }
         
+        // 最後まで追加終了したら追加取得可能にする
+        if indexPath.row == stampList.count - 1 {
+            print("stampセル追加したよ")
+            stampUpdateIsEnable = true
+        }
+        
+        if indexPath.row == stampArtList.count - 1 {
+            print("stampArtセル追加したよ")
+            stampArtUpdateIsEnable = true
+        }
+        
         return cell
     }
     
@@ -429,16 +449,37 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == leftCollectionView{
             // Stampのセル
-            return stamps.count
+            return stampList.count
         }else{
             // Stampのセル
-            return stampArts.count
+            return stampArtList.count
         }
     }
     
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 最後までスクロールされたか
+        if leftCollectionView.contentOffset.y + leftCollectionView.frame.size.height > leftCollectionView.contentSize.height && leftCollectionView.isDragging && stampUpdateIsEnable {
+            print("一番最後にきたよ(left):\(stampUpdateIsEnable)")
+            // 追加のスタンプリストを取得
+            pullSearchStampStick()
+            
+            // 追加終了まで更新不可能にする
+            stampUpdateIsEnable = false
+        }
+        
+        if rightCollectionView.contentOffset.y + rightCollectionView.frame.size.height > rightCollectionView.contentSize.height && rightCollectionView.isDragging && stampArtUpdateIsEnable {
+            print("一番最後にきたよ(right):\(stampArtUpdateIsEnable)")
+            // 追加のスタンプアートリストを取得
+            pullSearchStampArtStick()
+            
+            // 追加終了まで更新不可能にする
+            stampArtUpdateIsEnable = false
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){

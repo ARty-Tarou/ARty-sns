@@ -26,10 +26,16 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     var currentUserDetail: User?
     
     // スタンプリスト
-    var stamps: [(Stamp)] = []
+    var stampList: [(Stamp)] = []
+    var stampArtList: [(Stamp)] = []
     
     // 何件読んだか
-    var skip = 0
+    var stampSkip = 0
+    var stampArtSkip = 0
+    
+    // 追加取得可能か
+    var stampUpdateIsEnable = false
+    var stampArtUpdateIsEnable = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +61,8 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         stampTab.isEnabled = false
         
         // UserStickを表示する
-        userStick()
+        pullStampStick()
+        pullStampArtStick()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +71,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    // MARK: JSON
+    // MARK: Codable
     struct UserDetailData: Codable{
         // 投稿者のユーザーID
          let userId: String
@@ -90,7 +97,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     struct SearchResult: Codable{
         // StickData
         let result: [StickData]
-        // skip
+        //
         let skip: Int
     }
     
@@ -203,12 +210,118 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         })
     }
     
+    func pullStampStick(){
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "pullMyStampStick.js", method: .post)
+        // ボディを設定
+        let requestBody: [String: Any?]  = ["userId": self.currentUser?.objectId, "skip": stampSkip]
+        // スクリプトを実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case let .success(data):
+                print("pullMyStampStickScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                do{
+                    let decoder = JSONDecoder()
+                    let json = try decoder.decode(PullStickResult.self, from: data!)
+                    
+                    // 読んだ件数を保存
+                    self.stampSkip += json.skip
+                    
+                    print("stamp件数:\(json.result.count)件")
+                    
+                    // 取得した件数だけ回します
+                    for stickDetailData in json.result{
+                        // スタンプ、ユーザーインスタンスを生成
+                        let stamp: Stamp = Stamp()
+                        
+                        // スタンプ・スタンプアートに関する情報を入れていく
+                        let stickData = stickDetailData.stickData
+                        
+                        // 投稿の内容を代入
+                        stamp.setObjectId(objectId: stickData.objectId)
+                        stamp.setUserId(userId: stickData.userId)
+                        stamp.setDetail(detail: stickData.detail)
+                        stamp.setNumberOfGood(numberOfGood: stickData.good)
+                        stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                        stamp.setStampName(stampName: stickData.staticData.stampName!)
+                        
+                        // ファイルストアからスタンプを取得
+                        let file = NCMBFile(fileName: stamp.getStampName()!)
+                        file.fetchInBackground(callback: {result in
+                            switch result{
+                            case let .success(data):
+                                print("スタンプ画像取得に成功\(file.fileName)")
+                                
+                                // データをUIImageに変換
+                                let image = data.flatMap(UIImage.init)
+                                // スタンプに画像を代入
+                                stamp.setStampImage(stampImage: image)
+                                
+                                // コレクションビューを更新
+                                print("コレクションビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.myStickCollectionView.reloadData()
+                                    }
+                                }
+                            case let .failure(error):
+                                print("スタンプ画像取得に失敗:\(error)")
+                            }
+                        })
+                        
+                        // スタンプリストに追加
+                        self.stampList.append(stamp)
+
+                        // コレクションビューを更新
+                        print("コレクションビューを更新")
+                        DispatchQueue.global().async{
+                            DispatchQueue.main.async {
+                                self.myStickCollectionView.reloadData()
+                            }
+                        }
+                    }
+                }catch{
+                    print("error")
+                }
+                
+            case let .failure(error):
+                print("pullMyStampScript実行に失敗:\(error)")
+            }
+        })
+    }
+    
+    func pullStampArtStick(){
+        // スクリプトインスタンスを生成
+        let script = NCMBScript(name: "pullMyStampArtStick.js", method: .post)
+        
+        // ボディを設定
+        let requestBody: [String: Any?] = ["userId": self.currentUser?.objectId, "skip": stampArtSkip]
+        
+        // スクリプトを実行
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result{
+            case let .success(data):
+                print("pullMyStampArtStickScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                do{
+                    let decoder = JSONDecoder()
+                    
+                }catch{
+                    print("error")
+                }
+            case let .failure(error):
+                print("pullMyStampArtStickScript実行に失敗:\(error)")
+            }
+        })
+    }
+    
     func userStick(){
         // スクリプトでstickリストを取得
         let script = NCMBScript(name: "pullMyStick.js", method: .post)
         
         // ボディ設定
-        let requestBody: [String: Any?] = ["userId": self.currentUser?.objectId, "skip": skip]
+        let requestBody: [String: Any?] = ["userId": self.currentUser?.objectId, "skip": stampSkip]
         
         // スクリプト実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
@@ -220,7 +333,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                     let decoder = JSONDecoder()
                     let json = try decoder.decode(PullStickResult.self, from: data!)
                     
-                    self.skip = json.skip
+                    self.stampSkip += json.skip
                     
                     // スタンプリストを作成していく
                     for stickDetailData in json.result{
@@ -271,7 +384,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
                         }
                         
                         // スタンプリストに追加
-                        self.stamps.append(stamp)
+                        self.stampList.append(stamp)
                         
                         // コレクションビューを更新
                         print("コレクションビューを更新")
@@ -373,6 +486,50 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    @IBAction func reloadButtonAction(_ sender: Any) {
+        // リロードボタンが押されたとき
+        if !stampTab.isEnabled {
+            // スタンプリストに関する
+            // skipを初期化
+            stampSkip = 0
+            
+            // スタンプリストを初期化
+            stampList = []
+            
+            // コレクションビューを更新
+            print("コレクションビューを更新")
+            DispatchQueue.global().async {
+                DispatchQueue.main.async {
+                    self.myStickCollectionView.reloadData()
+                }
+            }
+            
+            // StampStickを取得
+            pullStampStick()
+            
+        } else {
+            // スタンプアートリストに関する
+            // skipを初期化
+            stampArtSkip = 0
+            
+            // スタンプアートリストを初期化
+            stampArtList = []
+            
+            // コレクションビューを更新
+            print("コレクションビューを更新")
+            DispatchQueue.global().async {
+                DispatchQueue.main.async {
+                    self.myStickCollectionView.reloadData()
+                }
+            }
+            
+            // StampArtStickを取得
+            pullStampArtStick()
+            
+        }
+    }
+    
+    
     // MARK: UICollectionViewDataSource
     
     // セルを返す
@@ -381,14 +538,21 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if stampTab.isEnabled == false{
             // スタンプリストを表示
-            if let image = stamps[indexPath.row].getStampImage(){
+            if let image = stampList[indexPath.row].getStampImage(){
                 cell.productImageView.image = image
             }
-            cell.detailTextView.text = stamps[indexPath.row].getDetail()
-            cell.numberOfGood.text = String(stamps[indexPath.row].getNumberOfGood()!)
+            cell.detailTextView.text = stampList[indexPath.row].getDetail()
+            cell.numberOfGood.text = String(stampList[indexPath.row].getNumberOfGood()!)
+            
+            // 最後まで追加終了したら追加取得可能にする
+            if indexPath.row == stampList.count - 1 {
+                print("stampセル追加したよ")
+                stampUpdateIsEnable = true
+            }
         }else{
             // スタンプアートリストを表示
         }
+        
         return cell
         
     }
@@ -397,10 +561,10 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         if stampTab.isEnabled == false{
              // スタンプの場合
-             return stamps.count
+             return stampList.count
          }else{
              // スタンプアートの場合
-             return 0
+            return stampArtList.count
          }
     }
     
@@ -408,10 +572,31 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         if stampTab.isEnabled == false{
             // スタンプの場合
-            print(stamps[indexPath.row].getStampName())
+            print(stampList[indexPath.row].getStampName())
         }else{
             // スタンプアートの場合
             
+        }
+    }
+    
+    // スクロールされたとき
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 最後までスクロールされたか
+        if myStickCollectionView.contentOffset.x + myStickCollectionView.frame.size.width > myStickCollectionView.contentSize.width && myStickCollectionView.isDragging && stampUpdateIsEnable || stampArtUpdateIsEnable {
+            print("一番最後にきたよ:\(stampUpdateIsEnable)")
+            // 追加のタイムラインを取得
+            if stampUpdateIsEnable {
+                pullStampStick()
+                
+                stampUpdateIsEnable = false
+            } else {
+                pullStampArtStick()
+                
+                stampArtUpdateIsEnable = false
+            }
+            
+            // 追加終了まで更新不可能にする
+            stampUpdateIsEnable = false
         }
     }
     

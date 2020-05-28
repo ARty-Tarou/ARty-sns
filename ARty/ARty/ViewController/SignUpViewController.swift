@@ -22,8 +22,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
         //ユーザー情報を取得し保存
         guard let mailAddress = user?.getMailAddress() else{
             return
@@ -69,18 +67,20 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             user.mailAddress = mailAddress
             user.password = password
             var acl: NCMBACL = NCMBACL.empty
-            acl.put(key: "*", readable: true, writable: false)
+            acl.put(key: "*", readable: true, writable: true)
             user.acl = acl
 
-            /*
+            
             let result = user.signUp()
             switch result{
-            case .success():
+            case .success:
                 print("登録に成功しました。")
             case let .failure(error):
                 print("登録に失敗しました。：\(error)")
             }
-            */
+            
+            activityIndicatorLogic.stopActivityIndecator(view: view)
+            
             /*
             // ニフクラに新規会員登録
             user.signUpInBackground(callback: {result in
