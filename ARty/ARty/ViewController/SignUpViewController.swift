@@ -9,10 +9,9 @@
 import UIKit
 import NCMB
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController {
     
     // MARK: Properties
-    @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var checkBoxButton: UIButton!
     
     
@@ -32,74 +31,69 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         print("mailAddress:\(mailAddress)")
         print("password:\(password)")
         
-        //テキストフィールドのデリゲートを設定
-        userNameTextField.delegate = self
-        
         // チェックボックスの設定
         checkBoxButton.setImage(UIImage(named: "check"), for: .normal)
         checkBoxButton.setImage(UIImage(named: "checked"), for: .selected)
     }
     
-    // MARK: Delegate Method
-    
-    // テキストフィールドのリターンが押されたときに呼ばれる
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        // キーボードを閉じる
-        userNameTextField.resignFirstResponder()
-        
-        return true
-    }
-    
     // MARK: Actions
     @IBAction func signUpButtonAction(_ sender: Any) {
+        // 初回ログイン画面
+        /*
+        print("初回ログイン成功しました。")
+        performSegue(withIdentifier: "signIn", sender: nil)
+        */
         
         let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
         activityIndicatorLogic.startActivityIndecator(view: view)
         
-        if let userName = userNameTextField.text, let mailAddress = user?.getMailAddress(), let password = user?.getPassword(), checkBoxButton.isSelected{
+        if let mailAddress = user?.getMailAddress(), let password = user?.getPassword(), checkBoxButton.isSelected{
             
             // ユーザーインスタンス生成
             let user = NCMBUser()
             
+            // UUID取得
+            let uuid = UIDevice.current.identifierForVendor?.uuidString
+            print("uuid:\(String(describing: uuid))")
+            
             // ユーザー情報格納
-            user.userName = userName
+            user.userName = uuid
             user.mailAddress = mailAddress
             user.password = password
             var acl: NCMBACL = NCMBACL.empty
             acl.put(key: "*", readable: true, writable: true)
             user.acl = acl
-
             
-            let result = user.signUp()
-            switch result{
+            let signUpResult = user.signUp()
+            switch signUpResult {
             case .success:
-                print("登録に成功しました。")
+                print("仮登録に成功しました。")
+                
+                // TODO: ここに初回ログインを書きます pushMyDetailも動かします
+                let result = NCMBUser.logIn(userName: user.userName!, password: user.password!)
+                switch result {
+                case .success:
+                    // 初回ログイン画面
+                    print("初回ログイン成功しました。")
+                    performSegue(withIdentifier: "signUp", sender: nil)
+                    
+                case let .failure(error):
+                    print("初回ログイン失敗:\(error)")
+                }
+                
+                
+                
             case let .failure(error):
                 print("登録に失敗しました。：\(error)")
             }
             
             activityIndicatorLogic.stopActivityIndecator(view: view)
             
-            /*
-            // ニフクラに新規会員登録
-            user.signUpInBackground(callback: {result in
-                switch result{
-                case .success:
-                    // 新規登録に成功した場合の処理
-                    print("登録に成功")
-                    
-                    
-                case let .failure(error):
-                    // 新規登録に失敗した場合の処理
-                    print("登録失敗:\(error)")
-                }
-            })
- */
         }else{
             print("利用規約に同意されてないです")
             activityIndicatorLogic.stopActivityIndecator(view: view)
         }
+        
     }
     
     @IBAction func checkBoxButtonAction(_ sender: Any) {

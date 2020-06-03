@@ -14,17 +14,16 @@ class ChangeMyDataViewController: UIViewController, UITextFieldDelegate {
     // MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
     
-    
     // ユーザー情報
     var currentUserDetailData: User?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // デリゲートを設定
         userNameTextField.delegate = self
-        
-        
+
         // ユーザー情報を付与
         if let user = NCMBUser.currentUser{
             userNameTextField.text = user.userName
@@ -71,7 +70,7 @@ class ChangeMyDataViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK: Delegate Method
+    // MARK: UITextField
     //Returnキーが押され、テキストフィールドの入力が完了する直前に呼ばれる
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる

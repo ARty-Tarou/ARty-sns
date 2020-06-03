@@ -16,9 +16,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="350"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p40-sM-get">
-                        <rect key="frame" x="16" y="10" width="270" height="215"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p40-sM-get">
+                        <rect key="frame" x="15" y="10" width="270" height="215"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="p40-sM-get" secondAttribute="height" multiplier="54:43" id="6ol-Ns-RS2"/>
+                        </constraints>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RID-3e-h22">
                         <rect key="frame" x="16" y="262" width="270" height="80"/>
@@ -44,6 +46,11 @@
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="p40-sM-get" secondAttribute="trailing" constant="15" id="2fE-iW-E5j"/>
+                    <constraint firstItem="p40-sM-get" firstAttribute="leading" secondItem="5it-sM-Opc" secondAttribute="leading" constant="15" id="5Fn-x3-RCt"/>
+                    <constraint firstItem="p40-sM-get" firstAttribute="top" secondItem="5it-sM-Opc" secondAttribute="top" constant="10" id="KiO-J9-dUo"/>
+                </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="231" height="214"/>
             <connections>

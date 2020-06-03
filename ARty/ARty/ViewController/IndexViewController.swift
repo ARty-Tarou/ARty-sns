@@ -38,7 +38,7 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
     // MARK: Method
     // ログインしているかチェックする
     func loginCheck(){
-        
+        /*
         if let user = NCMBUser.currentUser {
             user.fetchInBackground(callback: {result in
                 switch result {
@@ -52,7 +52,7 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
                     print("ユーザー情報取得失敗:\(error)")
                 }
             })
-        }
+        }*/
     }
     
     // MARK: Actions

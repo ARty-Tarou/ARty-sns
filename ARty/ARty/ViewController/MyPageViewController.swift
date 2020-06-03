@@ -436,6 +436,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         let bool = logoutLogic.logout()
         
         if bool == true{
+            print("ログアウトに成功したよ")
             // トップ画面に遷移
             performSegue(withIdentifier: "logout", sender: nil)
         }else{

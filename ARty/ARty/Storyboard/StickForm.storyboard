@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NBv-pA-9fl" userLabel="iconImage">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="NBv-pA-9fl" userLabel="iconImage">
                                 <rect key="frame" x="20" y="99" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -85,6 +85,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FirstIcon" width="312" height="312"/>
         <image name="urety" width="768" height="701"/>
     </resources>
 </document>
