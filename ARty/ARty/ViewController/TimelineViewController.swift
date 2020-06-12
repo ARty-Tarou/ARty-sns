@@ -165,8 +165,10 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                     
                     print("timeline件数:\(json.result.count)")
                     
-                    // Good押されましたカウントを初期化
-                    self.timelineGoodCount = [Int](repeating: 0, count: json.result.count)
+                    // Good押されましたカウントを追加
+                    for _ in 0..<json.result.count {
+                        self.timelineGoodCount.append(0)
+                    }
                     
                     // timelineListを作成していく
                     for timelineData in json.result{
@@ -303,8 +305,9 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         // skipを初期化する
         self.skip = 0
         
-        // タイムラインリストを初期化
+        // タイムラインリスト、グッドカウントを初期化
         timelineList = []
+        timelineGoodCount = []
         
         // コレクションビューを更新
         DispatchQueue.global().async {
@@ -322,6 +325,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @objc func onGoodButton(_ sender: UIButton){
         print("タップされたGoodButtonのtag:\(sender.tag)")
+        print("タイムラインの配列の要素数:\(timelineList.count)")
         print("タップされたGoodButtonのStickId:\(String(describing: timelineList[sender.tag].0.getObjectId()))")
         
         // 元々Goodしているか取得

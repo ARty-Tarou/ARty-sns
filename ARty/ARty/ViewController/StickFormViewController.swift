@@ -29,14 +29,18 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let libraryButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
         let cameraButton = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
-        // TODO: 後で変更
+        
+        // ボタンの設定
         libraryButton.setImage(UIImage(named: "ImageFile"), for: .normal)
         cameraButton.setImage(UIImage(named: "CameraOnTwo"), for: .normal)
         libraryButton.addTarget(self, action: #selector(self.onClickLibrary(_:)), for: .touchUpInside)
         cameraButton.addTarget(self, action: #selector(self.onClickCamera(_:)), for: .touchUpInside)
         let libraryButtonItem = UIBarButtonItem(customView: libraryButton)
         let cameraButtonItem = UIBarButtonItem(customView: cameraButton)
-        toolBar.setItems([flexibleItem, libraryButtonItem, flexibleItem, cameraButtonItem, flexibleItem], animated: true)
+        let closeButtonItem = UIBarButtonItem(title: "完了", style: .plain, target: self, action: #selector(self.onCloseButton(_:)))
+        
+        // ツールバーにボタンをセット
+        toolBar.setItems([flexibleItem, libraryButtonItem, cameraButtonItem, flexibleItem, closeButtonItem], animated: true)
 
         // デリゲートを設定
         detailTextView.delegate = self
@@ -112,13 +116,14 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         }
     }
     
-    // MARK: Delegate Method
     // 右上の入力確定でキーボード閉じる
-    @IBAction func KeybOut(_ sender: Any) {
+    @objc func onCloseButton(_ sender: Any) {
         // キーボードを閉じる
         detailTextView.endEditing(true)
         
     }
+    
+    // MARK: Delegate Method
     
     
     // 撮影が終わったら呼ばれる

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tSR-6K-DPk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tSR-6K-DPk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,9 +22,35 @@
                                     <constraint firstAttribute="width" secondItem="czh-hE-wJ9" secondAttribute="height" multiplier="1:1" id="QId-rq-mRT"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0R-qz-m26" userLabel="CheckBoxButton">
-                                <rect key="frame" x="63" y="725" width="288" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvO-gh-cDU">
+                                <rect key="frame" x="132" y="787" width="150" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="1Gu-bf-W7l"/>
+                                    <constraint firstAttribute="width" secondItem="lvO-gh-cDU" secondAttribute="height" multiplier="5:2" id="6BA-cE-oLD"/>
+                                </constraints>
+                                <state key="normal" title="Sign Up" image="SignupButton"/>
+                                <connections>
+                                    <action selector="signUpButtonAction:" destination="tSR-6K-DPk" eventType="touchUpInside" id="nQI-Lo-WWs"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXL-qq-zmi">
+                                <rect key="frame" x="62" y="318" width="290" height="260"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="260" id="a6b-nn-l65"/>
+                                    <constraint firstAttribute="width" constant="290" id="aTY-2p-cZg"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0R-qz-m26" userLabel="CheckBoxButton">
+                                <rect key="frame" x="107" y="727" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Rzi-ml-cst"/>
+                                    <constraint firstAttribute="height" constant="30" id="c9g-Au-fD7"/>
+                                </constraints>
                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="利用規約に同意" image="check">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -33,28 +59,17 @@
                                     <action selector="checkBoxButtonAction:" destination="tSR-6K-DPk" eventType="touchUpInside" id="fQT-OW-QOT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvO-gh-cDU">
-                                <rect key="frame" x="132" y="786" width="150" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Up" image="SignupButton"/>
-                                <connections>
-                                    <action selector="signUpButtonAction:" destination="tSR-6K-DPk" eventType="touchUpInside" id="nQI-Lo-WWs"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXL-qq-zmi">
-                                <rect key="frame" x="60" y="369" width="294" height="264"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="MXL-qq-zmi" firstAttribute="centerY" secondItem="dD8-Wx-Cu7" secondAttribute="centerY" id="0bB-6s-jYP"/>
+                            <constraint firstItem="EZX-g7-kNz" firstAttribute="bottom" secondItem="lvO-gh-cDU" secondAttribute="bottom" constant="15" id="8jN-MM-oqn"/>
                             <constraint firstItem="czh-hE-wJ9" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="GpQ-qv-MHi"/>
                             <constraint firstItem="czh-hE-wJ9" firstAttribute="top" secondItem="EZX-g7-kNz" secondAttribute="top" constant="26" id="HsM-wo-63i"/>
+                            <constraint firstItem="lvO-gh-cDU" firstAttribute="top" secondItem="O0R-qz-m26" secondAttribute="bottom" constant="30" id="aTq-DV-7GF"/>
+                            <constraint firstItem="lvO-gh-cDU" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="fap-HN-Bis"/>
+                            <constraint firstItem="O0R-qz-m26" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="tfF-fX-48J"/>
+                            <constraint firstItem="MXL-qq-zmi" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="w5k-Pj-YX7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EZX-g7-kNz"/>
                     </view>

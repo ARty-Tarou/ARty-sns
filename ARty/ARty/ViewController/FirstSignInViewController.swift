@@ -15,12 +15,17 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var selfIntroductionTextView: UITextView!
     @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var birthdayTextField: UITextField!
+    
+    // 誕生日のdatePicker
+    let datePicker = UIDatePicker()
     
     // カレントユーザー
     let currentUser = NCMBUser.currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // アラートを設定
         let alertController = UIAlertController(title: "認証メール送信", message: "ユーザー認証メールを送信しました。認証後以下のボタンを押してね。", preferredStyle: .alert)
         // ダイアログに表示させるOKボタンを作成
@@ -29,6 +34,24 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
         alertController.addAction(defaultAction)
         //ダイアログの表示
         present(alertController, animated: true, completion: nil)
+        
+        // DatePickerの設定
+        datePicker.datePickerMode = .date
+        birthdayTextField.inputView = datePicker
+        
+        // ツールバーを設定
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        // ツールバーにボタンを設定
+        let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButtonItem = UIBarButtonItem(title: "完了", style: .plain, target: self, action: #selector(self.onDoneButton(_:)))
+        
+        // ツールバーにボタンをセット
+        toolBar.setItems([flexibleItem, doneButtonItem], animated: true)
+        
+        // テキストビューにツールバーを設定
+        birthdayTextField.inputAccessoryView = toolBar
         
         // デリゲートを設定
         userNameTextField.delegate = self
@@ -153,5 +176,19 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
             print("ユーザー名が入力されてないよ")
         }
         
+    }
+    
+    @objc func onDoneButton(_ sender: UIButton) {
+        // datePickerから日付を取得
+        let date = datePicker.date
+        // フォーマット
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年MM月dd日"
+        
+        // テキストフィールドに日付を代入
+        birthdayTextField.text = dateFormatter.string(from: date)
+        
+        // Pickerを閉じる
+        self.view.endEditing(true)
     }
 }

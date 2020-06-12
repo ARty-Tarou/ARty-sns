@@ -22,7 +22,12 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // ナビゲーションバーを表示する
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     //セルの数を指定

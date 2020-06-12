@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YMs-sb-tV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YMs-sb-tV3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,10 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bKZ-i4-PIO">
-                                <rect key="frame" x="20" y="133" width="182" height="660"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bKZ-i4-PIO">
+                                <rect key="frame" x="20" y="135" width="182" height="658"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bKZ-i4-PIO" secondAttribute="height" multiplier="13:47" id="Q9J-EX-5v1"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tel-zl-dP8">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -37,10 +39,12 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yAh-VQ-eXP">
-                                <rect key="frame" x="216" y="133" width="182" height="660"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yAh-VQ-eXP">
+                                <rect key="frame" x="212.5" y="135" width="181.5" height="658"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yAh-VQ-eXP" secondAttribute="height" multiplier="91:330" id="521-u4-zRg"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Itl-fn-Eeb">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -58,42 +62,72 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etL-zk-piS" userLabel="Stick Button">
-                                <rect key="frame" x="290" y="685" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etL-zk-piS" userLabel="Stick Button">
+                                <rect key="frame" x="290" y="689" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="ENv-qS-Byu"/>
+                                    <constraint firstAttribute="width" secondItem="etL-zk-piS" secondAttribute="height" multiplier="1:1" id="Fgo-G4-6Dv"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="stick"/>
                                 <connections>
                                     <action selector="stickButtonAction:" destination="YMs-sb-tV3" eventType="touchUpInside" id="0MQ-wH-j90"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SME-0q-rhF">
-                                <rect key="frame" x="68" y="104" width="79" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stamp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SME-0q-rhF">
+                                <rect key="frame" x="103.5" y="104" width="67.5" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="67.5" id="sNb-p0-Ai1"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Art" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOL-2j-yRB">
-                                <rect key="frame" x="291" y="100" width="32" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Art" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOL-2j-yRB">
+                                <rect key="frame" x="261" y="104" width="32" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wM8-VW-YxF" userLabel="Reload Button">
-                                <rect key="frame" x="336" y="53" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wM8-VW-YxF" userLabel="Reload Button">
+                                <rect key="frame" x="354" y="63.5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="9Uo-mQ-eHQ"/>
+                                    <constraint firstAttribute="width" secondItem="wM8-VW-YxF" secondAttribute="height" multiplier="1:1" id="h0r-Zi-sx7"/>
+                                </constraints>
                                 <state key="normal" image="reload"/>
                                 <connections>
                                     <action selector="reloadButtonAction:" destination="YMs-sb-tV3" eventType="touchUpInside" id="E6M-BK-0MC"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Amz-PG-eZR">
-                                <rect key="frame" x="20" y="44" width="59" height="59"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Amz-PG-eZR">
+                                <rect key="frame" x="20" y="54" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Amz-PG-eZR" secondAttribute="height" multiplier="1:1" id="MRI-iR-KxK"/>
+                                    <constraint firstAttribute="width" constant="59" id="X5u-00-1Sm"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="bottom" secondItem="bKZ-i4-PIO" secondAttribute="bottom" constant="20" id="1Tr-gk-zL8"/>
+                            <constraint firstItem="yAh-VQ-eXP" firstAttribute="leading" secondItem="bKZ-i4-PIO" secondAttribute="trailing" constant="10.5" id="4t7-Ht-zwt"/>
+                            <constraint firstItem="SME-0q-rhF" firstAttribute="leading" secondItem="Amz-PG-eZR" secondAttribute="trailing" constant="24.5" id="9He-EE-MPw"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="yAh-VQ-eXP" secondAttribute="trailing" constant="20" id="CSV-zM-qfJ"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="etL-zk-piS" secondAttribute="trailing" constant="44" id="E7j-Te-1Vk"/>
+                            <constraint firstItem="Amz-PG-eZR" firstAttribute="top" secondItem="kDD-R7-8xG" secondAttribute="top" constant="10" id="Eyt-x0-4cw"/>
+                            <constraint firstItem="SME-0q-rhF" firstAttribute="top" secondItem="kDD-R7-8xG" secondAttribute="top" constant="60" id="GBi-v4-YE4"/>
+                            <constraint firstItem="Amz-PG-eZR" firstAttribute="leading" secondItem="kDD-R7-8xG" secondAttribute="leading" constant="20" id="TAg-Ii-fUu"/>
+                            <constraint firstItem="bKZ-i4-PIO" firstAttribute="leading" secondItem="kDD-R7-8xG" secondAttribute="leading" constant="20" id="aKX-pQ-Vy6"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="wM8-VW-YxF" secondAttribute="trailing" constant="20" id="d49-c4-1yW"/>
+                            <constraint firstItem="yAh-VQ-eXP" firstAttribute="centerY" secondItem="bKZ-i4-PIO" secondAttribute="centerY" id="etH-vG-rm9"/>
+                            <constraint firstItem="yAh-VQ-eXP" firstAttribute="top" secondItem="YOL-2j-yRB" secondAttribute="bottom" constant="5" id="fyc-rS-VH1"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="YOL-2j-yRB" secondAttribute="trailing" constant="121" id="h2f-OE-aF0"/>
+                            <constraint firstItem="wM8-VW-YxF" firstAttribute="centerY" secondItem="Amz-PG-eZR" secondAttribute="centerY" id="nvp-PY-3ye"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="bottom" secondItem="etL-zk-piS" secondAttribute="bottom" constant="44" id="ocB-J1-6Sf"/>
+                            <constraint firstItem="bKZ-i4-PIO" firstAttribute="top" secondItem="SME-0q-rhF" secondAttribute="bottom" constant="5" id="quL-wF-VJC"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="bottom" secondItem="yAh-VQ-eXP" secondAttribute="bottom" constant="20" id="tUF-dH-BJy"/>
+                            <constraint firstItem="YOL-2j-yRB" firstAttribute="centerY" secondItem="SME-0q-rhF" secondAttribute="centerY" id="xho-VZ-TrO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="kDD-R7-8xG"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Trend" selectedImage="star.fill" catalog="system" id="mWi-CH-EDt"/>
@@ -133,7 +167,7 @@
     <resources>
         <image name="FirstIcon" width="312" height="312"/>
         <image name="reload" width="430" height="450"/>
-        <image name="star.fill" catalog="system" width="64" height="58"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="stick" width="325" height="311"/>
     </resources>
 </document>

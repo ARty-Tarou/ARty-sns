@@ -178,8 +178,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                     
                     print("stamp件数:\(json.result.count)件")
                     
-                    // Good押されましたカウントを初期化
-                    self.stampGoodCount = [Int](repeating: 0, count: json.result.count)
+                    // Good押されましたカウントを追加
+                    for _ in 0..<json.result.count {
+                        self.stampGoodCount.append(0)
+                    }
+                    print("スタンプグッドカウントの要素数:\(self.stampGoodCount.count)")
                     
                     // 取得した件数だけ回します
                     for stick in json.result{
@@ -332,9 +335,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
             stampSkip = 0
             stampArtSkip = 0
             
-            // スタンプ・スタンプアートリストを初期化
+            // スタンプ・スタンプアートリスト、グッドカウントを初期化
             stampList = []
             stampArtList = []
+            stampGoodCount = []
+            stampArtGoodCount = []
             
             print("検索するよ:\(String(describing: searchTextField.text))")
             searchWord = searchTextField.text
