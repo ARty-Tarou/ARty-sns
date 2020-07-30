@@ -13,6 +13,7 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
+    @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var selfIntroductionTextView: UITextView!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var birthdayTextField: UITextField!
@@ -57,15 +58,15 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
         userNameTextField.delegate = self
         
         // デバッグ
-        currentUser?.isAuthenticated
-        print("オブジェクトID:\(self.currentUser?.objectId)")
-        print("パスワード:\(self.currentUser?.password)")
-        print("セッショントークン:\(self.currentUser?.sessionToken)")
+        print("オブジェクトID:\(String(describing: self.currentUser?.objectId))")
+        print("パスワード:\(String(describing: self.currentUser?.password))")
+        print("セッショントークン:\(String(describing: self.currentUser?.sessionToken))")
         
     }
     
     // MARK: Codable
     struct Confirm: Codable {
+        // メール認証してますか
         let mailAddressConfirm: Bool
     }
     

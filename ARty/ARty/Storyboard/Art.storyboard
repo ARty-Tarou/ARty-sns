@@ -1,7 +1,185 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eXu-PT-ShD">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Art View Controller-->
+        <scene sceneID="3nq-a4-CuY">
+            <objects>
+                <viewController id="eXu-PT-ShD" customClass="ArtViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mav-Rz-bHg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Hu-PC-xyN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </arscnView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="MgF-op-HHj">
+                                <rect key="frame" x="20" y="821" width="374" height="32"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <segments>
+                                    <segment title="Graffiti"/>
+                                    <segment title="Stamp"/>
+                                    <segment title="Close"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSegment:" destination="eXu-PT-ShD" eventType="valueChanged" id="7FX-Mm-eaQ"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhe-wF-RNi">
+                                <rect key="frame" x="0.0" y="685" width="414" height="128"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Xdz-DV-gUK" kind="embed" identifier="graffiti" id="QJd-Nn-MRh"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FFb-14-46i">
+                                <rect key="frame" x="0.0" y="685" width="414" height="128"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="ZAW-Tb-ALR" kind="embed" identifier="stamp" id="WnI-90-OCU"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="xxu-UK-bcQ" firstAttribute="bottom" secondItem="MgF-op-HHj" secondAttribute="bottom" constant="10" id="Siu-rA-DOB"/>
+                            <constraint firstItem="MgF-op-HHj" firstAttribute="leading" secondItem="xxu-UK-bcQ" secondAttribute="leading" constant="20" id="dbl-lT-2bh"/>
+                            <constraint firstItem="xxu-UK-bcQ" firstAttribute="trailing" secondItem="MgF-op-HHj" secondAttribute="trailing" constant="20" id="rSg-MI-JFt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xxu-UK-bcQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="graffitiContainer" destination="Jhe-wF-RNi" id="AJk-0a-Ilt"/>
+                        <outlet property="sceneView" destination="7Hu-PC-xyN" id="6tB-1T-72d"/>
+                        <outlet property="stampContainer" destination="FFb-14-46i" id="cIv-H2-eto"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bf4-PQ-fy2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="67.633928571428569"/>
+        </scene>
+        <!--Graffiti View Controller-->
+        <scene sceneID="dZL-Hj-pXt">
+            <objects>
+                <viewController id="Xdz-DV-gUK" customClass="GraffitiViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jqm-1p-bxU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-7x-sZU">
+                                <rect key="frame" x="297" y="74" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Graffiti Config" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cU-LU-Ydt">
+                                <rect key="frame" x="153" y="10" width="108" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FontSize:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNG-o8-i2S">
+                                <rect key="frame" x="217" y="81" width="72" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="1cU-LU-Ydt" firstAttribute="centerX" secondItem="Jqm-1p-bxU" secondAttribute="centerX" id="NeA-w3-xno"/>
+                            <constraint firstItem="1cU-LU-Ydt" firstAttribute="top" secondItem="Jqm-1p-bxU" secondAttribute="top" constant="10" id="V26-9e-Msr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4pE-O5-P81"/>
+                    </view>
+                    <connections>
+                        <outlet property="fontSizeTextField" destination="0Lv-7x-sZU" id="fPw-0l-ED6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hwk-Nh-SbX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1041" y="-104"/>
+        </scene>
+        <!--Stamp View Controller-->
+        <scene sceneID="nXB-lQ-JM7">
+            <objects>
+                <viewController id="ZAW-Tb-ALR" customClass="StampViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ibe-dL-Y2p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stamp Config" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GoQ-L7-ysl">
+                                <rect key="frame" x="154.5" y="10" width="105" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Height:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Al0-7n-RSD">
+                                <rect key="frame" x="233" y="49" width="56" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Width:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwF-FK-xgL">
+                                <rect key="frame" x="238" y="91" width="51" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="500" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tj7-o5-dR4">
+                                <rect key="frame" x="297" y="42" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="500" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qom-H8-X5K">
+                                <rect key="frame" x="297" y="84" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUS-On-Mhp">
+                                <rect key="frame" x="20" y="24" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gUS-On-Mhp" secondAttribute="height" multiplier="1:1" id="CKE-2j-2YW"/>
+                                    <constraint firstAttribute="width" constant="80" id="fEY-iU-77E"/>
+                                </constraints>
+                                <state key="normal" image="stick"/>
+                                <connections>
+                                    <action selector="ImageSelectButtonAction:" destination="ZAW-Tb-ALR" eventType="touchUpInside" id="vBg-x2-28P"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="GoQ-L7-ysl" firstAttribute="top" secondItem="ibe-dL-Y2p" secondAttribute="top" constant="10" id="E6e-Qy-PGH"/>
+                            <constraint firstItem="GoQ-L7-ysl" firstAttribute="centerX" secondItem="ibe-dL-Y2p" secondAttribute="centerX" id="L6U-tP-5kP"/>
+                            <constraint firstItem="gUS-On-Mhp" firstAttribute="centerY" secondItem="ibe-dL-Y2p" secondAttribute="centerY" id="QmS-pg-muc"/>
+                            <constraint firstItem="gUS-On-Mhp" firstAttribute="leading" secondItem="ibe-dL-Y2p" secondAttribute="leading" constant="20" id="nZM-Ku-z3x"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cut-iS-hKJ"/>
+                    </view>
+                    <connections>
+                        <outlet property="heightTextField" destination="tj7-o5-dR4" id="H2F-BQ-N9I"/>
+                        <outlet property="imageSelectButton" destination="gUS-On-Mhp" id="Jeq-IC-RBj"/>
+                        <outlet property="widthTextField" destination="Qom-H8-X5K" id="u2h-jj-DzN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nyV-ph-QLz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1040.5797101449275" y="53.571428571428569"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="stick" width="325" height="311"/>
+    </resources>
 </document>

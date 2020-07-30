@@ -25,6 +25,8 @@
 		CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC115C7C2469328400461C49 /* ProfileViewController.swift */; };
 		CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1324902466363B00F6CF0A /* TimelineCell.swift */; };
 		CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC1324922466CA9200F6CF0A /* TimelineCell.xib */; };
+		CC4456D324D00BAE0023A126 /* GraffitiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */; };
+		CC4456D524D00BD20023A126 /* StampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4456D424D00BD20023A126 /* StampViewController.swift */; };
 		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
 		CC5A7A2424619650009A923C /* ActivityIndicatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */; };
 		CC61E55D244D4E0900EF5DED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61E55C244D4E0900EF5DED /* User.swift */; };
@@ -34,6 +36,10 @@
 		CC61E565244D53DD00EF5DED /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E564244D53DD00EF5DED /* MyPage.storyboard */; };
 		CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E566244D540300EF5DED /* Timeline.storyboard */; };
 		CC61E569244D544C00EF5DED /* Tab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61E568244D544C00EF5DED /* Tab.storyboard */; };
+		CC61F47324BC0C30001B10B1 /* AR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61F47224BC0C30001B10B1 /* AR.storyboard */; };
+		CC61F47724BC298F001B10B1 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61F47624BC298F001B10B1 /* ARViewController.swift */; };
+		CC61F47924BC3151001B10B1 /* Art.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC61F47824BC3151001B10B1 /* Art.storyboard */; };
+		CC61F47B24BC3168001B10B1 /* ArtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61F47A24BC3167001B10B1 /* ArtViewController.swift */; };
 		CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */; };
 		CC7A014A247662EB00305B94 /* GoodLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7A0149247662EB00305B94 /* GoodLogic.swift */; };
 		CC7B45BB2484DD190089CF17 /* FirstSignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC7B45BA2484DD190089CF17 /* FirstSignIn.storyboard */; };
@@ -81,6 +87,8 @@
 		CC115C7C2469328400461C49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CC1324902466363B00F6CF0A /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		CC1324922466CA9200F6CF0A /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
+		CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiViewController.swift; sourceTree = "<group>"; };
+		CC4456D424D00BD20023A126 /* StampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampViewController.swift; sourceTree = "<group>"; };
 		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorLogic.swift; sourceTree = "<group>"; };
 		CC61E55C244D4E0900EF5DED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -90,6 +98,10 @@
 		CC61E564244D53DD00EF5DED /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
 		CC61E566244D540300EF5DED /* Timeline.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		CC61E568244D544C00EF5DED /* Tab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tab.storyboard; sourceTree = "<group>"; };
+		CC61F47224BC0C30001B10B1 /* AR.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AR.storyboard; sourceTree = "<group>"; };
+		CC61F47624BC298F001B10B1 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		CC61F47824BC3151001B10B1 /* Art.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Art.storyboard; sourceTree = "<group>"; };
+		CC61F47A24BC3167001B10B1 /* ArtViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtViewController.swift; sourceTree = "<group>"; };
 		CC64F3CF24500F4F00C65C61 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CC7A0149247662EB00305B94 /* GoodLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodLogic.swift; sourceTree = "<group>"; };
 		CC7B45BA2484DD190089CF17 /* FirstSignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FirstSignIn.storyboard; sourceTree = "<group>"; };
@@ -176,15 +188,17 @@
 				CC61E55E244D527A00EF5DED /* SignIn.storyboard */,
 				08B4186A244F1F300053AFCC /* SigninFailed.storyboard */,
 				CC61E568244D544C00EF5DED /* Tab.storyboard */,
+				CC61E566244D540300EF5DED /* Timeline.storyboard */,
 				CC61E560244D539600EF5DED /* Trend.storyboard */,
 				CC61E562244D53A500EF5DED /* Search.storyboard */,
 				CCCEF3C2248155E000760DC4 /* ChangeMyData.storyboard */,
 				CC61E564244D53DD00EF5DED /* MyPage.storyboard */,
 				CC115C7A246931F600461C49 /* Profile.storyboard */,
-				CC61E566244D540300EF5DED /* Timeline.storyboard */,
 				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
 				CC7D8184246BD64200351D2A /* UserTable.storyboard */,
 				08430F59246D262A00CF182E /* Helppage.storyboard */,
+				CC61F47224BC0C30001B10B1 /* AR.storyboard */,
+				CC61F47824BC3151001B10B1 /* Art.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -206,6 +220,10 @@
 				CC7D8186246BD69800351D2A /* UserTableViewController.swift */,
 				08430F57246D25B700CF182E /* HelppageViewController.swift */,
 				08D74601246D5B7800245DDD /* SubHelpViewController.swift */,
+				CC61F47624BC298F001B10B1 /* ARViewController.swift */,
+				CC61F47A24BC3167001B10B1 /* ArtViewController.swift */,
+				CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */,
+				CC4456D424D00BD20023A126 /* StampViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -311,6 +329,7 @@
 				CC61E567244D540300EF5DED /* Timeline.storyboard in Resources */,
 				5705E03924460F770069FEDD /* LaunchScreen.storyboard in Resources */,
 				CCCEF3C3248155E000760DC4 /* ChangeMyData.storyboard in Resources */,
+				CC61F47324BC0C30001B10B1 /* AR.storyboard in Resources */,
 				CC61E55F244D527A00EF5DED /* SignIn.storyboard in Resources */,
 				CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */,
 				CC88A31A24700A4F003FC79C /* SearchStickCell.xib in Resources */,
@@ -319,6 +338,7 @@
 				5705E03624460F770069FEDD /* Assets.xcassets in Resources */,
 				CC7D8185246BD64200351D2A /* UserTable.storyboard in Resources */,
 				CC61E563244D53A500EF5DED /* Search.storyboard in Resources */,
+				CC61F47924BC3151001B10B1 /* Art.storyboard in Resources */,
 				CC61E561244D539600EF5DED /* Trend.storyboard in Resources */,
 				CC115C7B246931F600461C49 /* Profile.storyboard in Resources */,
 				CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */,
@@ -379,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC61F47B24BC3168001B10B1 /* ArtViewController.swift in Sources */,
 				CC64F3D024500F4F00C65C61 /* SearchViewController.swift in Sources */,
 				CC7D818D246C428900351D2A /* UserTableCell.swift in Sources */,
 				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
@@ -391,6 +412,7 @@
 				CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */,
 				08430F58246D25B700CF182E /* HelppageViewController.swift in Sources */,
 				086AFC7C244DE3FD00F0B86D /* MyPageViewController.swift in Sources */,
+				CC61F47724BC298F001B10B1 /* ARViewController.swift in Sources */,
 				CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
 				CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */,
@@ -398,8 +420,10 @@
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
 				CC7A014A247662EB00305B94 /* GoodLogic.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */,
+				CC4456D324D00BAE0023A126 /* GraffitiViewController.swift in Sources */,
 				CC7B45BD2484DD830089CF17 /* FirstSignInViewController.swift in Sources */,
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
+				CC4456D524D00BD20023A126 /* StampViewController.swift in Sources */,
 				CC7D8187246BD69800351D2A /* UserTableViewController.swift in Sources */,
 				CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */,
 				CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */,

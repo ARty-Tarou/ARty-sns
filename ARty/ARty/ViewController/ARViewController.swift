@@ -76,8 +76,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate
             
             // コンフィギュレーションの設定
             let configuration = ARWorldTrackingConfiguration()
-                configuration.planeDetection = [.horizontal, .vertical]
-                configuration.environmentTexturing = .automatic
+            configuration.planeDetection = [.horizontal, .vertical]
+            configuration.environmentTexturing = .automatic
             
             // セッションを開始する
             sceneView.session.run(configuration)
@@ -85,6 +85,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate
         
         // MARK: Method
         func getScreenShot(windowFrame: CGRect) -> UIImage {
+            // スクリーンショットを取得
             let image = sceneView.snapshot()
             
             return image

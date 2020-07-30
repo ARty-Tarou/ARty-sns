@@ -33,16 +33,61 @@
                                     <action selector="signUpButtonAction:" destination="tSR-6K-DPk" eventType="touchUpInside" id="nQI-Lo-WWs"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXL-qq-zmi">
-                                <rect key="frame" x="62" y="318" width="290" height="260"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="16" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXL-qq-zmi">
+                                <rect key="frame" x="50" y="294" width="314" height="413"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="a6b-nn-l65"/>
-                                    <constraint firstAttribute="width" constant="290" id="aTY-2p-cZg"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="利用規約">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" metaFont="system" size="21"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">1.和を以て貴と為し、さかふること無きを宗とせよ。
+2.篤く三宝を敬へ。
+3.詔を承りては必ず謹め、君をば天とす、臣をば地とす。
+4.群臣百寮、礼を以て本とせよ。
+5.饗を絶ち欲することを棄て、明に訴訟を弁めよ。
+6.悪しきを懲らし善を勧むるは、古の良き典なり。
+7.人各任有り。
+8.群卿百寮、早朝晏退でよ。
+9.信は是義の本なり。
+10.忿を絶ちて、瞋を棄て、人の違うことを怒らざれ。
+11.功と過を明らかに察て、賞罰を必ず当てよ。
+12.国司・国造、百姓に収斂することなかれ。
+13.諸の官に任せる者は、同じく職掌を知れ。
+14.群臣百寮、嫉み妬むこと有ること無かれ。
+15.私を背きて公に向くは、是臣が道なり。
+16.民を使うに時を以てするは、古の良き典なり。
+17.夫れ事独り断むべからず。</string>
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0R-qz-m26" userLabel="CheckBoxButton">
@@ -62,14 +107,16 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="MXL-qq-zmi" firstAttribute="centerY" secondItem="dD8-Wx-Cu7" secondAttribute="centerY" id="0bB-6s-jYP"/>
                             <constraint firstItem="EZX-g7-kNz" firstAttribute="bottom" secondItem="lvO-gh-cDU" secondAttribute="bottom" constant="15" id="8jN-MM-oqn"/>
+                            <constraint firstItem="MXL-qq-zmi" firstAttribute="top" secondItem="czh-hE-wJ9" secondAttribute="bottom" constant="20" id="Eoc-I4-wSe"/>
                             <constraint firstItem="czh-hE-wJ9" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="GpQ-qv-MHi"/>
                             <constraint firstItem="czh-hE-wJ9" firstAttribute="top" secondItem="EZX-g7-kNz" secondAttribute="top" constant="26" id="HsM-wo-63i"/>
                             <constraint firstItem="lvO-gh-cDU" firstAttribute="top" secondItem="O0R-qz-m26" secondAttribute="bottom" constant="30" id="aTq-DV-7GF"/>
+                            <constraint firstItem="O0R-qz-m26" firstAttribute="top" secondItem="MXL-qq-zmi" secondAttribute="bottom" constant="20" id="b8r-iC-tuR"/>
                             <constraint firstItem="lvO-gh-cDU" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="fap-HN-Bis"/>
+                            <constraint firstItem="EZX-g7-kNz" firstAttribute="trailing" secondItem="MXL-qq-zmi" secondAttribute="trailing" constant="50" id="sGH-DA-rip"/>
                             <constraint firstItem="O0R-qz-m26" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="tfF-fX-48J"/>
-                            <constraint firstItem="MXL-qq-zmi" firstAttribute="centerX" secondItem="dD8-Wx-Cu7" secondAttribute="centerX" id="w5k-Pj-YX7"/>
+                            <constraint firstItem="MXL-qq-zmi" firstAttribute="leading" secondItem="EZX-g7-kNz" secondAttribute="leading" constant="50" id="wEU-hF-TOc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EZX-g7-kNz"/>
                     </view>

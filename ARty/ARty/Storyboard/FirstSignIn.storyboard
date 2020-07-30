@@ -28,17 +28,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userName（必須）:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2L-ZW-5Rc" userLabel="userName">
-                                <rect key="frame" x="63" y="265" width="153" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2L-ZW-5Rc" userLabel="userName">
+                                <rect key="frame" x="63" y="265" width="166" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="userName">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="（必須）">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=":">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9GS-Wr-5IM">
-                                <rect key="frame" x="157" y="137" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="よろしくお願いします！" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vio-qF-hdu">
                                 <rect key="frame" x="63" y="488" width="257" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,27 +66,39 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-lj-AGm" userLabel="Next">
-                                <rect key="frame" x="192" y="609" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="次へ"/>
-                                <connections>
-                                    <action selector="nextButtonAction:" destination="UOD-dH-bXf" eventType="touchUpInside" id="nJL-QV-ifb"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ytk-I4-f0N">
                                 <rect key="frame" x="63" y="391" width="257" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-lj-AGm" userLabel="Next">
+                                <rect key="frame" x="167" y="708" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="次へ"/>
+                                <connections>
+                                    <action selector="nextButtonAction:" destination="UOD-dH-bXf" eventType="touchUpInside" id="nJL-QV-ifb"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9GS-Wr-5IM">
+                                <rect key="frame" x="157" y="94" width="100" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9GS-Wr-5IM" secondAttribute="height" multiplier="106:107" id="4ut-Lu-tUi"/>
+                                    <constraint firstAttribute="width" constant="100" id="w0U-76-pRG"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9GS-Wr-5IM" firstAttribute="centerX" secondItem="4g5-6f-VPG" secondAttribute="centerX" id="Ob9-zh-YuI"/>
+                            <constraint firstItem="9GS-Wr-5IM" firstAttribute="top" secondItem="537-fn-SC0" secondAttribute="top" constant="50" id="co0-d4-ooN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="537-fn-SC0"/>
                     </view>
                     <connections>
                         <outlet property="birthdayTextField" destination="ytk-I4-f0N" id="br8-3q-0c0"/>
                         <outlet property="selfIntroductionTextView" destination="vio-qF-hdu" id="MNa-sh-V4p"/>
+                        <outlet property="userIconImageView" destination="9GS-Wr-5IM" id="zSy-Yh-5F7"/>
                         <outlet property="userNameTextField" destination="Y6c-7A-0rx" id="jQP-CA-NRc"/>
                         <segue destination="kLI-aQ-zPj" kind="show" identifier="tab" id="45S-Bo-8Gl"/>
                     </connections>
