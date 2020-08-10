@@ -13,7 +13,9 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
     // Properties
     @IBOutlet weak var fontSizeTextField: UITextField!
     
-    var fontSize: Float = 0.0
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var fontSize: Float = 0.003
     var lineColor = UIColor.lightGray
 
     override func viewDidLoad() {
@@ -24,13 +26,6 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
         
         // fontSizeを初期化
         setFontSize()
-        
-        // ArtViewControllerを取得
-        //let artViewController = ArtViewController()
-        
-        // 設定を反映
-        
-        print("fontSize4 : \(self.fontSize)")
                 
     }
     
@@ -40,28 +35,17 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
             
             // サイズが1~10以外の数値の場合初期値を入れる
             if value < 1 || 10 < value {
-                self.fontSizeTextField.text = "5"
+                self.fontSizeTextField.text = "3"
                 value = 5
             }
             
             // fontSizeを更新
             fontSize = Float(value)/1000
-            //print("fontSize in Graffiti:\(self.fontSize)")
         }
-        
-        print("graffiti : \(fontSize)")
-        
-        var appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        appDelegate.fontSize = fontSize
-        
-        print("delegate graffiti : \(appDelegate.fontSize)")
         
         // ArtViewControllerを取得
         let artViewController = ArtViewController()
         
-        // 設定を反映
-        artViewController.graffitiConfigUpdate()
     }
     
     // MARK: UITextField
@@ -72,7 +56,7 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
         // フォントサイズを更新
         setFontSize()
         
-        //print("fontSize in Graffiti2:\(self.fontSize)")
+        appDelegate.fontSize = self.fontSize
         
         return true
     }

@@ -14,6 +14,9 @@ import NCMB
 class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate {
     
     // MARK: Properties
+    // appDelegate
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // sceneView
     @IBOutlet var sceneView: ARSCNView!
     
@@ -22,7 +25,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     @IBOutlet weak var stampContainer: UIView!
     
     // 落書き
-    var fontSize: Float = 0.0
+    var fontSize: Float = 0.003
     var lineColor = UIColor.lightGray
     
     var polygonVertices: [SCNVector3] = []
@@ -72,16 +75,6 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     
     // MARK: Method
     
-    func graffitiConfigUpdate() {
-        
-        var appDelegate:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        self.fontSize = appDelegate.fontSize!;
-        
-        print("art : \(fontSize)")
-        print("delegate art : \(appDelegate.fontSize)")
-    }
-    
     func stampConfigUpdate() {
         
     }
@@ -116,11 +109,13 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     }
     
     func addPointAndCreateVertices(){
-        //print("fontSize5 : \(fontSize)")
         //カメラノード
         guard let camera: SCNNode = sceneView.pointOfView else{
             return
         }
+        
+        let fontSize = appDelegate.fontSize
+        
         
         let pointScreen: SCNVector3 = SCNVector3Make(Float(pointTouching.x),Float(pointTouching.y), 0.997)
         let pointWorld: SCNVector3 = sceneView.unprojectPoint(pointScreen)
@@ -130,10 +125,10 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         let y: Float = pointCamera.y
         let z: Float = -0.2
         
-        let vertice0InCamera: SCNVector3 = SCNVector3Make(x - self.fontSize, y + self.fontSize, z)
-        let vertice1InCamera: SCNVector3 = SCNVector3Make(x + self.fontSize, y + self.fontSize, z)
-        let vertice2InCamera: SCNVector3 = SCNVector3Make(x - self.fontSize, y - self.fontSize, z)
-        let vertice3InCamera: SCNVector3 = SCNVector3Make(x + self.fontSize, y - self.fontSize, z)
+        let vertice0InCamera: SCNVector3 = SCNVector3Make(x - fontSize, y + fontSize, z)
+        let vertice1InCamera: SCNVector3 = SCNVector3Make(x + fontSize, y + fontSize, z)
+        let vertice2InCamera: SCNVector3 = SCNVector3Make(x - fontSize, y - fontSize, z)
+        let vertice3InCamera: SCNVector3 = SCNVector3Make(x + fontSize, y - fontSize, z)
         
         let vertice0: SCNVector3 = camera.convertPosition(vertice0InCamera, to: nil)
         let vertice1: SCNVector3 = camera.convertPosition(vertice1InCamera, to: nil)
