@@ -114,8 +114,8 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
             return
         }
         
+        // fontSizeを取得
         let fontSize = appDelegate.fontSize
-        
         
         let pointScreen: SCNVector3 = SCNVector3Make(Float(pointTouching.x),Float(pointTouching.y), 0.997)
         let pointWorld: SCNVector3 = sceneView.unprojectPoint(pointScreen)
@@ -177,11 +177,17 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     }
     
     func updateGeometry(){
+        
+        // fontColorを取得
+        let red = appDelegate.red
+        let green = appDelegate.green
+        let blue = appDelegate.blue
+        
         let source = SCNGeometrySource(vertices: polygonVertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         drawingNode?.geometry = SCNGeometry(sources:[source], elements: [element])
     
-        drawingNode?.geometry?.firstMaterial?.diffuse.contents = #colorLiteral(red: 0.4627581835, green: 0.9555212855, blue: 0.5625822544, alpha: 1)
+        drawingNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: red, green: green, blue: blue, alpha: 1)
         drawingNode?.geometry?.firstMaterial?.isDoubleSided = true
     }
     

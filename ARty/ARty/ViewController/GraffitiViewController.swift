@@ -26,27 +26,38 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
         
         // fontSizeを初期化
         setFontSize()
+        
+        
                 
     }
     
-    // Method
+    // MARK: Method
     func setFontSize() {
         if var value = Int(fontSizeTextField.text!) {
             
             // サイズが1~10以外の数値の場合初期値を入れる
             if value < 1 || 10 < value {
                 self.fontSizeTextField.text = "3"
-                value = 5
+                value = 3
             }
             
             // fontSizeを更新
             fontSize = Float(value)/1000
         }
         
-        // ArtViewControllerを取得
-        let artViewController = ArtViewController()
-        
     }
+    
+    // MARK: Action
+    @IBAction func redSlider(_ sender: UISlider) {
+        appDelegate.red = CGFloat(sender.value)
+    }
+    @IBAction func greenSlider(_ sender: UISlider) {
+        appDelegate.green = CGFloat(sender.value)
+    }
+    @IBAction func blueSlider(_ sender: UISlider) {
+        appDelegate.blue = CGFloat(sender.value)
+    }
+    
     
     // MARK: UITextField
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
