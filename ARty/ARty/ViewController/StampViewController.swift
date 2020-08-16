@@ -15,6 +15,8 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var widthTextField: UITextField!
     @IBOutlet weak var imageSelectButton: UIButton!
     
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     var stampHeight = 500
     var stampWidth = 500
     var stampImage = UIImage(named: "stick")
@@ -28,25 +30,23 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         widthTextField.delegate = self
         
         // TextFieldの初期値を設定
-        heightTextField.text = "300"
-        widthTextField.text = "300"
+        heightTextField.text = "500"
+        widthTextField.text = "500"
         
-        // ArtViewControllerを取得
-        let artViewController = ArtViewController()
+        // Stampを初期化
         
-        // 設定を反映
-        artViewController.stampConfigUpdate()
     }
     
     // MARK: Method
     
-    func configUpdate() {
+    func setStampConfig() {
         print("Stamp設定を更新")
-        // 設定内容をAR画面に渡す
-        let artViewController = ArtViewController()
-        artViewController.stampHeight = self.stampHeight
-        artViewController.stampWidth = self.stampWidth
-        artViewController.stampImage = imageSelectButton.currentImage
+        
+        
+        // Stamp設定を共有
+        appDelegate.stampHeight = self.stampHeight
+        appDelegate.stampWidth = self.stampWidth
+        appDelegate.stampImage = self.stampImage
     }
     
     // MARK: Action
@@ -71,14 +71,11 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         textField.resignFirstResponder()
         
         // スタンプサイズを更新
-        stampHeight = Int(self.heightTextField.text ?? "300")!
-        stampWidth = Int(self.widthTextField.text ?? "300")!
-        
-        // ArtViewControllerを取得
-        let artViewController = ArtViewController()
+        stampHeight = Int(self.heightTextField.text ?? "500")!
+        stampWidth = Int(self.widthTextField.text ?? "500")!
         
         // 設定を反映
-        
+        setStampConfig()
         
         return true
     }
@@ -98,8 +95,8 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         // 選択した画像を選択画像ビューに反映
         imageSelectButton.setImage(selectedImage, for: .normal)
         
-        // artViewControllerに反映
-        configUpdate()
+        // 設定を反映
+        setStampConfig()
         
         // スタンプ画像のサイズを出力
         print("画像の高さ:\(selectedImage.size.height)")

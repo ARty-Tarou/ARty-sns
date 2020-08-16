@@ -15,10 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //********** APIキーの設定 **********
     let applicationkey = "a8b68d30b39077b903e6eb7f9496b55bc134b5b6718140d1bb3b0e1a323ec4a7"
     let clientkey      = "437b274dfbd4347193a3e2e33828ca475c77e734288f2cd793da1397394b0fd6"
+    
+    // Graffiti
     var fontSize:Float = 0.003
-    var red: CGFloat = 100
-    var green: CGFloat = 0
-    var blue: CGFloat = 100
+    var lineColor: UIColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+    
+    // Stamp
+    var stampHeight: Int = 500
+    var stampWidth = 500
+    var stampImage = UIImage(named: "stick")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

@@ -17,18 +17,23 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
     
     var fontSize: Float = 0.003
     var lineColor = UIColor.lightGray
+    
+    var red: CGFloat = 0.5
+    var green: CGFloat = 0.5
+    var blue: CGFloat = 0.5
 
+    @IBOutlet weak var preview: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // デリゲートを設定
         fontSizeTextField.delegate = self
         
-        // fontSizeを初期化
+        // fontを初期化
         setFontSize()
+        setLineColor()
         
-        
-                
     }
     
     // MARK: Method
@@ -42,22 +47,40 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
             }
             
             // fontSizeを更新
-            fontSize = Float(value)/1000
+            self.fontSize = Float(value)/1000
+            
+            appDelegate.fontSize = self.fontSize
+            
+            let width =  CGFloat(value) * 7
+            let height = CGFloat(value) * 7
+            
+            preview.frame = CGRect(x: preview.frame.minX, y: preview.frame.minY, width: width, height: height)
+            
         }
+    }
+    
+    func setLineColor() {
+        appDelegate.lineColor = UIColor(red: self.red, green: self.green, blue: self.blue, alpha: 1)
         
+        preview.backgroundColor = UIColor(red: self.red, green: self.green, blue: self.blue, alpha: 1)
     }
     
     // MARK: Action
     @IBAction func redSlider(_ sender: UISlider) {
-        appDelegate.red = CGFloat(sender.value)
+        self.red = CGFloat(sender.value)
+        
+        setLineColor()
     }
     @IBAction func greenSlider(_ sender: UISlider) {
-        appDelegate.green = CGFloat(sender.value)
+        self.green = CGFloat(sender.value)
+        
+        setLineColor()
     }
     @IBAction func blueSlider(_ sender: UISlider) {
-        appDelegate.blue = CGFloat(sender.value)
+        self.blue = CGFloat(sender.value)
+        
+        setLineColor()
     }
-    
     
     // MARK: UITextField
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -66,8 +89,6 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
         
         // フォントサイズを更新
         setFontSize()
-        
-        appDelegate.fontSize = self.fontSize
         
         return true
     }

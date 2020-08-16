@@ -26,7 +26,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     
     // 落書き
     var fontSize: Float = 0.003
-    var lineColor = UIColor.lightGray
+    var lineColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
     
     var polygonVertices: [SCNVector3] = []
     var indices: [Int32] = []
@@ -70,40 +70,12 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         graffitiContainer.isHidden = true
         stampContainer.isHidden = true
         
-        print("fontSize3: \(self.fontSize)")
     }
     
     // MARK: Method
     
-    func stampConfigUpdate() {
-        
-    }
-    
-    // MARK: Action
-    
-    @IBAction func changeSegment(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            graffitiContainer.isHidden = false
-            stampContainer.isHidden = true
-            drawFlag = true
-            print(self.fontSize)
-        case 1:
-            graffitiContainer.isHidden = true
-            stampContainer.isHidden = false
-            drawFlag = false
-        case 2:
-            graffitiContainer.isHidden = true
-            stampContainer.isHidden = true
-            print(self.fontSize)
-        default:
-            break;
-        }
-    }
-    
     //Graffiti
     func begin(){
-        print("fontSize6 : \(self.fontSize)")
         drawingNode = SCNNode()
         sceneView.scene.rootNode.addChildNode(drawingNode!)
     }
@@ -179,15 +151,14 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     func updateGeometry(){
         
         // fontColorを取得
-        let red = appDelegate.red
-        let green = appDelegate.green
-        let blue = appDelegate.blue
+        self.lineColor = appDelegate.lineColor
+        print("lineColor:\(self.lineColor)")
         
         let source = SCNGeometrySource(vertices: polygonVertices)
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         drawingNode?.geometry = SCNGeometry(sources:[source], elements: [element])
     
-        drawingNode?.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: red, green: green, blue: blue, alpha: 1)
+        drawingNode?.geometry?.firstMaterial?.diffuse.contents = self.lineColor
         drawingNode?.geometry?.firstMaterial?.isDoubleSided = true
     }
     
@@ -195,6 +166,63 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         
         if isDrawing {
             addPointAndCreateVertices()
+        }
+    }
+    
+    // TODO: Stamp
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard !(anchor is ARPlaneAnchor) else { return }
+        
+        // スタンプの設定を取得
+        self.stampHeight = appDelegate.stampHeight
+        self.stampWidth = appDelegate.stampWidth
+        self.stampImage = appDelegate.stampImage
+        
+        // ノードを作成
+        let boxNode = SCNNode()
+        
+        // ボックスを作成
+        let box = SCNBox(width: CGFloat(self.stampWidth / 10000), height: 0.0001, length: CGFloat(self.stampHeight / 10000), chamferRadius: 0)
+        
+        // スタンプテクスチャのマテリアルを生成
+        let stampTexture = SCNMaterial()
+        stampTexture.diffuse.contents = self.stampImage
+        
+        // 透明な面を生成
+        let blank = SCNMaterial()
+        blank.diffuse.contents = UIColor.clear
+        
+        // ボックスにマテリアルを貼り付け
+        box.materials = [blank, blank, blank, blank, stampTexture, blank]
+        
+        // ジオメトリを設定
+        boxNode.geometry = box
+        boxNode.position.y += 0.01
+        
+        // 検出面の子要素にする
+        node.addChildNode(boxNode)
+        
+    }
+    
+    // MARK: Action
+    
+    @IBAction func changeSegment(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            graffitiContainer.isHidden = false
+            stampContainer.isHidden = true
+            drawFlag = true
+            print(self.fontSize)
+        case 1:
+            graffitiContainer.isHidden = true
+            stampContainer.isHidden = false
+            drawFlag = false
+        case 2:
+            graffitiContainer.isHidden = true
+            stampContainer.isHidden = true
+            print(self.fontSize)
+        default:
+            break;
         }
     }
     
@@ -217,13 +245,11 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
             if !hitTest.isEmpty{
                 // タップした箇所が取得できていればアンカーを追加
                 let anchor = ARAnchor(name: "stamp", transform: hitTest.first!.worldTransform)
-                //print(anchor.name)
+                
                 sceneView.session.add(anchor: anchor)
             }
         } else {
             // 落書きの処理
-            
-            //print(fontSize)
             
             guard let location = touches.first?.location(in: nil) else{
                 return
