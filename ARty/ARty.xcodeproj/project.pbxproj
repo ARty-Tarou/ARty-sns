@@ -27,6 +27,7 @@
 		CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC1324922466CA9200F6CF0A /* TimelineCell.xib */; };
 		CC4456D324D00BAE0023A126 /* GraffitiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */; };
 		CC4456D524D00BD20023A126 /* StampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4456D424D00BD20023A126 /* StampViewController.swift */; };
+		CC57C08A24EA558100C02575 /* ARStickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57C08924EA558100C02575 /* ARStickViewController.swift */; };
 		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
 		CC5A7A2424619650009A923C /* ActivityIndicatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */; };
 		CC61E55D244D4E0900EF5DED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61E55C244D4E0900EF5DED /* User.swift */; };
@@ -89,6 +90,7 @@
 		CC1324922466CA9200F6CF0A /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
 		CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiViewController.swift; sourceTree = "<group>"; };
 		CC4456D424D00BD20023A126 /* StampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampViewController.swift; sourceTree = "<group>"; };
+		CC57C08924EA558100C02575 /* ARStickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARStickViewController.swift; sourceTree = "<group>"; };
 		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		CC5A7A2324619650009A923C /* ActivityIndicatorLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorLogic.swift; sourceTree = "<group>"; };
 		CC61E55C244D4E0900EF5DED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				CC61F47A24BC3167001B10B1 /* ArtViewController.swift */,
 				CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */,
 				CC4456D424D00BD20023A126 /* StampViewController.swift */,
+				CC57C08924EA558100C02575 /* ARStickViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */,
 				CC88A31C24700D2B003FC79C /* SearchStickCell.swift in Sources */,
 				CC61E55D244D4E0900EF5DED /* User.swift in Sources */,
+				CC57C08A24EA558100C02575 /* ARStickViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

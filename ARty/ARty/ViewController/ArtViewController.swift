@@ -23,6 +23,8 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     // ContainerView
     @IBOutlet weak var graffitiContainer: UIView!
     @IBOutlet weak var stampContainer: UIView!
+    @IBOutlet weak var stickContainer: UIView!
+    
     
     // 落書き
     var fontSize: Float = 0.003
@@ -46,6 +48,11 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // ContainerViewを非表示に設定
+        graffitiContainer.isHidden = true
+        stampContainer.isHidden = true
+        stickContainer.isHidden = true
+        
         // デリゲートを設定
         sceneView.delegate = self
         
@@ -65,14 +72,16 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         
         // セッションを開始
         sceneView.session.run(configuration)
-
-        // ContainerViewを非表示に設定
-        graffitiContainer.isHidden = true
-        stampContainer.isHidden = true
         
     }
     
     // MARK: Method
+    func getScreenShot(windowFrame: CGRect) -> UIImage {
+        // スクリーンショットを取得
+        let image = sceneView.snapshot()
+        
+        return image
+    }
     
     //Graffiti
     func begin(){
@@ -163,7 +172,6 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval){
-        
         if isDrawing {
             addPointAndCreateVertices()
         }
@@ -171,36 +179,42 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     
     // TODO: Stamp
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        
+        
         guard !(anchor is ARPlaneAnchor) else { return }
         
-        // スタンプの設定を取得
-        self.stampHeight = appDelegate.stampHeight
-        self.stampWidth = appDelegate.stampWidth
-        self.stampImage = appDelegate.stampImage
         
-        // ノードを作成
-        let boxNode = SCNNode()
+        if anchor.name == "stamp" {
+            // スタンプの設定を取得
+            self.stampHeight = appDelegate.stampHeight
+            self.stampWidth = appDelegate.stampWidth
+            self.stampImage = appDelegate.stampImage
+            
+            // ノードを作成
+            let boxNode = SCNNode()
+            
+            // ボックスを作成
+            let box = SCNBox(width: CGFloat(self.stampWidth) / 10000, height: 0.0001, length: CGFloat(self.stampHeight) / 10000, chamferRadius: 0)
+            
+            // スタンプテクスチャのマテリアルを生成
+            let stampTexture = SCNMaterial()
+            stampTexture.diffuse.contents = self.stampImage
+            
+            // 透明な面を生成
+            let blank = SCNMaterial()
+            blank.diffuse.contents = UIColor.clear
+            
+            // ボックスにマテリアルを貼り付け
+            box.materials = [blank, blank, blank, blank, stampTexture, blank]
+            
+            // ジオメトリを設定
+            boxNode.geometry = box
+            boxNode.position.y += 0.01
+            
+            // 検出面の子要素にする
+            node.addChildNode(boxNode)
+        }
         
-        // ボックスを作成
-        let box = SCNBox(width: CGFloat(self.stampWidth / 10000), height: 0.0001, length: CGFloat(self.stampHeight / 10000), chamferRadius: 0)
-        
-        // スタンプテクスチャのマテリアルを生成
-        let stampTexture = SCNMaterial()
-        stampTexture.diffuse.contents = self.stampImage
-        
-        // 透明な面を生成
-        let blank = SCNMaterial()
-        blank.diffuse.contents = UIColor.clear
-        
-        // ボックスにマテリアルを貼り付け
-        box.materials = [blank, blank, blank, blank, stampTexture, blank]
-        
-        // ジオメトリを設定
-        boxNode.geometry = box
-        boxNode.position.y += 0.01
-        
-        // 検出面の子要素にする
-        node.addChildNode(boxNode)
         
     }
     
@@ -208,19 +222,26 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     
     @IBAction func changeSegment(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0:
+        case 0: // graffiti
             graffitiContainer.isHidden = false
             stampContainer.isHidden = true
+            stickContainer.isHidden = true
             drawFlag = true
             print(self.fontSize)
-        case 1:
+        case 1: // stamp
             graffitiContainer.isHidden = true
             stampContainer.isHidden = false
+            stickContainer.isHidden = true
             drawFlag = false
-        case 2:
+        case 2: // stick
             graffitiContainer.isHidden = true
             stampContainer.isHidden = true
-            print(self.fontSize)
+            stickContainer.isHidden = false
+            appDelegate.sceneView = self.sceneView
+        case 3:// close
+            graffitiContainer.isHidden = true
+            stampContainer.isHidden = true
+            stickContainer.isHidden = true
         default:
             break;
         }

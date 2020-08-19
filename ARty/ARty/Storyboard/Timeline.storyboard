@@ -72,6 +72,14 @@
                                     <action selector="reloadButtonAction:" destination="XW7-bx-gnj" eventType="touchUpInside" id="rFO-Yp-MMr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NN-tT-gQO">
+                                <rect key="frame" x="227" y="58" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="a4F-II-syV" kind="show" id="wK6-Pf-Mie"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -93,6 +101,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wpE-r4-52m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2892.753623188406" y="46.875"/>
+        </scene>
+        <!--AR-->
+        <scene sceneID="Ult-5w-tYc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AR" id="a4F-II-syV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ctq-2Z-JHu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6yR-nP-J22" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3417" y="-121"/>
         </scene>
         <!--Profile-->
         <scene sceneID="Li5-3S-kBp">

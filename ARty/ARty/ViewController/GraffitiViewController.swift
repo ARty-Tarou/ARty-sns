@@ -10,7 +10,7 @@ import UIKit
 
 class GraffitiViewController: UIViewController, UITextFieldDelegate {
     
-    // Properties
+    // MARK: Properties
     @IBOutlet weak var fontSizeTextField: UITextField!
     
     let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
