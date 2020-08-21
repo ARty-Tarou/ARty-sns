@@ -62,8 +62,6 @@ class UserTableViewController: UIViewController, UITableViewDelegate, UITableVie
     struct UserDetailData: Codable{
         // ユーザーID
         let userId: String
-        // TODO: ユーザーの誕生日（後々Date型に変更？）
-        let birthday: String?
         // ユーザーアイコンのファイル名
         let iconImageName: String
         // ユーザーのプロフィールコメント

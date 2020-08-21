@@ -14,6 +14,15 @@ import NCMB
 
 class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, RPPreviewViewControllerDelegate {
     
+    // てすと
+    var testWorldMapURL: URL = {
+        do {
+            return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("testWorldMapURL")
+        } catch {
+            fatalError("no such file")
+        }
+    }()
+    
     // MARK: Properties
     // appDelegate
     let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -22,6 +31,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     var fileName: String?
     
     var worldMap: ARWorldMap?
+    
     
     // sceneView
     @IBOutlet var sceneView: ARSCNView!
@@ -246,6 +256,9 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     // WorldMapを取得
     func pullWorldMap() {
         print("pullしてるよ")
+        self.fileName = String(self.fileName!.suffix(self.fileName!.count - 2))
+        self.fileName = "a." + self.fileName!
+        print("fileName : \(fileName)")
         let file = NCMBFile(fileName: self.fileName!)
         
         file.fetchInBackground(callback: {result in
@@ -253,25 +266,33 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
             case let .success(data):
                 print("WorldMapが取得できたよ")
                 
+                print("pullWorldMap(data):\(data!)")
+                
                 // デシリアライズ
-                guard let worldMap = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!) else {return}
+                guard let worldMap = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!) else {
+                    print("デシリアライズできなかったよ")
+                    return
+                    
+                }
+                
+                print("pullWorldMap(worldMap):\(worldMap)")
                 
                 self.worldMap = worldMap
                 
                 self.reload()
                 
             case let .failure(error):
-                print("WorldMapが取得できなかったよ")
+                print("WorldMapが取得できなかったよ\(error)")
             }
         })
     }
     
     func reload() {
-        print("reload")
+        print("reload : \(self.worldMap!)")
         // WorldMapの再設定
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal, .vertical]
-        configuration.initialWorldMap = worldMap
+        configuration.initialWorldMap = self.worldMap!
         self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
@@ -316,6 +337,50 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         reload()
     }
     
+    // test
+    @IBAction func saveButtonAction(_ sender: Any) {
+        // worldMapを取得
+        sceneView.session.getCurrentWorldMap {
+            worldMap, error in guard let map = worldMap else {return}
+            
+            print("保存(worldMap):\(map)")
+            
+            // シリアライズ
+            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true) else {return}
+            
+            print("保存(data):\(data)")
+            
+            // ローカルに保存
+            guard ((try? data.write(to: self.testWorldMapURL)) != nil) else {return}
+        }
+        
+    }
+    @IBAction func loadButtonAction(_ sender: Any) {
+        // 保存したworldMapの読み出し
+        var data: Data? = nil
+        do {
+            try data = Data(contentsOf: self.testWorldMapURL)
+            
+        } catch {
+            return
+        }
+        
+        print("読込(data):\(data!)")
+        print("読込(data2):\(data ?? Data())")
+        
+        // デシリアライズ
+        guard let testWorldMap = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!) else {return}
+        
+        print("読込(worldMap):\(testWorldMap)")
+        
+        // worldMapの再設定
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.initialWorldMap = testWorldMap
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    
     
     
     @IBAction func shotButtonAction(_ sender: Any) {
@@ -325,8 +390,12 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         // WorldMapを取得
         sceneView.session.getCurrentWorldMap { worldMap, error in guard let map = worldMap else {return}
             
+            print("投稿(worldMap):\(String(describing: worldMap))")
+            
             // シリアライズ
             guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true) else {return}
+            
+            print("投稿(data):\(data)")
             
             self.stickData = data
             

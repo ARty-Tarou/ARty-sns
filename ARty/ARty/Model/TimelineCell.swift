@@ -13,7 +13,6 @@ class TimelineCell: UICollectionViewCell{
     // MARK: Properties
     @IBOutlet weak var userIconButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var userPraceLabel: UILabel!
     @IBOutlet weak var stampImageView: UIImageView!
     @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet weak var goodButton: UIButton!

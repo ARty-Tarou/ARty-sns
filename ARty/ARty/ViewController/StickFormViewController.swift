@@ -90,6 +90,7 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
             print("arを投稿するよ")
             let imageData = self.stickImage!.pngData()!
             
+            
             // StickLogicインスタンスを生成
             let stickLogic = StickLogic()
             stickLogic.saveFile(data: imageData, arData: stickData, detail: detailTextView.text)

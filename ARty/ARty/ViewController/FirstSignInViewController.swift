@@ -16,10 +16,6 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var selfIntroductionTextView: UITextView!
     @IBOutlet weak var userNameTextField: UITextField!
-    @IBOutlet weak var birthdayTextField: UITextField!
-    
-    // 誕生日のdatePicker
-    let datePicker = UIDatePicker()
     
     // カレントユーザー
     let currentUser = NCMBUser.currentUser
@@ -36,23 +32,6 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
         //ダイアログの表示
         present(alertController, animated: true, completion: nil)
         
-        // DatePickerの設定
-        datePicker.datePickerMode = .date
-        birthdayTextField.inputView = datePicker
-        
-        // ツールバーを設定
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        
-        // ツールバーにボタンを設定
-        let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButtonItem = UIBarButtonItem(title: "完了", style: .plain, target: self, action: #selector(self.onDoneButton(_:)))
-        
-        // ツールバーにボタンをセット
-        toolBar.setItems([flexibleItem, doneButtonItem], animated: true)
-        
-        // テキストビューにツールバーを設定
-        birthdayTextField.inputAccessoryView = toolBar
         
         // デリゲートを設定
         userNameTextField.delegate = self
@@ -130,66 +109,9 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
             case let .failure(error):
                 print("\(script.name)実行に失敗:\(error)")
             }
-            
-            /*
-            // ユーザー情報を取得
-            self.currentUser?.fetchInBackground(callback: {result in
-                switch result {
-                case .success:
-                    print("ユーザー情報取得成功")
-                    
-                    // メール認証済みか
-                    if self.currentUser?.isAuthenticated == true {
-                        print("メール認証されてるよ")
-                        
-                        // ユーザー情報保存
-                         let script = NCMBScript(name: "pushMyDetails.js", method: .post)
-                         
-                         // ボディを設定
-                        let requestBody: [String: Any?] = ["userId": self.currentUser?.objectId, "userName": self.userNameTextField.text, "selfIntroduction": self.selfIntroductionTextView.text]
-                         
-                         // スクリプトを実行
-                         let result = script.execute(headers: [:], queries: [:], body: requestBody)
-                         
-                         switch result {
-                         case .success:
-                             print("pushMyDetailsScript実行に成功")
-                             
-                             // タブビューへ遷移
-                             self.performSegue(withIdentifier: "tab", sender: nil)
-                            
-                         case let .failure(error):
-                             print("pushMyDetailsScript実行に失敗:\(error)")
-                         }
-                        
-                    } else {
-                        
-                        print("メール認証されてないよ")
-                        
-                    }
-                    
-                case let .failure(error):
-                    print("ユーザー情報取得失敗:\(error)")
-                }
-            })
-            */
         } else {
             print("ユーザー名が入力されてないよ")
         }
         
-    }
-    
-    @objc func onDoneButton(_ sender: UIButton) {
-        // datePickerから日付を取得
-        let date = datePicker.date
-        // フォーマット
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy年MM月dd日"
-        
-        // テキストフィールドに日付を代入
-        birthdayTextField.text = dateFormatter.string(from: date)
-        
-        // Pickerを閉じる
-        self.view.endEditing(true)
     }
 }

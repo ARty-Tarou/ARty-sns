@@ -138,8 +138,6 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     struct UserDetailData: Codable{
         // 投稿者のユーザーID
         let userId: String
-        // TODO: 投稿者の誕生日（後々Date型に変更？)
-        let birthday: String?
         // 投稿者のユーザーアイコンのファイル名
         let iconImageName: String
         // 投稿者のプロフィールコメント

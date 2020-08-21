@@ -17,9 +17,6 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // ログインしているかチェック
-        //loginCheck()
  
         // テキストフィールドのデリゲートを設定
         mailAddressTextField.delegate = self
@@ -36,24 +33,6 @@ class IndexViewController: UIViewController, UITextFieldDelegate, UINavigationCo
     }
     
     // MARK: Method
-    // ログインしているかチェックする
-    func loginCheck(){
-        /*
-        if let user = NCMBUser.currentUser {
-            user.fetchInBackground(callback: {result in
-                switch result {
-                case .success:
-                    print("ユーザー情報取得成功")
-                    
-                    // タブビューへ遷移
-                    self.performSegue(withIdentifier: "tab", sender: nil)
-                    
-                case let .failure(error):
-                    print("ユーザー情報取得失敗:\(error)")
-                }
-            })
-        }*/
-    }
     
     // MARK: Actions
     // Desisionボタンを押したとき

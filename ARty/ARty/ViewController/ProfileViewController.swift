@@ -144,8 +144,6 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         let iconImageName: String
         // selfIntroduction
         let selfIntroduction: String
-        // birthDay
-        let birthDay: String?
         // follow
         let numberOfFollow: Int
         // follower
@@ -191,7 +189,6 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     struct StaticData: Codable{
         // スタンプ名
         let fileName: String?
-        // TODO: スタンプアート名 let stampArtName: String?
     }
     
     // MARK: Method
@@ -270,69 +267,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             case let .success(data):
                 print("pullYourStampStickScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
                 
-                do{
-                    let decoder = JSONDecoder()
-                    let json = try decoder.decode(PullStickResult.self, from: data!)
-                    
-                    // 読んだ件数を保存
-                    self.stampSkip += json.skip
-                    
-                    print("stamp件数:\(json.result.count)件")
-                    
-                    // 取得した件数だけ回します
-                    for stickDetailData in json.result{
-                        // スタンプ、ユーザーインスタンスを生成
-                        let stamp: Stamp = Stamp()
-                        
-                        // スタンプ・スタンプアートに関する情報を入れていく
-                        let stickData = stickDetailData.stickData
-                        
-                        // 投稿の内容を代入
-                        stamp.setObjectId(objectId: stickData.objectId)
-                        stamp.setUserId(userId: stickData.userId)
-                        stamp.setDetail(detail: stickData.detail)
-                        stamp.setNumberOfGood(numberOfGood: stickData.good)
-                        stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
-                        stamp.setFileName(fileName: stickData.staticData.fileName!)
-                        
-                        // ファイルストアからスタンプを取得
-                        let file = NCMBFile(fileName: stamp.getFileName()!)
-                        file.fetchInBackground(callback: {result in
-                            switch result{
-                            case let .success(data):
-                                print("スタンプ画像取得に成功\(file.fileName)")
-                                
-                                // データをUIImageに変換
-                                let image = data.flatMap(UIImage.init)
-                                // スタンプに画像を代入
-                                stamp.setStampImage(stampImage: image)
-                                
-                                // コレクションビューを更新
-                                print("コレクションビューを更新")
-                                DispatchQueue.global().async {
-                                    DispatchQueue.main.async {
-                                        self.stickCollectionView.reloadData()
-                                    }
-                                }
-                            case let .failure(error):
-                                print("スタンプ画像取得に失敗:\(error)")
-                            }
-                        })
-                        
-                        // スタンプリストに追加
-                        self.stampList.append(stamp)
-
-                        // コレクションビューを更新
-                        print("コレクションビューを更新")
-                        DispatchQueue.global().async{
-                            DispatchQueue.main.async {
-                                self.stickCollectionView.reloadData()
-                            }
-                        }
-                    }
-                }catch{
-                    print("error")
-                }
+                self.setStampList(data: data!, type: 0)
                 
             case let .failure(error):
                 print("pullYourStampScript実行に失敗:\(error)")
@@ -353,16 +288,104 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             case let .success(data):
                 print("pullYourStampArtStickScript実行に成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
                 
-                do{
-                    let decoder = JSONDecoder()
-                    
-                }catch{
-                    print("error")
-                }
+                self.setStampList(data: data!, type: 1)
             case let .failure(error):
                 print("pullYourStampArtStickScript実行に失敗:\(error)")
             }
         })
+    }
+    
+    // スタンプリストに代入していく
+    func setStampList(data: Data, type: Int) {
+        
+        do {
+            let decoder = JSONDecoder()
+            let json = try decoder.decode(PullStickResult.self, from: data)
+            
+            if type == 0 {
+                // スタンプ
+                
+                // 読んだ件数を保存
+                self.stampSkip += json.skip
+                
+            } else {
+                // スタンプアート
+                
+                // 読んだ件数を保存
+                self.stampArtSkip += json.skip
+            }
+            
+            // 取得した件数だけ回します
+            for stickDetailData in json.result {
+                // スタンプインスタンスを生成
+                let stamp: Stamp = Stamp()
+                
+                // スタンプ・スタンプアートに関する情報を入れていく
+                let stickData = stickDetailData.stickData
+                
+                // 投稿の内容を代入
+                stamp.setObjectId(objectId: stickData.objectId)
+                stamp.setUserId(userId: stickData.userId)
+                stamp.setDetail(detail: stickData.detail)
+                stamp.setNumberOfGood(numberOfGood: stickData.good)
+                stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
+                stamp.setFileName(fileName: stickData.staticData.fileName!)
+                
+                if type == 0 {
+                    // スタンプ
+                    stamp.setType(type: true)
+                } else {
+                    // スタンプアート
+                    stamp.setType(type: false)
+                }
+                
+                // ファイルストアからスタンプを取得
+                let file = NCMBFile(fileName: stamp.getFileName()!)
+                file.fetchInBackground(callback: {result in
+                    switch result{
+                    case let .success(data):
+                        print("スタンプ画像取得に成功\(file.fileName)")
+                        
+                        // データをUIImageに変換
+                        let image = data.flatMap(UIImage.init)
+                        // スタンプに画像を代入
+                        stamp.setStampImage(stampImage: image)
+                        
+                        // コレクションビューを更新
+                        print("コレクションビューを更新")
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.async {
+                                self.stickCollectionView.reloadData()
+                            }
+                        }
+                    case let .failure(error):
+                        print("スタンプ画像取得に失敗:\(error)")
+                    }
+                })
+                
+                
+                // スタンプリストに追加
+                if type == 0 {
+                    // スタンプ
+                    self.stampList.append(stamp)
+                } else {
+                    // スタンプアート
+                    self.stampArtList.append(stamp)
+                }
+
+                // コレクションビューを更新
+                print("コレクションビューを更新")
+                DispatchQueue.global().async{
+                    DispatchQueue.main.async {
+                        self.stickCollectionView.reloadData()
+                    }
+                }
+            }
+                
+                
+        } catch {
+            print("error")
+        }
     }
     
     func followButtonLayout(bool: Bool?){
@@ -542,6 +565,19 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         }else{
             // スタンプアートリストを表示
+            // スタンプアートリストを表示
+            if let image = stampArtList[indexPath.row].getStampImage(){
+                cell.productImageView.image = image
+            }
+            cell.detailTextView.text = stampArtList[indexPath.row].getDetail()
+            cell.numberOfGood.text = String(stampArtList[indexPath.row].getNumberOfGood()!)
+            
+            // 最後まで追加終了したら追加取得可能にする
+            if indexPath.row == stampArtList.count - 1 {
+                print("stampセル追加したよ")
+                stampUpdateIsEnable = true
+            }
+            
         }
         
         return cell
@@ -563,10 +599,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if stampTab.isEnabled == false{
             // スタンプの場合
-            print(stampList[indexPath.row].getFileName())
+            print(stampList[indexPath.row].getFileName()!)
         }else{
             // スタンプアートの場合
-            
+            print(stampArtList[indexPath.row].getFileName()!)
         }
     }
     
