@@ -24,6 +24,21 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ツールバーを設定
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        // ツールバーにボタンを設定
+        let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let closeButtonItem = UIBarButtonItem(title: "完了", style: .plain, target: self, action: #selector(self.onCloseButton(_:)))
+        
+        // ツールバーにボタンをセット
+        toolBar.setItems([flexibleItem, closeButtonItem], animated: true)
+        
+        // テキストフィールドにツールバーを設定
+        heightTextField.inputAccessoryView = toolBar
+        widthTextField.inputAccessoryView = toolBar
 
         // デリゲートを設定
         heightTextField.delegate = self
@@ -33,7 +48,6 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         heightTextField.text = "500"
         widthTextField.text = "500"
         
-        // Stampを初期化
         
     }
     
@@ -62,6 +76,21 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         // モーダルを開く
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // 完了ボタンでキーボードを閉じる
+    @objc func onCloseButton(_ sender: Any) {
+        // キーボードを閉じる
+        widthTextField.resignFirstResponder()
+        heightTextField.resignFirstResponder()
+        
+        // スタンプサイズを更新
+        stampHeight = Int(self.heightTextField.text ?? "500")!
+        stampWidth = Int(self.widthTextField.text ?? "500")!
+        
+        // 設定を反映
+        setStampConfig()
+        
     }
     
     
@@ -96,6 +125,7 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         imageSelectButton.setImage(selectedImage, for: .normal)
         
         // 設定を反映
+        stampImage = selectedImage
         setStampConfig()
         
         // スタンプ画像のサイズを出力

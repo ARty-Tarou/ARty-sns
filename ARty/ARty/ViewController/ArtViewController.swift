@@ -9,13 +9,19 @@
 import UIKit
 import SceneKit
 import ARKit
+import ReplayKit
 import NCMB
 
-class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate {
+class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, RPPreviewViewControllerDelegate {
     
     // MARK: Properties
     // appDelegate
     let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    // 表示するworldMapのfileName
+    var fileName: String?
+    
+    var worldMap: ARWorldMap?
     
     // sceneView
     @IBOutlet var sceneView: ARSCNView!
@@ -23,8 +29,10 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     // ContainerView
     @IBOutlet weak var graffitiContainer: UIView!
     @IBOutlet weak var stampContainer: UIView!
-    @IBOutlet weak var stickContainer: UIView!
     
+    // 投稿用
+    var stickImage: UIImage? = nil
+    var stickData: Data? = nil
     
     // 落書き
     var fontSize: Float = 0.003
@@ -44,14 +52,25 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     //落書きかスタンプかの判定に使うフラグ
     var isDrawing: Bool = false
     var drawFlag: Bool = false
+    
+    // 初回
+    var bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ContainerViewを非表示に設定
-        graffitiContainer.isHidden = true
-        stampContainer.isHidden = true
-        stickContainer.isHidden = true
+        print("ARWorldMapFileName:\(self.fileName)")
+        
+        if self.fileName != nil {
+            // WorldMapを取得
+            pullWorldMap()
+        }
+        
+        if bool {
+            graffitiContainer.isHidden = true
+            stampContainer.isHidden = true
+            bool = false
+        }
         
         // デリゲートを設定
         sceneView.delegate = self
@@ -72,6 +91,12 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         
         // セッションを開始
         sceneView.session.run(configuration)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // ナビゲーションバーを非表示にする
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
     
@@ -218,6 +243,38 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         
     }
     
+    // WorldMapを取得
+    func pullWorldMap() {
+        print("pullしてるよ")
+        let file = NCMBFile(fileName: self.fileName!)
+        
+        file.fetchInBackground(callback: {result in
+            switch result {
+            case let .success(data):
+                print("WorldMapが取得できたよ")
+                
+                // デシリアライズ
+                guard let worldMap = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!) else {return}
+                
+                self.worldMap = worldMap
+                
+                self.reload()
+                
+            case let .failure(error):
+                print("WorldMapが取得できなかったよ")
+            }
+        })
+    }
+    
+    func reload() {
+        print("reload")
+        // WorldMapの再設定
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.initialWorldMap = worldMap
+        self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
     // MARK: Action
     
     @IBAction func changeSegment(_ sender: UISegmentedControl) {
@@ -225,25 +282,56 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         case 0: // graffiti
             graffitiContainer.isHidden = false
             stampContainer.isHidden = true
-            stickContainer.isHidden = true
             drawFlag = true
             print(self.fontSize)
+            
+            // ナビゲーションバーを表示
+            navigationController?.setNavigationBarHidden(false, animated: true)
+            
         case 1: // stamp
             graffitiContainer.isHidden = true
             stampContainer.isHidden = false
-            stickContainer.isHidden = true
             drawFlag = false
-        case 2: // stick
+            
+            // ナビゲーションバーを表示
+            navigationController?.setNavigationBarHidden(false, animated: true)
+            
+        case 2:// close
             graffitiContainer.isHidden = true
             stampContainer.isHidden = true
-            stickContainer.isHidden = false
-            appDelegate.sceneView = self.sceneView
-        case 3:// close
-            graffitiContainer.isHidden = true
-            stampContainer.isHidden = true
-            stickContainer.isHidden = true
+            
+            // ナビゲーションバーを非表示
+            navigationController?.setNavigationBarHidden(true, animated: true)
+            
         default:
             break;
+        }
+    }
+    
+    @IBAction func resetButtonAction(_ sender: Any) {
+        viewDidLoad()
+    }
+    
+    @IBAction func reloadButtonAction(_ sender: Any) {
+        reload()
+    }
+    
+    
+    
+    @IBAction func shotButtonAction(_ sender: Any) {
+        // スクリーンショットを取得
+        self.stickImage = getScreenShot(windowFrame: self.view.bounds)
+        
+        // WorldMapを取得
+        sceneView.session.getCurrentWorldMap { worldMap, error in guard let map = worldMap else {return}
+            
+            // シリアライズ
+            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true) else {return}
+            
+            self.stickData = data
+            
+            // 画面遷移
+            self.performSegue(withIdentifier: "stick", sender: nil)
         }
     }
     
@@ -302,6 +390,22 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         } else {
             isDrawing = false
             reset()
+        }
+    }
+    
+    // MARK: Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // ARStickForm画面のインスタンスを格納
+        if let stickFormViewController = segue.destination as? StickFormViewController {
+            // デバッグ用出力
+            print("StickForm画面へ")
+            
+            // 投稿データ
+            stickFormViewController.stickImage = self.stickImage
+            stickFormViewController.stickData = self.stickData
+            
+            // ARだよ
+            stickFormViewController.ar = true
         }
     }
 }

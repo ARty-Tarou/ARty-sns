@@ -26,6 +26,9 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // 追加取得可能か
     var updateIsEnable = false
     
+    // ar画面に渡すfileName
+    var fileName: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,8 +113,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     struct StickStaticData: Codable{
         // スタンプ名
-        let stampName: String?
-        // TODO: 後々ここにスタンプアート名を書くのかな？ let stampArtName: String?
+        let fileName: String?
     }
     
     struct UserDetailData: Codable{
@@ -186,40 +188,38 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
                         stamp.setNumberOfGood(numberOfGood: stickData.good)
                         stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
                         
+                        // スタンプか、arか
+                        stamp.setType(type: stickData.stamp)
+                        
                         // カレントユーザーがこの投稿をGoodしているか
                         stamp.setGood(good: timelineData.good)
                         
-                        // スタンプか、スタンプアートか
-                        if stickData.stamp == true{
-                            // スタンプ名を代入
-                            stamp.setStampName(stampName: stickData.staticData.stampName!)
-                            // ファイルストアからスタンプを取得
-                            let file = NCMBFile(fileName: stamp.getStampName()!)
-                            file.fetchInBackground(callback: {result in
-                                switch result{
-                                case let .success(data):
-                                    print("スタンプ画像取得に成功\(file.fileName)")
-                                    
-                                    // データをUIImageに変換
-                                    let image = data.flatMap(UIImage.init)
-                                    // スタンプに画像を代入
-                                    stamp.setStampImage(stampImage: image)
-                                    
-                                    // コレクションビューを更新
-                                    print("コレクションビューを更新")
-                                    DispatchQueue.global().async {
-                                        DispatchQueue.main.async {
-                                            self.collectionView.reloadData()
-                                        }
+                        // ファイル名を代入
+                        stamp.setFileName(fileName: stickData.staticData.fileName!)
+                        // ファイルストアから画像ファイルを取得
+                        let file = NCMBFile(fileName: stamp.getFileName()!)
+                        file.fetchInBackground(callback: {result in
+                            switch result{
+                            case let .success(data):
+                                print("画像取得に成功\(file.fileName)")
+                                
+                                // データをUIImageに変換
+                                let image = data.flatMap(UIImage.init)
+                                // スタンプに画像を代入
+                                stamp.setStampImage(stampImage: image)
+                                
+                                // コレクションビューを更新
+                                print("コレクションビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.collectionView.reloadData()
                                     }
-                                    
-                                case let .failure(error):
-                                    print("スタンプ画像取得に失敗\(error)")
                                 }
-                            })
-                        }else{
-                            // スタンプアート名を代入
-                        }
+                                
+                            case let .failure(error):
+                                print("スタンプ画像取得に失敗\(error)")
+                            }
+                        })
                         
                         // ユーザーに関する情報を入れていく
                         let userDetailData = timelineData.userDetailData
@@ -298,6 +298,10 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     @IBAction func stickButtonAction(_ sender: Any) {
         // 投稿フォーム画面に遷移
         performSegue(withIdentifier: "stick", sender: nil)
+    }
+    
+    @IBAction func artButtonAction(_ sender: Any) {
+        performSegue(withIdentifier: "art", sender: nil)
     }
     
     @IBAction func reloadButtonAction(_ sender: Any) {
@@ -394,7 +398,13 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         // indexPath.rowから選択されたセルを取得
-        print(timelineList[indexPath.row].0.getStampName()!)
+        print(timelineList[indexPath.row].0.getFileName()!)
+        
+        // 選択されたセルがarのデータのとき、AR画面へ遷移
+        if timelineList[indexPath.row].0.getType() == false {
+            self.fileName = timelineList[indexPath.row].0.getFileName()
+            performSegue(withIdentifier: "art", sender: nil)
+        }
     }
     
     // スクロールされたとき
@@ -419,6 +429,13 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             // プロフィール画面にユーザー情報を渡す
             let user = sender as? User
             profileViewController.user = user
+        } else if segue.identifier == "art" {
+            
+            // 遷移先viewControllerの取得
+            let artViewController = segue.destination as! ArtViewController
+            
+            // ファイルネームを渡す
+            artViewController.fileName = self.fileName
         }
     }
 }

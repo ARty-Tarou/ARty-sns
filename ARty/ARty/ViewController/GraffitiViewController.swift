@@ -27,6 +27,22 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // ツールバーを設定
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        // ツールバーにボタンを設定
+        let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let closeButtonItem = UIBarButtonItem(title: "完了", style: .plain, target: self, action: #selector(self.onCloseButton(_:)))
+        
+        
+        // ツールバーにボタンをセット
+        toolBar.setItems([flexibleItem, closeButtonItem], animated: true)
+        
+        // テキストフィールドにツールバーを設定
+        fontSizeTextField.inputAccessoryView = toolBar
+        
+        
         // デリゲートを設定
         fontSizeTextField.delegate = self
         
@@ -80,6 +96,15 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
         self.blue = CGFloat(sender.value)
         
         setLineColor()
+    }
+    
+    // 完了ボタンでキーボードを閉じる
+    @objc func onCloseButton(_ sender: Any) {
+        // キーボードを閉じる
+        fontSizeTextField.resignFirstResponder()
+        
+        // 設定を反映
+        setFontSize()
     }
     
     // MARK: UITextField

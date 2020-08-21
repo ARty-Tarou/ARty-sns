@@ -12,6 +12,8 @@ import NCMB
 class SignInViewController: UIViewController, UITextFieldDelegate{
     
     // MARK: Properties
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBOutlet weak var userNameOrMailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -57,6 +59,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                     case .success:
                         //ログインに成功した場合の処理
                         print("ログインに成功しました")
+                        
+                        // appDelegateにカレントユーザーを保存
+                        self.appDelegate.currentUser = NCMBUser.currentUser
                         
                         DispatchQueue.global().async {
                             DispatchQueue.main.async {

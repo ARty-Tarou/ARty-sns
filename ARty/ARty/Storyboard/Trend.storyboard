@@ -106,6 +106,17 @@
                                     <constraint firstAttribute="width" constant="59" id="X5u-00-1Sm"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNP-7I-FSe">
+                                <rect key="frame" x="290" y="589" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="S1X-ZS-QnA"/>
+                                    <constraint firstAttribute="width" secondItem="gNP-7I-FSe" secondAttribute="height" multiplier="1:1" id="dQM-36-L4d"/>
+                                </constraints>
+                                <state key="normal" image="arCamera"/>
+                                <connections>
+                                    <action selector="artButtonAction:" destination="YMs-sb-tV3" eventType="touchUpInside" id="iPW-WE-ppl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -116,8 +127,10 @@
                             <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="etL-zk-piS" secondAttribute="trailing" constant="44" id="E7j-Te-1Vk"/>
                             <constraint firstItem="Amz-PG-eZR" firstAttribute="top" secondItem="kDD-R7-8xG" secondAttribute="top" constant="10" id="Eyt-x0-4cw"/>
                             <constraint firstItem="SME-0q-rhF" firstAttribute="top" secondItem="kDD-R7-8xG" secondAttribute="top" constant="60" id="GBi-v4-YE4"/>
+                            <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="gNP-7I-FSe" secondAttribute="trailing" constant="44" id="IwA-bg-N4M"/>
                             <constraint firstItem="Amz-PG-eZR" firstAttribute="leading" secondItem="kDD-R7-8xG" secondAttribute="leading" constant="20" id="TAg-Ii-fUu"/>
                             <constraint firstItem="bKZ-i4-PIO" firstAttribute="leading" secondItem="kDD-R7-8xG" secondAttribute="leading" constant="20" id="aKX-pQ-Vy6"/>
+                            <constraint firstItem="etL-zk-piS" firstAttribute="top" secondItem="gNP-7I-FSe" secondAttribute="bottom" constant="20" id="bz7-Tk-GIm"/>
                             <constraint firstItem="kDD-R7-8xG" firstAttribute="trailing" secondItem="wM8-VW-YxF" secondAttribute="trailing" constant="20" id="d49-c4-1yW"/>
                             <constraint firstItem="yAh-VQ-eXP" firstAttribute="centerY" secondItem="bKZ-i4-PIO" secondAttribute="centerY" id="etH-vG-rm9"/>
                             <constraint firstItem="yAh-VQ-eXP" firstAttribute="top" secondItem="YOL-2j-yRB" secondAttribute="bottom" constant="5" id="fyc-rS-VH1"/>
@@ -137,11 +150,22 @@
                         <outlet property="rightCollectionView" destination="yAh-VQ-eXP" id="cEE-Gs-bdC"/>
                         <segue destination="WCp-cO-CIL" kind="show" identifier="stick" id="F5q-iq-EaH"/>
                         <segue destination="HQZ-m5-oi3" kind="show" identifier="profile" id="0dG-da-p8u"/>
+                        <segue destination="uFy-08-o3I" kind="show" identifier="art" id="xwr-7u-gyL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryM-RB-I8o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3185.507246376812" y="729.91071428571422"/>
+        </scene>
+        <!--Art-->
+        <scene sceneID="vzb-Er-cxE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Art" id="uFy-08-o3I" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="SA1-AC-Qs5"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8AY-My-7l4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3751" y="819"/>
         </scene>
         <!--Profile-->
         <scene sceneID="nRn-D9-H7w">
@@ -166,6 +190,7 @@
     </scenes>
     <resources>
         <image name="FirstIcon" width="312" height="312"/>
+        <image name="arCamera" width="291" height="291"/>
         <image name="reload" width="430" height="450"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="stick" width="325" height="311"/>

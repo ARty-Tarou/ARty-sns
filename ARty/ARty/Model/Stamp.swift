@@ -12,7 +12,7 @@ class Stamp {
 
     // MARK: Properties
     private var objectId: String?
-    private var stampName: String?
+    private var fileName: String?
     private var stampImage: UIImage?
     private var userId: String?
     private var detail: String?
@@ -20,17 +20,20 @@ class Stamp {
     private var good: Bool?
     private var numberOfViews: Int?
     
+    // スタンプ(true)か、ar(false)か
+    private var type: Bool?
+    
 
     // MARK: Initialization
     init(){}
     
     init(name: String, image: UIImage?) {
-        self.stampName = name
+        self.fileName = name
         self.stampImage = image
     }
     
-    init(stampName: String,stampImage: UIImage,  userId: String,detail: String, numberOfGood: Int, numberOfViews: Int) {
-        self.stampName = stampName
+    init(fileName: String,stampImage: UIImage,  userId: String,detail: String, numberOfGood: Int, numberOfViews: Int) {
+        self.fileName = fileName
         self.stampImage = stampImage
         self.userId = userId
         self.detail = detail
@@ -47,12 +50,12 @@ class Stamp {
         return objectId
     }
     
-    func setStampName(stampName: String){
-        self.stampName = stampName
+    func setFileName(fileName: String){
+        self.fileName = fileName
     }
     
-    func getStampName() -> String?{
-        return stampName
+    func getFileName() -> String?{
+        return fileName
     }
     
     func setStampImage(stampImage: UIImage?){
@@ -101,5 +104,13 @@ class Stamp {
     
     func getNumberOfViews() -> Int?{
         return numberOfViews
+    }
+    
+    func setType(type: Bool) {
+        self.type = type
+    }
+    
+    func getType() -> Bool? {
+        return type
     }
 }

@@ -12,7 +12,15 @@ import NCMB
 class StickFormViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
     
     // MARK: Properties
-    @IBOutlet weak var stampImageView: UIImageView!
+    
+    // 投稿データ
+    var stickImage: UIImage? = nil
+    var stickData: Data? = nil
+    
+    // ARか？
+    var ar: Bool? = nil
+    
+    @IBOutlet weak var stickImageView: UIImageView!
     @IBOutlet weak var detailTextView: UITextView!
     
     override func viewDidLoad() {
@@ -41,6 +49,19 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         
         // ツールバーにボタンをセット
         toolBar.setItems([flexibleItem, libraryButtonItem, cameraButtonItem, flexibleItem, closeButtonItem], animated: true)
+        
+        // ARの投稿のとき、もらったスクショを設定
+        if ar == true {
+            stickImageView.image = stickImage
+            
+            // arのときのツールバー
+            // ツールバーにボタンをセット
+            toolBar.setItems([flexibleItem, closeButtonItem], animated: true)
+        } else {
+            // stampのときのツールバー
+            // ツールバーにボタンをセット
+            toolBar.setItems([libraryButtonItem, cameraButtonItem, flexibleItem, closeButtonItem], animated: true)
+        }
 
         // デリゲートを設定
         detailTextView.delegate = self
@@ -56,18 +77,36 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     }
     
     // MARK: Action
+    
     // 投稿ボタンを押したとき
     @IBAction func stickButtonAction(_ sender: Any) {
         
-        guard let image = stampImageView.image else{
+        guard let image = stickImageView.image else{
             fatalError("画像を取得できなかったよ")
         }
         
-        let data = image.pngData()!
+        if ar == true {
+            // stampArtの投稿
+            print("arを投稿するよ")
+            let imageData = self.stickImage!.pngData()!
+            
+            // StickLogicインスタンスを生成
+            let stickLogic = StickLogic()
+            stickLogic.saveFile(data: imageData, arData: stickData, detail: detailTextView.text)
+            
+        } else {
+            // stampの投稿
+            print("スタンプを投稿するよ")
+            
+            let data = image.pngData()!
+            
+            // StickLogicインスタンスを生成
+            let stickLogic = StickLogic()
+            stickLogic.saveFile(data: data, detail: detailTextView.text)
+        }
         
-        // StickLogicインスタンスを生成
-        let stickLogic = StickLogic()
-        stickLogic.saveFile(data: data, detail: detailTextView.text)
+        // タイムライン画面へ戻る
+        performSegue(withIdentifier: "timeline", sender: nil)
         
     }
     
@@ -116,7 +155,7 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         }
     }
     
-    // 右上の入力確定でキーボード閉じる
+    // 完了ボタンでキーボードを閉じる
     @objc func onCloseButton(_ sender: Any) {
         // キーボードを閉じる
         detailTextView.endEditing(true)
@@ -129,7 +168,7 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     // 撮影が終わったら呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 撮影した画像を渡す
-        stampImageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        stickImageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         // モーダルビューを閉じる
         dismiss(animated: true, completion: nil)
     }

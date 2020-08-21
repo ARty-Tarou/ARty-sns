@@ -190,7 +190,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     struct StaticData: Codable{
         // スタンプ名
-        let stampName: String?
+        let fileName: String?
         // TODO: スタンプアート名 let stampArtName: String?
     }
     
@@ -293,10 +293,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                         stamp.setDetail(detail: stickData.detail)
                         stamp.setNumberOfGood(numberOfGood: stickData.good)
                         stamp.setNumberOfViews(numberOfViews: stickData.numberOfViews)
-                        stamp.setStampName(stampName: stickData.staticData.stampName!)
+                        stamp.setFileName(fileName: stickData.staticData.fileName!)
                         
                         // ファイルストアからスタンプを取得
-                        let file = NCMBFile(fileName: stamp.getStampName()!)
+                        let file = NCMBFile(fileName: stamp.getFileName()!)
                         file.fetchInBackground(callback: {result in
                             switch result{
                             case let .success(data):
@@ -563,7 +563,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if stampTab.isEnabled == false{
             // スタンプの場合
-            print(stampList[indexPath.row].getStampName())
+            print(stampList[indexPath.row].getFileName())
         }else{
             // スタンプアートの場合
             
