@@ -11,8 +11,11 @@ import NCMB
 
 class TimelineViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     // MARK: Properties
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     // タイムラインリスト
     var timelineList: [(Stamp, User)] = []
@@ -31,6 +34,8 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // ユーザー情報をセット
+        userNameLabel.text = appDelegate.currentUser?.getUserName()
         
         // CollectionViewの設定
         collectionView.register(UINib(nibName: "TimelineCell", bundle: nil), forCellWithReuseIdentifier: "timelineCell")

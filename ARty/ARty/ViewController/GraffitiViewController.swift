@@ -54,10 +54,15 @@ class GraffitiViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Method
     func setFontSize() {
+        if fontSizeTextField.text == "" {
+            self.fontSizeTextField.text = "3"
+        }
+        
         if var value = Int(fontSizeTextField.text!) {
             
             // サイズが1~10以外の数値の場合初期値を入れる
             if value < 1 || 10 < value {
+                
                 self.fontSizeTextField.text = "3"
                 value = 3
             }

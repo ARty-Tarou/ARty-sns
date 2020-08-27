@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let clientkey      = "437b274dfbd4347193a3e2e33828ca475c77e734288f2cd793da1397394b0fd6"
     
     // カレントユーザー
-    var currentUser: NCMBUser? = nil
+    var currentUser: User? = User()
     
     // Graffiti
     var fontSize:Float = 0.003
@@ -29,6 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var stampWidth = 500
     var stampImage = UIImage(named: "stick")
     
+    // 識別用
+    var stampImageIndex = 0 // 選択中のスタンプ
+    var stampImageUsed = false // 選択中のスタンプが一度でも使用されたか
+    var setStampData: [SetStampData] = [] // 設置されたスタンプのデータ
+    var stampImageData: [StampImageData] = [] // スタンプ画像のデータ
+    
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -38,20 +46,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-
+    // MARK: Method
+    
+    func setStampInit() {
+        print("do init")
+        self.stampImageIndex = 0
+        self.stampImageUsed = false
+        self.setStampData = []
+        self.stampImageData = []
+    }
+    
 
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
+        
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+        
     }
 
 

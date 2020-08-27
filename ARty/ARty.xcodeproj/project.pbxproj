@@ -25,6 +25,9 @@
 		CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC115C7C2469328400461C49 /* ProfileViewController.swift */; };
 		CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1324902466363B00F6CF0A /* TimelineCell.swift */; };
 		CC1324932466CA9200F6CF0A /* TimelineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC1324922466CA9200F6CF0A /* TimelineCell.xib */; };
+		CC410B7D24F53F1600FDBE64 /* StampImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410B7C24F53F1600FDBE64 /* StampImageData.swift */; };
+		CC410B7F24F5404100FDBE64 /* SetStampData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410B7E24F5404100FDBE64 /* SetStampData.swift */; };
+		CC410B8124F5476400FDBE64 /* SetStampLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC410B8024F5476400FDBE64 /* SetStampLogic.swift */; };
 		CC4456D324D00BAE0023A126 /* GraffitiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */; };
 		CC4456D524D00BD20023A126 /* StampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4456D424D00BD20023A126 /* StampViewController.swift */; };
 		CC581850244D6F6E000380D9 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC58184F244D6F6E000380D9 /* SignUp.storyboard */; };
@@ -85,6 +88,9 @@
 		CC115C7C2469328400461C49 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CC1324902466363B00F6CF0A /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		CC1324922466CA9200F6CF0A /* TimelineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimelineCell.xib; sourceTree = "<group>"; };
+		CC410B7C24F53F1600FDBE64 /* StampImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampImageData.swift; sourceTree = "<group>"; };
+		CC410B7E24F5404100FDBE64 /* SetStampData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetStampData.swift; sourceTree = "<group>"; };
+		CC410B8024F5476400FDBE64 /* SetStampLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetStampLogic.swift; sourceTree = "<group>"; };
 		CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffitiViewController.swift; sourceTree = "<group>"; };
 		CC4456D424D00BD20023A126 /* StampViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampViewController.swift; sourceTree = "<group>"; };
 		CC58184F244D6F6E000380D9 /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
@@ -246,6 +252,9 @@
 				CCF2AC4A245BEF08000B98EA /* StickLogic.swift */,
 				CC88A31B24700D2B003FC79C /* SearchStickCell.swift */,
 				CC7A0149247662EB00305B94 /* GoodLogic.swift */,
+				CC410B8024F5476400FDBE64 /* SetStampLogic.swift */,
+				CC410B7C24F53F1600FDBE64 /* StampImageData.swift */,
+				CC410B7E24F5404100FDBE64 /* SetStampData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -398,12 +407,14 @@
 				CCCDC552244EB98900E4AECE /* LogoutLogic.swift in Sources */,
 				5705E03124460F750069FEDD /* IndexViewController.swift in Sources */,
 				CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */,
+				CC410B7F24F5404100FDBE64 /* SetStampData.swift in Sources */,
 				CC5A7A2424619650009A923C /* ActivityIndicatorLogic.swift in Sources */,
 				CC0CE45B244C2C910047B289 /* SignInViewController.swift in Sources */,
 				5705E02D24460F750069FEDD /* AppDelegate.swift in Sources */,
 				CC7C24E82450654F005431B5 /* Stamp.swift in Sources */,
 				CCA6D9682456C987008AC366 /* TrendViewController.swift in Sources */,
 				08430F58246D25B700CF182E /* HelppageViewController.swift in Sources */,
+				CC410B8124F5476400FDBE64 /* SetStampLogic.swift in Sources */,
 				086AFC7C244DE3FD00F0B86D /* MyPageViewController.swift in Sources */,
 				CC1324912466363B00F6CF0A /* TimelineCell.swift in Sources */,
 				5705E02F24460F750069FEDD /* SceneDelegate.swift in Sources */,
@@ -417,6 +428,7 @@
 				CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */,
 				CC4456D524D00BD20023A126 /* StampViewController.swift in Sources */,
 				CC7D8187246BD69800351D2A /* UserTableViewController.swift in Sources */,
+				CC410B7D24F53F1600FDBE64 /* StampImageData.swift in Sources */,
 				CC115C7D2469328400461C49 /* ProfileViewController.swift in Sources */,
 				CC7C24EE2451D28E005431B5 /* StickCell.swift in Sources */,
 				CC88A31C24700D2B003FC79C /* SearchStickCell.swift in Sources */,

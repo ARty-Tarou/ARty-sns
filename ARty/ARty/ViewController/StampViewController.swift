@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -16,6 +17,8 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
     @IBOutlet weak var imageSelectButton: UIButton!
     
     let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    let currentUser = NCMBUser.currentUser
     
     var stampHeight = 500
     var stampWidth = 500
@@ -48,20 +51,68 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         heightTextField.text = "500"
         widthTextField.text = "500"
         
-        
+        // 設定を共有
+        setStampSizeConfig()
+        setStampImageConfig(selectedImage: self.stampImage!)
     }
     
     // MARK: Method
     
-    func setStampConfig() {
-        print("Stamp設定を更新")
+    func setStampSizeConfig() {
+        print("StampSize設定を更新")
         
         
-        // Stamp設定を共有
+        // StampSize設定を共有
         appDelegate.stampHeight = self.stampHeight
         appDelegate.stampWidth = self.stampWidth
-        appDelegate.stampImage = self.stampImage
     }
+    
+    func setStampImageConfig(selectedImage: UIImage) {
+        print("StampImage設定を更新")
+        
+        // 画像を更新
+        self.stampImage = selectedImage
+        
+        // 選択画像をビューに表示
+        self.imageSelectButton.setImage(self.stampImage, for: .normal)
+        
+        // StampImage設定を共有
+        // 変更前のスタンプが一度でも使われているか
+        if appDelegate.stampImageUsed == true {
+            // 使われていた場合、stampNumberを加算
+            appDelegate.stampImageIndex += 1
+        }
+        
+        // stampNumberを取得
+        let stampNumber = appDelegate.stampImageIndex
+        
+        // stampImageNameを生成
+        // 日付を取得
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd.HH.mm.ss"
+        
+        guard let objectId = currentUser?.objectId else {
+            fatalError("カレントユーザー取得失敗")
+        }
+        
+        let stampImageName = "d.\(objectId).\(dateFormatter.string(from: date))"
+        
+        // StampImageDataインスタンスを生成
+        let stampImageData = StampImageData(stampImage: self.stampImage!, stampImageName: stampImageName, stampNumber: stampNumber)
+        
+        // stampImageを共有
+        if appDelegate.stampImageUsed == true || appDelegate.stampImageIndex == 0 {
+            print("0番目とか")
+            appDelegate.stampImageData.append(stampImageData)
+        } else {
+            appDelegate.stampImageData[appDelegate.stampImageIndex] = stampImageData
+        }
+        
+        print("stampImageData(ImageConfig)Name:\(self.appDelegate.stampImageData.first?.getStampImageName())")
+                print("stampImageData(ImageConfig)Number:\(self.appDelegate.stampImageData.first?.getStampNumber())")
+    }
+    
     
     // MARK: Action
     
@@ -85,11 +136,18 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         heightTextField.resignFirstResponder()
         
         // スタンプサイズを更新
+        if self.heightTextField.text == "" {
+            self.heightTextField.text = "500"
+        }
+        if self.widthTextField.text == "" {
+            self.widthTextField.text = "500"
+        }
+        
         stampHeight = Int(self.heightTextField.text ?? "500")!
         stampWidth = Int(self.widthTextField.text ?? "500")!
         
         // 設定を反映
-        setStampConfig()
+        setStampSizeConfig()
         
     }
     
@@ -104,7 +162,7 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         stampWidth = Int(self.widthTextField.text ?? "500")!
         
         // 設定を反映
-        setStampConfig()
+        setStampSizeConfig()
         
         return true
     }
@@ -121,16 +179,12 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
             fatalError()
         }
         
-        // 選択した画像を選択画像ビューに反映
-        imageSelectButton.setImage(selectedImage, for: .normal)
-        
-        // 設定を反映
-        stampImage = selectedImage
-        setStampConfig()
-        
         // スタンプ画像のサイズを出力
         print("画像の高さ:\(selectedImage.size.height)")
         print("画像の幅:\(selectedImage.size.width)")
+        
+        // 設定を反映
+        setStampImageConfig(selectedImage: selectedImage)
         
         // Pickerを閉じる
         dismiss(animated: true, completion: nil)

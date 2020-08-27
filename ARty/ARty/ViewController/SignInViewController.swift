@@ -28,13 +28,63 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
         
     }
     
-    // MARK: Delegate Method
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // キーボードを閉じる
-        textField.resignFirstResponder()
-        
-        return true
+    // MARK: Codable
+    struct UserDetailData: Codable{
+        // 投稿者のユーザーID
+         let userId: String
+         // 投稿者のユーザーアイコンのファイル名
+         let iconImageName: String
+         // 投稿者のプロフィールコメント
+         let selfIntroduction: String
+         // ユーザーのフォロワー数
+         let numberOfFollowed: Int
+         // ユーザーのフォロー数
+         let numberOfFollow: Int
     }
+    
+    // MARK: Method
+    func setUserDetail() {
+        let currentUser = NCMBUser()
+        print("objectId:\(currentUser.objectId)")
+        
+        
+        // user情報を取得
+        let script = NCMBScript(name: "pullMyInform.js", method: .post)
+        let requestBody:[String: Any?] = ["userId": currentUser.objectId]
+        script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
+            switch result {
+            case let .success(data):
+                print("pullMyInform実行成功:\(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                
+                do {
+                    let decoder = JSONDecoder()
+                    
+                    let json = try decoder.decode(UserDetailData.self, from: data!)
+                    
+                    // ユーザーに関する情報を入れていく
+                    let userDetailData = json
+                    let user = User()
+                    
+                    // ユーザー情報を代入
+                    user.setUserId(userId: userDetailData.userId)
+                    user.setUserName(userName: currentUser.userName!)
+                    user.setSelfIntroduction(selfIntroduction: userDetailData.selfIntroduction)
+                    user.setNumberOfFollowed(numberOfFollowed: userDetailData.numberOfFollow)
+                    user.setNumberOfFollow(numberOfFollow: userDetailData.numberOfFollow)
+                    
+                    // ユーザー情報をappDelegateで共有
+                    self.appDelegate.currentUser = user
+                    
+                } catch {
+                    print("error")
+                }
+                
+            case let .failure(error):
+                print("pullMyInform実行失敗:\(error)")
+            }
+        })
+    }
+    
     
     // MARK: Actions
     @IBAction func signInButtonAction(_ sender: Any) {
@@ -60,8 +110,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
                         //ログインに成功した場合の処理
                         print("ログインに成功しました")
                         
-                        // appDelegateにカレントユーザーを保存
-                        self.appDelegate.currentUser = NCMBUser.currentUser
                         
                         DispatchQueue.global().async {
                             DispatchQueue.main.async {
@@ -147,6 +195,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
            let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
            let result = emailTest.evaluate(with: string)
            return result
+    }
+    
+    // MARK: Delegate Method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        
+        return true
     }
     
 

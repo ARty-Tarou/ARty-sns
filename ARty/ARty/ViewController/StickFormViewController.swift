@@ -17,6 +17,10 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     var stickImage: UIImage? = nil
     var stickData: Data? = nil
     
+    // スタンプデータ
+    var setStampData: [SetStampData]? = nil
+    var stampImageData: [StampImageData]? = nil
+    
     // ARか？
     var ar: Bool? = nil
     
@@ -26,7 +30,11 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        detailTextView.text = ""
+        // テキストビューの設定
+        detailTextView.text = "投稿メッセージを入力してね"
+        detailTextView.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        detailTextView.layer.borderWidth = 1
+        detailTextView.layer.cornerRadius = 5
         
         // ツールバーを設定
         let toolBar = UIToolbar()
@@ -88,8 +96,8 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         if ar == true {
             // stampArtの投稿
             print("arを投稿するよ")
-            let imageData = self.stickImage!.pngData()!
             
+            let imageData = self.stickImage!.pngData()!
             
             // StickLogicインスタンスを生成
             let stickLogic = StickLogic()
@@ -165,6 +173,11 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     
     // MARK: Delegate Method
     
+    // テキストビューが選択されたとき
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        detailTextView.text = ""
+        detailTextView.textColor = UIColor.black
+    }
     
     // 撮影が終わったら呼ばれる
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

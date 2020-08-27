@@ -72,6 +72,13 @@
                                     <action selector="reloadButtonAction:" destination="XW7-bx-gnj" eventType="touchUpInside" id="rFO-Yp-MMr"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV4-r8-Nmh">
+                                <rect key="frame" x="109" y="63" width="137" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -86,6 +93,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="MtL-1k-bbF" id="LK1-Jg-s0x"/>
+                        <outlet property="userNameLabel" destination="gV4-r8-Nmh" id="rBL-PP-5Wd"/>
                         <segue destination="vZv-o7-4eg" kind="show" identifier="stick" id="xl0-1p-TH0"/>
                         <segue destination="0nj-j6-zYq" kind="show" identifier="profile" id="2vS-23-42o"/>
                         <segue destination="h1r-Fe-0qw" kind="show" identifier="art" id="NQ8-44-KBB"/>
