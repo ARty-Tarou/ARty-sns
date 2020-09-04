@@ -82,16 +82,6 @@
                                     <action selector="reloadButtonAction:" destination="eXu-PT-ShD" id="6m0-fs-lW7"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="load" id="w5L-pG-cq3">
-                                <connections>
-                                    <action selector="loadButtonAction:" destination="eXu-PT-ShD" id="372-KQ-XCo"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="save" id="Wgb-Ne-Sh1">
-                                <connections>
-                                    <action selector="saveButtonAction:" destination="eXu-PT-ShD" id="XYh-8G-vgp"/>
-                                </connections>
-                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

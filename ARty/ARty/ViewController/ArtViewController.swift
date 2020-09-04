@@ -14,18 +14,12 @@ import NCMB
 
 class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegate, RPPreviewViewControllerDelegate {
     
-    // テスト
-    var testWorldMapURL: URL = {
-        do {
-            return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("testWorldMapURL")
-        } catch {
-            fatalError("no such file")
-        }
-    }()
-    
     // MARK: Properties
     // appDelegate
     let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    // currentUser
+    let currentUser = NCMBUser.currentUser
     
     // 表示するworldMapのfileName
     var fileName: String?
@@ -62,6 +56,8 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     // 識別用
     var setStampCount = 0 // 設置されたスタンプをカウント
     
+    var arAnchorName: String? = ""
+    
     //落書きかスタンプかの判定に使うフラグ
     var isDrawing: Bool = false
     var drawFlag: Bool = false
@@ -73,6 +69,9 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         super.viewDidLoad()
         
         print("ARWorldMapFileName:\(self.fileName)")
+        
+        // スタンプ配列などを初期化
+        appDelegate.setStampInit()
         
         if self.fileName != nil {
             // WorldMapを取得
@@ -225,12 +224,14 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         guard !(anchor is ARPlaneAnchor) else { return }
         
         
-        if anchor.name == "stamp\(self.setStampCount)" {
-            print("スタンプおきます")
+        if anchor.name == self.arAnchorName {
+            print("スタンプおきます:\(anchor.name)")
             print("stampImageIndex:\(self.appDelegate.stampImageIndex)")
             print("stampImageUsed:\(self.appDelegate.stampImageUsed)")
             print("setStampData:\(self.appDelegate.setStampData)")
-            print("stampImageData(renderer):\(self.appDelegate.stampImageData.first?.getStampImageName())")
+            print("setStampData_count:\(self.appDelegate.setStampData.count)")
+            print("stampImageData_count:\(self.appDelegate.stampImageData.count)")
+            
             
             // スタンプの設定を取得
             self.stampHeight = appDelegate.stampHeight
@@ -265,6 +266,43 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
             // 検出面の子要素にする
             node.addChildNode(boxNode)
             
+        } else {
+            
+            for stampData in appDelegate.pullSetStampData {
+                if anchor.name == stampData.getAnchorName() {
+                    // ノードを作成
+                    let boxNode = SCNNode()
+                    
+                    let stampWidth = (stampData.getSize().1)!
+                    let stampHeight = (stampData.getSize().0)!
+                    
+                    let stampNumber = stampData.getStampNumber()
+                    
+                    let stampImage = appDelegate.pullStampImageData[stampNumber!].getStampImage()
+                    
+                    // ボックスを作成
+                    let box = SCNBox(width: CGFloat(stampWidth) / 10000, height: 0.0001, length: CGFloat(stampHeight) / 10000, chamferRadius: 0)
+                    
+                    // スタンプテクスチャのマテリアルを生成
+                    let stampTexture = SCNMaterial()
+                    stampTexture.diffuse.contents = stampImage
+                    
+                    
+                    // 透明な面を生成
+                    let blank = SCNMaterial()
+                    blank.diffuse.contents = UIColor.clear
+                    
+                    // ボックスにマテリアルを貼り付け
+                    box.materials = [blank, blank, blank, blank, stampTexture, blank]
+                    
+                    // ジオメトリを設定
+                    boxNode.geometry = box
+                    boxNode.position.y += 0.01
+                    
+                    // 検出面の子要素にする
+                    node.addChildNode(boxNode)
+                }
+            }
         }
     }
     
@@ -277,7 +315,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         // setStampDataインスタンスを生成
         let stampNumber = appDelegate.stampImageIndex
         
-        let setStampData = SetStampData(anchorName: "stamp\(setStampCount)", stampNumber: stampNumber, height: self.stampHeight, width: self.stampWidth)
+        let setStampData = SetStampData(anchorName: self.arAnchorName!, stampNumber: stampNumber, height: self.stampHeight, width: self.stampWidth)
         
         // 設置した数を加算
         setStampCount += 1
@@ -312,13 +350,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
                 
                 self.worldMap = worldMap
                 
-                // WorldMapの再設定
-                let configuration = ARWorldTrackingConfiguration()
-                configuration.planeDetection = [.horizontal, .vertical]
-                configuration.initialWorldMap = worldMap
-                self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-                
-                //self.reload()
+                self.reload()
                 
             case let .failure(error):
                 print("WorldMapが取得できなかったよ\(error)")
@@ -386,67 +418,12 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         reload()
     }
     
-    // test
-    @IBAction func saveButtonAction(_ sender: Any) {
-        // worldMapを取得
-        sceneView.session.getCurrentWorldMap {
-            worldMap, error in guard let map = worldMap else {return}
-            
-            // シリアライズ
-            guard let data = try? NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true) else {return}
-            
-            print("保存(data):\(data)")
-            
-            print("保存(anchors):\(map.anchors)")
-            print("保存(center):\(map.center)")
-            print("保存(extent):\(map.extent)")
-            
-            print("保存(raw):\(map.rawFeaturePoints)")
-            
-            // ローカルに保存
-            guard ((try? data.write(to: self.testWorldMapURL)) != nil) else {return}
-        }
-        
-    }
-    @IBAction func loadButtonAction(_ sender: Any) {
-        // 保存したworldMapの読み出し
-        var data: Data? = nil
-        do {
-            try data = Data(contentsOf: self.testWorldMapURL)
-            
-        } catch {
-            return
-        }
-        
-        print("読込(data):\(data!)")
-        
-        // デシリアライズ
-        guard let testWorldMap = try? NSKeyedUnarchiver.unarchivedObject(ofClass: ARWorldMap.self, from: data!) else {return}
-        
-        print("読込(worldMap):\(testWorldMap)")
-        
-        print("読込(anchors):\(testWorldMap.anchors)")
-        print("読込(center):\(testWorldMap.center)")
-        print("読込(extent):\(testWorldMap.extent)")
-        
-        print("読込(raw):\(testWorldMap.rawFeaturePoints)")
-        
-        // worldMapの再設定
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
-        configuration.initialWorldMap = testWorldMap
-        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-    }
-    
-    
-    
-    
     @IBAction func shotButtonAction(_ sender: Any) {
         // スクリーンショットを取得
         self.stickImage = getScreenShot(windowFrame: self.view.bounds)
         
         // WorldMapを取得
-        sceneView.session.getCurrentWorldMap { worldMap, error in guard let map = worldMap else {return}
+        self.sceneView.session.getCurrentWorldMap { worldMap, error in guard let map = worldMap else {return}
             
             print("投稿(worldMap):\(String(describing: worldMap))")
             
@@ -485,8 +462,26 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
             // タップされた位置のARアンカーを探す
             let hitTest = sceneView.hitTest(touchPos, types: .existingPlaneUsingExtent)
             if !hitTest.isEmpty{
-                // タップした箇所が取得できていればアンカーを追加
-                let anchor = ARAnchor(name: "stamp\(self.setStampCount)", transform: hitTest.first!.worldTransform)
+                // タップした箇所が取得できている
+                
+                // アンカー名を生成
+                // 日付を取得
+                let date = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy.MM.dd.HH.mm.ss"
+                
+                let currentUser = NCMBUser.currentUser
+                
+                guard let objectId = currentUser?.objectId else {
+                    fatalError("カレントユーザー取得失敗")
+                }
+                
+                let anchorName = "\(objectId).\(dateFormatter.string(from: date))"
+                self.arAnchorName = anchorName
+                
+                
+                // アンカーを追加
+                let anchor = ARAnchor(name: anchorName, transform: hitTest.first!.worldTransform)
                 
                 sceneView.session.add(anchor: anchor)
             }

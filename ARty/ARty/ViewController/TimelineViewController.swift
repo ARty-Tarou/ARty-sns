@@ -400,12 +400,31 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        
+        // activityIndicatorを表示、入力不可にする
+        let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+        activityIndicatorLogic.startActivityIndecator(view: view)
+        
         // indexPath.rowから選択されたセルを取得
         print(timelineList[indexPath.row].0.getFileName()!)
         
-        // 選択されたセルがarのデータのとき、AR画面へ遷移
+        
+        // 選択されたセルがarのデータのとき、AR画面へ遷移するときの処理
         if timelineList[indexPath.row].0.getType() == false {
-            self.fileName = timelineList[indexPath.row].0.getFileName()
+            
+            // worldMap名を取得
+            var worldMapName = timelineList[indexPath.row].0.getFileName()!
+            worldMapName = String(worldMapName.suffix(worldMapName.count - 2))
+            worldMapName = "a." + worldMapName
+            
+            // arDataを取得
+            let pullARDataLogic = PullARDataLogic()
+            pullARDataLogic.pullARData(worldMapName: worldMapName)
+            
+            // activityIndicatorを終了
+            activityIndicatorLogic.stopActivityIndecator(view: self.view)
+            
+            self.fileName = worldMapName
             performSegue(withIdentifier: "art", sender: nil)
         }
     }

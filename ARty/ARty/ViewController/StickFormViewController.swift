@@ -101,7 +101,9 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
             
             // StickLogicインスタンスを生成
             let stickLogic = StickLogic()
-            stickLogic.saveFile(data: imageData, arData: stickData, detail: detailTextView.text)
+            stickLogic.saveFile(data: imageData, arData: stickData, stampImageData: stampImageData!, setStampData: setStampData!, detail: detailTextView.text)
+            
+            //stickLogic.saveFile(data: imageData, arData: stickData, detail: detailTextView.text)
             
         } else {
             // stampの投稿

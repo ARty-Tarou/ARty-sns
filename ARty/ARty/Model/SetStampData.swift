@@ -17,6 +17,7 @@ class SetStampData {
     
     // MARK: Method
     init(anchorName: String, stampNumber: Int?, height: Int, width: Int) {
+        self.anchorName = anchorName
         self.stampNumber = stampNumber
         self.size.height = height
         self.size.width = width

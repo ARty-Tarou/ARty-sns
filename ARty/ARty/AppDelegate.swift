@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var setStampData: [SetStampData] = [] // 設置されたスタンプのデータ
     var stampImageData: [StampImageData] = [] // スタンプ画像のデータ
     
+    var pullSetStampData: [SetStampData] = []
+    var pullStampImageData: [StampImageData] = []
+    
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -50,10 +53,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setStampInit() {
         print("do init")
-        self.stampImageIndex = 0
         self.stampImageUsed = false
         self.setStampData = []
         self.stampImageData = []
+        self.setStampData = self.pullSetStampData
+        self.stampImageData = self.pullStampImageData
+        
+        if(self.stampImageData.count == 0){
+            self.stampImageIndex = 0
+        }else{
+            self.stampImageIndex = self.stampImageData.count
+        }
+        
+        
+        // 日付を取得
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd.HH.mm.ss"
+        // ファイル名を生成
+        
+        let currentUser = NCMBUser.currentUser
+        
+        guard let objectId = currentUser?.objectId else {
+            fatalError("カレントユーザー取得失敗")
+        }
+        
+    let stampImageName = "d.\(objectId).\(dateFormatter.string(from: date))"
+        let stampData = StampImageData(stampImage: UIImage(named: "stick")!, stampImageName: stampImageName, stampNumber: self.stampImageIndex)
+        
+        self.stampImageData.append(stampData)
     }
     
 

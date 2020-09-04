@@ -51,9 +51,13 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         heightTextField.text = "500"
         widthTextField.text = "500"
         
+        // デフォルト画像をimageSelectButtonに設定
+        self.imageSelectButton.setImage(self.stampImage, for: .normal)
+        
         // 設定を共有
         setStampSizeConfig()
-        setStampImageConfig(selectedImage: self.stampImage!)
+        
+        
     }
     
     // MARK: Method
@@ -67,6 +71,7 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         appDelegate.stampWidth = self.stampWidth
     }
     
+    // TODO: 添字
     func setStampImageConfig(selectedImage: UIImage) {
         print("StampImage設定を更新")
         
@@ -102,7 +107,7 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let stampImageData = StampImageData(stampImage: self.stampImage!, stampImageName: stampImageName, stampNumber: stampNumber)
         
         // stampImageを共有
-        if appDelegate.stampImageUsed == true || appDelegate.stampImageIndex == 0 {
+        if appDelegate.stampImageUsed == true /*|| appDelegate.stampImageIndex == 0*/ {
             print("0番目とか")
             appDelegate.stampImageData.append(stampImageData)
         } else {

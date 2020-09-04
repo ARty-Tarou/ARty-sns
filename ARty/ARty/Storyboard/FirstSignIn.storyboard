@@ -51,9 +51,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-lj-AGm" userLabel="Next">
-                                <rect key="frame" x="167" y="708" width="80" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-lj-AGm" userLabel="Next">
+                                <rect key="frame" x="167" y="732" width="80" height="30"/>
                                 <state key="normal" title="次へ"/>
                                 <connections>
                                     <action selector="nextButtonAction:" destination="UOD-dH-bXf" eventType="touchUpInside" id="nJL-QV-ifb"/>
@@ -77,8 +76,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="537-fn-SC0" firstAttribute="bottom" secondItem="iC0-lj-AGm" secondAttribute="bottom" constant="100" id="7ql-OA-1HE"/>
                             <constraint firstItem="9GS-Wr-5IM" firstAttribute="centerX" secondItem="4g5-6f-VPG" secondAttribute="centerX" id="Ob9-zh-YuI"/>
                             <constraint firstItem="9GS-Wr-5IM" firstAttribute="top" secondItem="537-fn-SC0" secondAttribute="top" constant="50" id="co0-d4-ooN"/>
+                            <constraint firstItem="iC0-lj-AGm" firstAttribute="centerX" secondItem="9GS-Wr-5IM" secondAttribute="centerX" id="nwk-1Z-IL7"/>
+                            <constraint firstItem="iC0-lj-AGm" firstAttribute="leading" secondItem="537-fn-SC0" secondAttribute="leading" constant="167" id="upn-4K-vmj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="537-fn-SC0"/>
                     </view>

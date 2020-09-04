@@ -344,6 +344,7 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     func setUserDetail(){
         DispatchQueue.global().async {
             DispatchQueue.main.async {
+                self.userNameLabel.text = self.currentUserDetail?.getUserName()
                 self.selfIntroductionTextView.text = self.currentUserDetail?.getSelfIntroduction()
                 self.numberOfFollowLabel.text = String((self.currentUserDetail?.getNumberOfFollow())!)
                 self.numberOfFollowerLabel.text = String((self.currentUserDetail?.getNumberOfFollowed())!)

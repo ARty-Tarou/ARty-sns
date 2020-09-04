@@ -9,7 +9,7 @@
 import UIKit
 import NCMB
 
-class FirstSignInViewController: UIViewController, UITextFieldDelegate {
+class FirstSignInViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     // MARK: Properties
     
@@ -35,6 +35,7 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
         
         // デリゲートを設定
         userNameTextField.delegate = self
+        selfIntroductionTextView.delegate = self
         
         // デバッグ
         print("オブジェクトID:\(String(describing: self.currentUser?.objectId))")
@@ -59,8 +60,14 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        // キーボードを閉じる
+        textView.endEditing(true)
+    }
 
     // MARK: Action
+    
     @IBAction func nextButtonAction(_ sender: Any) {
         
         // ユーザー名が入力されているか
