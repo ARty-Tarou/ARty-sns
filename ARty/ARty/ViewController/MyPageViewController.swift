@@ -37,6 +37,9 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     var stampUpdateIsEnable = false
     var stampArtUpdateIsEnable = false
     
+    // ar画面に渡すfileName
+    var fileName: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -523,6 +526,28 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
         }else{
             // スタンプアートの場合
             print(stampArtList[indexPath.row].getFileName()!)
+            
+            // activityIndicatorを表示、入力不可にする
+            let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+            activityIndicatorLogic.startActivityIndecator(view: view)
+            
+            // セルを取得
+            print(stampArtList[indexPath.row].getFileName()!)
+            
+            // worldMap名を取得
+            var worldMapName = stampArtList[indexPath.row].getFileName()!
+            worldMapName = String(worldMapName.suffix(worldMapName.count - 2))
+            worldMapName = "a." + worldMapName
+            
+            // arDataを取得
+            let pullARDataLogic = PullARDataLogic()
+            pullARDataLogic.pullARData(worldMapName: worldMapName)
+            
+            // activityIndicatorを終了
+            activityIndicatorLogic.stopActivityIndecator(view: self.view)
+            
+            self.fileName = worldMapName
+            performSegue(withIdentifier: "art", sender: nil)
         }
     }
     
@@ -556,13 +581,19 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
             userTableViewController.userId = self.currentUser?.objectId
             let category = sender as? Int
             userTableViewController.category = category
-        }else if segue.identifier == "changeMyData"{
+        } else if segue.identifier == "changeMyData"{
             // 遷移先ViewControllerの取得
             let changeMyDataViewController = segue.destination as! ChangeMyDataViewController
             
             // ChangeMyDataにユーザー情報を渡す
             changeMyDataViewController.currentUserDetailData = self.currentUserDetail
             
+        } else if segue.identifier == "art" {
+            // 遷移先ViewControllerの取得
+            let artViewController = segue.destination as! ArtViewController
+            
+            // ファイルネームを渡す
+            artViewController.fileName = self.fileName
         }
     }
  }

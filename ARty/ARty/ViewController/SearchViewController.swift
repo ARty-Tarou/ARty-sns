@@ -38,6 +38,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
     var stampUpdateIsEnable = false
     var stampArtUpdateIsEnable = false
     
+    // ar画面に渡すfileName
+    var fileName: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -542,11 +545,29 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                    // セルを取得
                    print(stampList[indexPath.row].0.getFileName()!)
                } else {
-                   // スタンプアート
-                   
-                   // セルを取得
-                   print(stampArtList[indexPath.row].0.getFileName()!)
-               }
+                          // スタンプアート
+                          // activityIndicatorを表示、入力不可にする
+                          let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+                          activityIndicatorLogic.startActivityIndecator(view: view)
+                          
+                          // セルを取得
+                          print(stampArtList[indexPath.row].0.getFileName()!)
+                          
+                          // worldMap名を取得
+                          var worldMapName = stampArtList[indexPath.row].0.getFileName()!
+                          worldMapName = String(worldMapName.suffix(worldMapName.count - 2))
+                          worldMapName = "a." + worldMapName
+                          
+                          // arDataを取得
+                          let pullARDataLogic = PullARDataLogic()
+                          pullARDataLogic.pullARData(worldMapName: worldMapName)
+                          
+                          // activityIndicatorを終了
+                          activityIndicatorLogic.stopActivityIndecator(view: self.view)
+                          
+                          self.fileName = worldMapName
+                          performSegue(withIdentifier: "art", sender: nil)
+                      }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -579,7 +600,14 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
             let user = sender as? User
             profileViewController.user = user
             
-        }
+        } else if segue.identifier == "art" {
+                   
+                   // 遷移先viewControllerの取得
+                   let artViewController = segue.destination as! ArtViewController
+                   
+                   // ファイルネームを渡す
+                   artViewController.fileName = self.fileName
+               }
     }
     
 }
