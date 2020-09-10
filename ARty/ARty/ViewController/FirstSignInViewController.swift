@@ -32,7 +32,11 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate, UITextVi
         //ダイアログの表示
         present(alertController, animated: true, completion: nil)
         
-        
+        // テキストビューの設定
+        selfIntroductionTextView.text = "よろしくお願いします!"
+        selfIntroductionTextView.layer.borderColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 0.2)
+        selfIntroductionTextView.layer.borderWidth = 1
+        selfIntroductionTextView.layer.cornerRadius = 5
         // デリゲートを設定
         userNameTextField.delegate = self
         selfIntroductionTextView.delegate = self

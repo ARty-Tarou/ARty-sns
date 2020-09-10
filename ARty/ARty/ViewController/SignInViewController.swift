@@ -45,7 +45,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
     // MARK: Method
     func setUserDetail() {
         let currentUser = NCMBUser()
-        print("objectId:\(currentUser.objectId)")
+        print("objectId:\(String(describing: currentUser.objectId))")
         
         
         // user情報を取得
@@ -174,17 +174,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate{
             print("入力されていない項目があるよ")
         }
 
-    }
-    
-    // デバッグ用　ログインスルー
-    @IBAction func debugButtonAction(_ sender: Any) {
-        // タブビューへ画面遷移
-        DispatchQueue.global().async {
-            DispatchQueue.main.async {
-                // 画面遷移
-                self.performSegue(withIdentifier: "success", sender: nil)
-            }
-        }
     }
     
     // MARK: Method

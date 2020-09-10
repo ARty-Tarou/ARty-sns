@@ -15,31 +15,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="NBv-pA-9fl" userLabel="iconImage">
-                                <rect key="frame" x="20" y="99" width="70" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myM-Rn-qH7" userLabel="userNameLabel">
-                                <rect key="frame" x="131" y="124" width="67" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKj-SZ-9Mc">
-                                <rect key="frame" x="20" y="368" width="374" height="494"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="あ亜Aa" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hcH-sV-g3U">
-                                <rect key="frame" x="45" y="193" width="324" height="152"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hcH-sV-g3U">
+                                <rect key="frame" x="20" y="110" width="374" height="190"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GKj-SZ-9Mc">
+                                <rect key="frame" x="20" y="308" width="374" height="494"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="GKj-SZ-9Mc" secondAttribute="height" multiplier="187:247" id="Elh-py-8ZZ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GKj-SZ-9Mc" firstAttribute="top" secondItem="hcH-sV-g3U" secondAttribute="bottom" constant="8" id="1Sm-gR-upD"/>
+                            <constraint firstItem="EMc-dL-Cdb" firstAttribute="bottom" secondItem="GKj-SZ-9Mc" secondAttribute="bottom" constant="60" id="5Lx-Pa-iQS"/>
+                            <constraint firstItem="GKj-SZ-9Mc" firstAttribute="leading" secondItem="EMc-dL-Cdb" secondAttribute="leading" constant="20" id="Gxc-gf-yqZ"/>
+                            <constraint firstItem="hcH-sV-g3U" firstAttribute="leading" secondItem="EMc-dL-Cdb" secondAttribute="leading" constant="20" id="XFd-Rs-G3J"/>
+                            <constraint firstItem="EMc-dL-Cdb" firstAttribute="trailing" secondItem="GKj-SZ-9Mc" secondAttribute="trailing" constant="20" id="Yjg-kL-i1X"/>
+                            <constraint firstItem="hcH-sV-g3U" firstAttribute="top" secondItem="EMc-dL-Cdb" secondAttribute="top" constant="22" id="cCQ-6H-Koe"/>
+                            <constraint firstItem="EMc-dL-Cdb" firstAttribute="trailing" secondItem="hcH-sV-g3U" secondAttribute="trailing" constant="20" id="g77-rR-vSO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="EMc-dL-Cdb"/>
                     </view>
                     <navigationItem key="navigationItem" id="x0M-3z-QiO">
@@ -53,17 +52,17 @@
                     <connections>
                         <outlet property="detailTextView" destination="hcH-sV-g3U" id="L8H-Ll-TOh"/>
                         <outlet property="stickImageView" destination="GKj-SZ-9Mc" id="Ewi-PK-TgW"/>
-                        <segue destination="Q8d-wf-gJR" kind="show" identifier="timeline" id="ejO-kt-SWi"/>
+                        <segue destination="Q8d-wf-gJR" kind="show" identifier="tab" id="ejO-kt-SWi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjK-Pr-GDh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="785.50724637681162" y="32.8125"/>
         </scene>
-        <!--Timeline-->
+        <!--Tab-->
         <scene sceneID="ghZ-hy-JAt">
             <objects>
-                <viewControllerPlaceholder storyboardName="Timeline" id="Q8d-wf-gJR" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Tab" id="Q8d-wf-gJR" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="7xC-ie-NWF"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHM-Sa-AMQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -71,7 +70,4 @@
             <point key="canvasLocation" x="1349" y="33"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="FirstIcon" width="312" height="312"/>
-    </resources>
 </document>

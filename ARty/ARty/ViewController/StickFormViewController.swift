@@ -27,6 +27,8 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet weak var stickImageView: UIImageView!
     @IBOutlet weak var detailTextView: UITextView!
     
+    var bool: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,8 +105,6 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
             let stickLogic = StickLogic()
             stickLogic.saveFile(data: imageData, arData: stickData, stampImageData: stampImageData!, setStampData: setStampData!, detail: detailTextView.text)
             
-            //stickLogic.saveFile(data: imageData, arData: stickData, detail: detailTextView.text)
-            
         } else {
             // stampの投稿
             print("スタンプを投稿するよ")
@@ -117,7 +117,7 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
         }
         
         // タイムライン画面へ戻る
-        performSegue(withIdentifier: "timeline", sender: nil)
+        performSegue(withIdentifier: "tab", sender: nil)
         
     }
     
@@ -177,8 +177,11 @@ class StickFormViewController: UIViewController, UINavigationControllerDelegate,
     
     // テキストビューが選択されたとき
     func textViewDidBeginEditing(_ textView: UITextView) {
-        detailTextView.text = ""
-        detailTextView.textColor = UIColor.black
+        if bool == false {
+            detailTextView.text = ""
+            detailTextView.textColor = UIColor.black
+            bool = true
+        }
     }
     
     // 撮影が終わったら呼ばれる

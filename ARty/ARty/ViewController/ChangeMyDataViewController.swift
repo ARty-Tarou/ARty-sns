@@ -23,6 +23,11 @@ class ChangeMyDataViewController: UIViewController, UITextFieldDelegate, UITextV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // テキストビューの設定
+        selfIntroductionTextView.layer.borderColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 0.2)
+        selfIntroductionTextView.layer.borderWidth = 1
+        selfIntroductionTextView.layer.cornerRadius = 5
+        
         // ツールバーを設定
         let toolBar = UIToolbar()
         toolBar.sizeToFit()

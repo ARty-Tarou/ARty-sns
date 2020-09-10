@@ -37,14 +37,6 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
         leftCollectionView.dataSource = self
         rightCollectionView.dataSource = self
         
-        // Cellのレイアウトを設定
-        let leftLayout = UICollectionViewFlowLayout()
-        let rightLayout = UICollectionViewFlowLayout()
-        leftLayout.itemSize = CGSize(width: 182, height: 290)
-        rightLayout.itemSize = CGSize(width: 182, height: 290)
-        leftCollectionView.collectionViewLayout = leftLayout
-        rightCollectionView.collectionViewLayout = rightLayout
-        
         // トレンドを取得
         pullStampTrend()
         pullStampArtTrend()
@@ -94,6 +86,22 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
             }
             index += 1
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // レイアウト
+        leftCollectionView.contentSize.width = (UIScreen.main.bounds.width - 37) / 2
+        
+        
+        // Cellのレイアウトを設定
+        let leftLayout = UICollectionViewFlowLayout()
+        let rightLayout = UICollectionViewFlowLayout()
+        leftLayout.itemSize = CGSize(width: 182, height: 290)
+        rightLayout.itemSize = CGSize(width: 182, height: 290)
+        leftCollectionView.collectionViewLayout = leftLayout
+        rightCollectionView.collectionViewLayout = rightLayout
     }
     
     // MARK: Codable

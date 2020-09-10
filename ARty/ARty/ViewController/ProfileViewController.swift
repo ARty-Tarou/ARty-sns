@@ -117,7 +117,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         if count % 2 == 1{
             print("フォロー情報を更新")
             let bool = user?.getFollow()!
-            if let currentUser = NCMBUser.currentUser{
+            if NCMBUser.currentUser != nil{
                 if bool == true{
                     // フォローする
                     pushFollow()

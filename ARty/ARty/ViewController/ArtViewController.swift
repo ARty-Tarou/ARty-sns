@@ -33,6 +33,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     // ContainerView
     @IBOutlet weak var graffitiContainer: UIView!
     @IBOutlet weak var stampContainer: UIView!
+    @IBOutlet weak var reloadButton: UIBarButtonItem!
     
     // 投稿用
     var stickImage: UIImage? = nil
@@ -68,7 +69,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ARWorldMapFileName:\(self.fileName)")
+        print("ARWorldMapFileName:\(String(describing: self.fileName))")
         
         // スタンプ配列などを初期化
         appDelegate.setStampInit()
@@ -76,6 +77,8 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         if self.fileName != nil {
             // WorldMapを取得
             pullWorldMap()
+        } else {
+            self.reloadButton.isEnabled = false
         }
         
         if bool {
@@ -83,9 +86,6 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
             stampContainer.isHidden = true
             bool = false
         }
-        
-        // 設置スタンプ情報を初期化
-        //appDelegate.setStampInit()
         
         // デリゲートを設定
         sceneView.delegate = self
@@ -113,7 +113,6 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         // ナビゲーションバーを非表示にする
         navigationController?.setNavigationBarHidden(true, animated: true)
         
-        //appDelegate.setStampInit()
     }
     
     // MARK: Method
@@ -225,7 +224,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         
         
         if anchor.name == self.arAnchorName {
-            print("スタンプおきます:\(anchor.name)")
+            print("スタンプおきます:\(String(describing: anchor.name))")
             print("stampImageIndex:\(self.appDelegate.stampImageIndex)")
             print("stampImageUsed:\(self.appDelegate.stampImageUsed)")
             print("setStampData:\(self.appDelegate.setStampData)")
@@ -329,7 +328,7 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
         print("pullしてるよ")
         self.fileName = String(self.fileName!.suffix(self.fileName!.count - 2))
         self.fileName = "a." + self.fileName!
-        print("fileName : \(fileName)")
+        print("fileName : \(String(describing: fileName))")
         let file = NCMBFile(fileName: self.fileName!)
         
         file.fetchInBackground(callback: {result in
@@ -361,11 +360,11 @@ class ArtViewController: UIViewController, ARSCNViewDelegate, UITextFieldDelegat
     func reload() {
         print("reload : \(self.worldMap!)")
         
-        print("リロード(anchors):\(self.worldMap?.anchors)")
-        print("リロード(center):\(self.worldMap?.center)")
-        print("リロード(extent):\(self.worldMap?.extent)")
+        print("リロード(anchors):\(String(describing: self.worldMap?.anchors))")
+        print("リロード(center):\(String(describing: self.worldMap?.center))")
+        print("リロード(extent):\(String(describing: self.worldMap?.extent))")
         
-        print("リロード(raw):\(self.worldMap?.rawFeaturePoints)")
+        print("リロード(raw):\(String(describing: self.worldMap?.rawFeaturePoints))")
         
         // WorldMapの再設定
         let configuration = ARWorldTrackingConfiguration()

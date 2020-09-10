@@ -131,8 +131,6 @@ class MyPageViewController: UIViewController, UICollectionViewDataSource, UIColl
     struct StaticData: Codable{
         // スタンプ名
         let fileName: String?
-        // スタンプアート名
-        // let stampArtName: String?
     }
     
     // MARK: Methods

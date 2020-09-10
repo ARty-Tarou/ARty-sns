@@ -15,7 +15,6 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     // MARK: Properties
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var userNameLabel: UILabel!
     
     // タイムラインリスト
     var timelineList: [(Stamp, User)] = []
@@ -34,19 +33,13 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // ユーザー情報をセット
-        userNameLabel.text = appDelegate.currentUser?.getUserName()
         
         // CollectionViewの設定
         collectionView.register(UINib(nibName: "TimelineCell", bundle: nil), forCellWithReuseIdentifier: "timelineCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        // Cellのレイアウトを設定
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 370, height: 678)
-        layout.scrollDirection = .horizontal
-        collectionView.collectionViewLayout = layout
+        
         
         // タイムラインを取得
         self.pullTimeline()
@@ -61,7 +54,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
         timelineGoodCount = [Int](repeating: 0, count: timelineList.count)
     }
     
-        override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         // 画面遷移するときに実行
         let goodLogic = GoodLogic()
         
@@ -79,6 +72,16 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             }
             index += 1
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Cellのレイアウトを設定
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: collectionView.bounds.height * 0.55, height: collectionView.bounds.height)
+        layout.scrollDirection = .horizontal
+        collectionView.collectionViewLayout = layout
     }
     
     // MARK: Codable
@@ -144,6 +147,7 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // MARK: Methods
     // スクリプト
     func pullTimeline(){
+        
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullTimeline.js", method: .post)
         

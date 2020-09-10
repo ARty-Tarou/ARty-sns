@@ -37,9 +37,9 @@
                                 <rect key="frame" x="50" y="294" width="314" height="413"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="利用規約">
+                                    <fragment content="利用規約（仮）">
                                         <attributes>
-                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <font key="NSFont" metaFont="system" size="21"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -49,7 +49,7 @@
 Cg
 </string>
                                         <attributes>
-                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <font key="NSFont" metaFont="menu" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -59,32 +59,9 @@ Cg
 Cg
 </string>
                                         <attributes>
-                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <font key="NSFont" metaFont="menu" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">1.和を以て貴と為し、さかふること無きを宗とせよ。
-2.篤く三宝を敬へ。
-3.詔を承りては必ず謹め、君をば天とす、臣をば地とす。
-4.群臣百寮、礼を以て本とせよ。
-5.饗を絶ち欲することを棄て、明に訴訟を弁めよ。
-6.悪しきを懲らし善を勧むるは、古の良き典なり。
-7.人各任有り。
-8.群卿百寮、早朝晏退でよ。
-9.信は是義の本なり。
-10.忿を絶ちて、瞋を棄て、人の違うことを怒らざれ。
-11.功と過を明らかに察て、賞罰を必ず当てよ。
-12.国司・国造、百姓に収斂することなかれ。
-13.諸の官に任せる者は、同じく職掌を知れ。
-14.群臣百寮、嫉み妬むこと有ること無かれ。
-15.私を背きて公に向くは、是臣が道なり。
-16.民を使うに時を以てするは、古の良き典なり。
-17.夫れ事独り断むべからず。</string>
-                                        <attributes>
-                                            <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>

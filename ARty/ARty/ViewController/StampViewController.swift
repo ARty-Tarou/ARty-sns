@@ -107,15 +107,15 @@ class StampViewController: UIViewController, UITextFieldDelegate, UIImagePickerC
         let stampImageData = StampImageData(stampImage: self.stampImage!, stampImageName: stampImageName, stampNumber: stampNumber)
         
         // stampImageを共有
-        if appDelegate.stampImageUsed == true /*|| appDelegate.stampImageIndex == 0*/ {
+        if appDelegate.stampImageUsed == true {
             print("0番目とか")
             appDelegate.stampImageData.append(stampImageData)
         } else {
             appDelegate.stampImageData[appDelegate.stampImageIndex] = stampImageData
         }
         
-        print("stampImageData(ImageConfig)Name:\(self.appDelegate.stampImageData.first?.getStampImageName())")
-                print("stampImageData(ImageConfig)Number:\(self.appDelegate.stampImageData.first?.getStampNumber())")
+        print("stampImageData(ImageConfig)Name:\(String(describing: self.appDelegate.stampImageData.first?.getStampImageName()))")
+        print("stampImageData(ImageConfig)Number:\(String(describing: self.appDelegate.stampImageData.first?.getStampNumber()))")
     }
     
     
