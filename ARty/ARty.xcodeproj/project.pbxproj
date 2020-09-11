@@ -55,6 +55,8 @@
 		CC7D818D246C428900351D2A /* UserTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7D818C246C428900351D2A /* UserTableCell.swift */; };
 		CC88A31A24700A4F003FC79C /* SearchStickCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC88A31924700A4F003FC79C /* SearchStickCell.xib */; };
 		CC88A31C24700D2B003FC79C /* SearchStickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC88A31B24700D2B003FC79C /* SearchStickCell.swift */; };
+		CC98B17D250B0C6B0080D9B7 /* Image.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC98B17C250B0C6B0080D9B7 /* Image.storyboard */; };
+		CC98B17F250B0C8E0080D9B7 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC98B17E250B0C8E0080D9B7 /* ImageViewController.swift */; };
 		CCA6D9622456BC30008AC366 /* StickForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCA6D9612456BC30008AC366 /* StickForm.storyboard */; };
 		CCA6D9642456BC65008AC366 /* StickFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9632456BC65008AC366 /* StickFormViewController.swift */; };
 		CCA6D9662456BD10008AC366 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA6D9652456BD10008AC366 /* TimelineViewController.swift */; };
@@ -119,6 +121,8 @@
 		CC7D818C246C428900351D2A /* UserTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableCell.swift; sourceTree = "<group>"; };
 		CC88A31924700A4F003FC79C /* SearchStickCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchStickCell.xib; sourceTree = "<group>"; };
 		CC88A31B24700D2B003FC79C /* SearchStickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStickCell.swift; sourceTree = "<group>"; };
+		CC98B17C250B0C6B0080D9B7 /* Image.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Image.storyboard; sourceTree = "<group>"; };
+		CC98B17E250B0C8E0080D9B7 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		CCA6D9612456BC30008AC366 /* StickForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StickForm.storyboard; sourceTree = "<group>"; };
 		CCA6D9632456BC65008AC366 /* StickFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFormViewController.swift; sourceTree = "<group>"; };
 		CCA6D9652456BD10008AC366 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 				CCA6D9612456BC30008AC366 /* StickForm.storyboard */,
 				CC7D8184246BD64200351D2A /* UserTable.storyboard */,
 				08430F59246D262A00CF182E /* Helppage.storyboard */,
+				CC98B17C250B0C6B0080D9B7 /* Image.storyboard */,
 				CC61F47824BC3151001B10B1 /* Art.storyboard */,
 			);
 			path = Storyboard;
@@ -226,6 +231,7 @@
 				CC61F47A24BC3167001B10B1 /* ArtViewController.swift */,
 				CC4456D224D00BAE0023A126 /* GraffitiViewController.swift */,
 				CC4456D424D00BD20023A126 /* StampViewController.swift */,
+				CC98B17E250B0C8E0080D9B7 /* ImageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -350,6 +356,7 @@
 				08430F5A246D262A00CF182E /* Helppage.storyboard in Resources */,
 				5705E03424460F750069FEDD /* Main.storyboard in Resources */,
 				CC7B45BB2484DD190089CF17 /* FirstSignIn.storyboard in Resources */,
+				CC98B17D250B0C6B0080D9B7 /* Image.storyboard in Resources */,
 				CC61E565244D53DD00EF5DED /* MyPage.storyboard in Resources */,
 				CC7D818B246C41A800351D2A /* UserTableCell.xib in Resources */,
 			);
@@ -424,6 +431,7 @@
 				CCF2AC4B245BEF08000B98EA /* StickLogic.swift in Sources */,
 				08D74602246D5B7800245DDD /* SubHelpViewController.swift in Sources */,
 				CC0CE459244C2A8D0047B289 /* SignUpViewController.swift in Sources */,
+				CC98B17F250B0C8E0080D9B7 /* ImageViewController.swift in Sources */,
 				CC7A014A247662EB00305B94 /* GoodLogic.swift in Sources */,
 				089207C5244DA26200699589 /* ChangeMyDataViewController.swift in Sources */,
 				CC4456D324D00BAE0023A126 /* GraffitiViewController.swift in Sources */,

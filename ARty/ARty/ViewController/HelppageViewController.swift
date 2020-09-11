@@ -10,11 +10,11 @@ import UIKit
 
 class HelppageViewController: UIViewController ,UITableViewDataSource, UITableViewDelegate{
 
-    @IBOutlet weak var Helptable: UITableView!
+    @IBOutlet weak var helpTable: UITableView!
     
     var chosenCell: Int!
     
-    let labelTitles: NSArray = [
+    let labelTitles: [String] = [
         "初めに","ARtyの使い方","カメラ機能の使い方",
         "goodの活用方法","投稿の方法","その他"]
     
@@ -22,7 +22,9 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        // tableViewの設定
+        helpTable.delegate = self
+        helpTable.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,41 +33,30 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
     }
     
     //セルの数を指定
-    func tableView(_ Helptable: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return labelTitles.count
     }
     
     //各セルの要素を設定
-    func tableView(_ Helptable: UITableView,
+    func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         //tableCellのIDでUITableCellのインスタンスを作成
-        let cell = Helptable.dequeueReusableCell(withIdentifier: "HelpCell", for: indexPath)
-        //Tag番号１でUILabelインスタンスの生成
-        let label = cell.viewWithTag(1)as! UILabel
-        label.text = String(describing:labelTitles[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HelpCell", for: indexPath)
+        
+        cell.textLabel?.text = labelTitles[indexPath.row]
         
         return cell
     }
-    //セルのサイズ
-    func tableView(_ Helptable: UITableView,
-                   heightForRowAt indexPath: IndexPath) -> CGFloat{
-        return 100.0
-    }
-    //仮だけど戻るボタンの生成もしときます
-    @IBAction func backtoMypage(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
 
     //cellが選択された時
-    func tableView(_ Helptable:UITableView,didSelectRowAt indexPath:IndexPath){
+    func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
         
         
         //選択したセルの保存
         chosenCell = indexPath.row
         
-        //セルの選択を会場
-        Helptable.deselectRow(at: indexPath,animated: true)
+        //セルの選択を解除
+        tableView.deselectRow(at: indexPath,animated: true)
         
         //別画面に遷移しますよ
         if chosenCell != nil{
@@ -73,13 +64,13 @@ class HelppageViewController: UIViewController ,UITableViewDataSource, UITableVi
         }
     }
     // Segue 準備
-       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           // 遷移先のViecControllerのインスタンスを生成
-           let secVC: SubHelpViewController = (segue.destination as? SubHelpViewController)!
-           // SubHelpViewControllerのgetCellに選択されたテキストを設定する
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // 遷移先のViecControllerのインスタンスを生成
+        let secVC: SubHelpViewController = (segue.destination as? SubHelpViewController)!
+        // SubHelpViewControllerのgetCellに選択されたテキストを設定する
         secVC.getCell = chosenCell
-
-       }
+        
+    }
 }
 
 

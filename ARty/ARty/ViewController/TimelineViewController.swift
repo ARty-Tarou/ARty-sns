@@ -31,6 +31,10 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
     // ar画面に渡すfileName
     var fileName: String?
     
+    // image画面に渡すデータ
+    var stampName: String?
+    var stampImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -430,6 +434,17 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             
             self.fileName = worldMapName
             performSegue(withIdentifier: "art", sender: nil)
+        } else {
+            // スタンプのとき
+            // ファイル名、画像を取得
+            self.stampName = timelineList[indexPath.row].0.getFileName()!
+            self.stampImage = timelineList[indexPath.row].0.getStampImage()
+            
+            // activityIndicatorを終了
+            activityIndicatorLogic.stopActivityIndecator(view: self.view)
+            
+            // 画面遷移
+            performSegue(withIdentifier: "image", sender: nil)
         }
     }
     
@@ -462,6 +477,12 @@ class TimelineViewController: UIViewController, UICollectionViewDataSource, UICo
             
             // ファイルネームを渡す
             artViewController.fileName = self.fileName
+        } else if segue.identifier == "image" {
+            let imageViewController = segue.destination as! ImageViewController
+            
+            // スタンプデータを渡す
+            imageViewController.stampName = self.stampName
+            imageViewController.image = self.stampImage
         }
     }
 }

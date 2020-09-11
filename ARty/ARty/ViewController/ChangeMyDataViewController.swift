@@ -134,7 +134,7 @@ class ChangeMyDataViewController: UIViewController, UITextFieldDelegate, UITextV
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    // 完了ボタンでキーボードを閉じる
+    // ツールバーの完了ボタンでキーボードを閉じる
     @objc func onCloseButton(_ sender: Any) {
         // キーボードを閉じる
         selfIntroductionTextView.endEditing(true)

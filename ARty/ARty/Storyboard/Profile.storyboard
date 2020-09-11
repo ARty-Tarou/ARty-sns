@@ -223,6 +223,7 @@
                         <outlet property="userNameLabel" destination="TVB-Vf-6DD" id="918-f4-euN"/>
                         <segue destination="WYw-A4-1Mr" kind="show" identifier="userTable" id="utr-6v-YQz"/>
                         <segue destination="fI9-1d-TkZ" kind="show" identifier="art" id="cmg-J4-t0u"/>
+                        <segue destination="VOY-qf-zcc" kind="show" identifier="image" id="rRy-Se-BJQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5VP-eb-Qxq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -237,7 +238,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p4F-Sd-fvQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="605" y="-54"/>
+            <point key="canvasLocation" x="589" y="-126"/>
         </scene>
         <!--Art-->
         <scene sceneID="NVq-p7-Zvv">
@@ -248,6 +249,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbD-w7-kaV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="589" y="10"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="RaT-bg-R0P">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Image" id="VOY-qf-zcc" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="hDC-d6-v9m"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R1h-dj-Qnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="589" y="58"/>
         </scene>
     </scenes>
     <resources>

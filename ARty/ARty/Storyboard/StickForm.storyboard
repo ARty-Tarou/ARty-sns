@@ -18,6 +18,9 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hcH-sV-g3U">
                                 <rect key="frame" x="20" y="110" width="374" height="190"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="LNi-Vf-zZ0"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -42,7 +45,7 @@
                         <viewLayoutGuide key="safeArea" id="EMc-dL-Cdb"/>
                     </view>
                     <navigationItem key="navigationItem" id="x0M-3z-QiO">
-                        <barButtonItem key="rightBarButtonItem" title="投稿" style="plain" id="gPl-Zm-L1A">
+                        <barButtonItem key="rightBarButtonItem" title="投稿" style="done" id="gPl-Zm-L1A">
                             <connections>
                                 <action selector="stickButtonAction:" destination="Dhi-BN-Cbu" id="2OQ-gd-XeG"/>
                             </connections>

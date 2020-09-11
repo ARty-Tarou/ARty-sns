@@ -82,6 +82,7 @@
                         <segue destination="vZv-o7-4eg" kind="show" identifier="stick" id="xl0-1p-TH0"/>
                         <segue destination="0nj-j6-zYq" kind="show" identifier="profile" id="2vS-23-42o"/>
                         <segue destination="h1r-Fe-0qw" kind="show" identifier="art" id="NQ8-44-KBB"/>
+                        <segue destination="eAt-Yb-c3d" kind="show" identifier="image" id="oTw-87-myO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wpE-r4-52m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -117,6 +118,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yju-dW-z6E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3480" y="193"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="sWc-Uq-NYe">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Image" id="eAt-Yb-c3d" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1Mb-BB-yyl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="odz-rj-jIf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3492" y="232"/>
         </scene>
     </scenes>
     <resources>

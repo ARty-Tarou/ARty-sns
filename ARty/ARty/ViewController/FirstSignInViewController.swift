@@ -32,16 +32,30 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate, UITextVi
         //ダイアログの表示
         present(alertController, animated: true, completion: nil)
         
+        // ツールバーを設定
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let closeButtonItem = UIBarButtonItem(title: "完了", style: .plain, target: self, action: #selector(self.onCloseButton(_:)))
+        
+        // ツールバーにボタンをセット
+        toolBar.setItems([flexibleItem, closeButtonItem], animated: true)
+        
         // テキストビューの設定
         selfIntroductionTextView.text = "よろしくお願いします!"
         selfIntroductionTextView.layer.borderColor = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 0.2)
         selfIntroductionTextView.layer.borderWidth = 1
         selfIntroductionTextView.layer.cornerRadius = 5
+        
+        // テキストビューにツールバーを設定
+        selfIntroductionTextView.inputAccessoryView = toolBar
+        
         // デリゲートを設定
         userNameTextField.delegate = self
         selfIntroductionTextView.delegate = self
         
-        // デバッグ
+        // 確認
         print("オブジェクトID:\(String(describing: self.currentUser?.objectId))")
         print("パスワード:\(String(describing: self.currentUser?.password))")
         print("セッショントークン:\(String(describing: self.currentUser?.sessionToken))")
@@ -123,6 +137,13 @@ class FirstSignInViewController: UIViewController, UITextFieldDelegate, UITextVi
         } else {
             print("ユーザー名が入力されてないよ")
         }
+        
+    }
+    
+    // ツールバーの完了ボタンでキーボードを閉じる
+    @objc func onCloseButton(_ sender: Any) {
+        // キーボードを閉じる
+        selfIntroductionTextView.endEditing(true)
         
     }
 }

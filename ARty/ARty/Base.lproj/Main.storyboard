@@ -165,6 +165,6 @@
     <resources>
         <image name="DecisionButton" width="148" height="61"/>
         <image name="SigninButton" width="148" height="61"/>
-        <image name="muty" width="768" height="768"/>
+        <image name="muty" width="488" height="560"/>
     </resources>
 </document>

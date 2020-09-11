@@ -139,6 +139,7 @@
                         <outlet property="searchTextField" destination="8mq-Zu-ieq" id="heR-Cv-LlH"/>
                         <segue destination="hkI-oV-fFb" kind="show" identifier="profile" id="LtK-rl-LhQ"/>
                         <segue destination="OAP-1K-fIa" kind="show" identifier="art" id="eKA-N2-Ulr"/>
+                        <segue destination="GVF-oM-fRI" kind="show" identifier="image" id="URx-1J-PNA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TS6-83-KGg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -164,6 +165,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8d-Hz-kYM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2700" y="1166"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="Ykr-Rc-7Uc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Image" id="GVF-oM-fRI" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="oK8-hB-tNa"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RFS-wO-uMV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2698" y="1206"/>
         </scene>
     </scenes>
 </document>

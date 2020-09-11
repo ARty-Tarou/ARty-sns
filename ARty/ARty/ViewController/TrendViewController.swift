@@ -21,6 +21,10 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     // ar画面に渡すfileName
     var fileName: String?
     
+    // image画面に渡すデータ
+    var stampName: String?
+    var stampImage: UIImage?
+    
     // スタンプリスト
     var stampList: [(Stamp, User)] = []
     var stampArtList: [(Stamp, User)] = []
@@ -531,16 +535,27 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
     // セルが選択されたとき
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        // activityIndicatorを表示、入力不可にする
+        let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
+        activityIndicatorLogic.startActivityIndecator(view: view)
+        
         if collectionView == leftCollectionView {
             // スタンプ
             
             // セルを取得
             print(stampList[indexPath.row].0.getFileName()!)
+            
+            // ファイル名、画像を取得
+            self.stampName = stampList[indexPath.row].0.getFileName()!
+            self.stampImage = stampList[indexPath.row].0.getStampImage()
+            
+            // activityIndicatorを終了
+            activityIndicatorLogic.stopActivityIndecator(view: self.view)
+            
+            // 画面遷移
+            performSegue(withIdentifier: "image", sender: nil)
         } else {
             // スタンプアート
-            // activityIndicatorを表示、入力不可にする
-            let activityIndicatorLogic = ActivityIndicatorLogic(view: view)
-            activityIndicatorLogic.startActivityIndecator(view: view)
             
             // セルを取得
             print(stampArtList[indexPath.row].0.getFileName()!)
@@ -577,7 +592,13 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
             
             // ファイルネームを渡す
             artViewController.fileName = self.fileName
+        } else if segue.identifier == "image" {
+            let imageViewController = segue.destination as! ImageViewController
+            
+            // スタンプデータを渡す
+            imageViewController.stampName = self.stampName
+            imageViewController.image = self.stampImage
         }
     }
-
+    
 }

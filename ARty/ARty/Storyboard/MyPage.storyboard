@@ -252,6 +252,7 @@
                         <segue destination="Rfp-iR-uXp" kind="show" identifier="userTable" id="cZ1-eV-svC"/>
                         <segue destination="ZdR-fM-iOC" kind="show" identifier="changeMyData" id="dg3-R7-BCz"/>
                         <segue destination="t5V-6s-4ND" kind="show" identifier="art" id="oQy-vW-7tG"/>
+                        <segue destination="SqP-M0-NQj" kind="show" identifier="image" id="okO-Yw-QLC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vyd-Sn-kJZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -306,7 +307,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KoL-Mj-ZCp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1522" y="1271"/>
+            <point key="canvasLocation" x="1583" y="1271"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="0Nn-Nl-4eX">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Image" id="SqP-M0-NQj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="DWv-ID-HW6"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hJF-3r-afN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1570" y="1318"/>
         </scene>
     </scenes>
     <resources>
