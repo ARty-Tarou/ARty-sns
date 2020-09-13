@@ -319,10 +319,19 @@ class TrendViewController: UIViewController, UICollectionViewDataSource, UIColle
                             user.setUserIconImage(userIconImage: image!)
                             
                             // コレクションビューを更新
-                            print("コレクションビューを更新")
-                            DispatchQueue.global().async {
-                                DispatchQueue.main.async {
-                                    self.leftCollectionView.reloadData()
+                            if type == 0 {
+                                print("コレクションビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.leftCollectionView.reloadData()
+                                    }
+                                }
+                            } else {
+                                print("コレクションビューを更新")
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.rightCollectionView.reloadData()
+                                    }
                                 }
                             }
                             

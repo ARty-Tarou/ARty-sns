@@ -191,7 +191,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
         // スクリプトインスタンスを生成
         let script = NCMBScript(name: "pullSearchStampArtStick.js", method: .post)
         // ボディを設定
-        let requestBody: [String: Any?] = ["searchWord": searchWord, "skip": stampArtSkip]
+        let requestBody: [String: Any?] = ["searchWord": searchWord, "skip": stampArtSkip, "currentUserId": currentUser?.objectId]
         // スクリプトを実行
         script.executeInBackground(headers: [:], queries: [:], body: requestBody, callback: {result in
             switch result{
@@ -279,12 +279,22 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                         stamp.setStampImage(stampImage: image)
                         
                         // コレクションビューを更新
-                        print("コレクションビューを更新")
-                        DispatchQueue.global().async {
-                            DispatchQueue.main.async {
-                                self.leftCollectionView.reloadData()
+                        if type == 0 {
+                            print("コレクションビューを更新")
+                            DispatchQueue.global().async {
+                                DispatchQueue.main.async {
+                                    self.leftCollectionView.reloadData()
+                                }
+                            }
+                        } else {
+                            print("コレクションビューを更新")
+                            DispatchQueue.global().async {
+                                DispatchQueue.main.async {
+                                    self.rightCollectionView.reloadData()
+                                }
                             }
                         }
+                        
                     case let .failure(error):
                         print("スタンプ画像取得に失敗:\(error)")
                     }
@@ -314,10 +324,17 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
                             user.setUserIconImage(userIconImage: image!)
                             
                             // コレクションビューを更新
-                            print("コレクションビューを更新")
-                            DispatchQueue.global().async {
-                                DispatchQueue.main.async {
-                                    self.leftCollectionView.reloadData()
+                            if type == 0 {
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.leftCollectionView.reloadData()
+                                    }
+                                }
+                            } else {
+                                DispatchQueue.global().async {
+                                    DispatchQueue.main.async {
+                                        self.rightCollectionView.reloadData()
+                                    }
                                 }
                             }
                             
@@ -564,7 +581,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UICollectionV
             performSegue(withIdentifier: "image", sender: nil)
         } else {
             // スタンプアート
-            
             
             // セルを取得
             print(stampArtList[indexPath.row].0.getFileName()!)
