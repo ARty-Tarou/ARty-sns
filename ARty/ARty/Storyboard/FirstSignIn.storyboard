@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UOD-dH-bXf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--First Sign In View Controller-->
+        <scene sceneID="G1d-EA-mft">
+            <objects>
+                <viewController id="UOD-dH-bXf" customClass="FirstSignInViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4g5-6f-VPG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y6c-7A-0rx">
+                                <rect key="frame" x="63" y="294" width="257" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2L-ZW-5Rc" userLabel="userName">
+                                <rect key="frame" x="63" y="265" width="166" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="userName">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="（必須）">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=":">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="selfIntroduction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiV-9H-G7C">
+                                <rect key="frame" x="63" y="393" width="257" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-lj-AGm" userLabel="Next">
+                                <rect key="frame" x="167" y="732" width="80" height="30"/>
+                                <state key="normal" title="次へ"/>
+                                <connections>
+                                    <action selector="nextButtonAction:" destination="UOD-dH-bXf" eventType="touchUpInside" id="nJL-QV-ifb"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FirstIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9GS-Wr-5IM">
+                                <rect key="frame" x="157" y="94" width="100" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9GS-Wr-5IM" secondAttribute="height" multiplier="106:107" id="4ut-Lu-tUi"/>
+                                    <constraint firstAttribute="width" constant="100" id="w0U-76-pRG"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vio-qF-hdu">
+                                <rect key="frame" x="63" y="440" width="257" height="99"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="537-fn-SC0" firstAttribute="bottom" secondItem="iC0-lj-AGm" secondAttribute="bottom" constant="100" id="7ql-OA-1HE"/>
+                            <constraint firstItem="9GS-Wr-5IM" firstAttribute="centerX" secondItem="4g5-6f-VPG" secondAttribute="centerX" id="Ob9-zh-YuI"/>
+                            <constraint firstItem="9GS-Wr-5IM" firstAttribute="top" secondItem="537-fn-SC0" secondAttribute="top" constant="50" id="co0-d4-ooN"/>
+                            <constraint firstItem="iC0-lj-AGm" firstAttribute="centerX" secondItem="9GS-Wr-5IM" secondAttribute="centerX" id="nwk-1Z-IL7"/>
+                            <constraint firstItem="iC0-lj-AGm" firstAttribute="leading" secondItem="537-fn-SC0" secondAttribute="leading" constant="167" id="upn-4K-vmj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="537-fn-SC0"/>
+                    </view>
+                    <connections>
+                        <outlet property="selfIntroductionTextView" destination="vio-qF-hdu" id="MNa-sh-V4p"/>
+                        <outlet property="userIconImageView" destination="9GS-Wr-5IM" id="zSy-Yh-5F7"/>
+                        <outlet property="userNameTextField" destination="Y6c-7A-0rx" id="jQP-CA-NRc"/>
+                        <segue destination="kLI-aQ-zPj" kind="show" identifier="tab" id="45S-Bo-8Gl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rL-4E-kIT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-228.98550724637684" y="46.875"/>
+        </scene>
+        <!--Tab-->
+        <scene sceneID="KwV-Gd-lkC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Tab" id="kLI-aQ-zPj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8ue-nX-S1P"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YTP-3n-cLh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="421" y="47"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="FirstIcon" width="312" height="312"/>
+    </resources>
+</document>

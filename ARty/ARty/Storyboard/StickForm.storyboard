@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Dhi-BN-Cbu">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Stick Form View Controller-->
+        <scene sceneID="1Pz-zU-SgY">
+            <objects>
+                <viewController id="Dhi-BN-Cbu" customClass="StickFormViewController" customModule="ARty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jM1-Z6-7AC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hcH-sV-g3U">
+                                <rect key="frame" x="20" y="110" width="374" height="190"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="LNi-Vf-zZ0"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GKj-SZ-9Mc">
+                                <rect key="frame" x="20" y="308" width="374" height="494"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="GKj-SZ-9Mc" secondAttribute="height" multiplier="187:247" id="Elh-py-8ZZ"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GKj-SZ-9Mc" firstAttribute="top" secondItem="hcH-sV-g3U" secondAttribute="bottom" constant="8" id="1Sm-gR-upD"/>
+                            <constraint firstItem="EMc-dL-Cdb" firstAttribute="bottom" secondItem="GKj-SZ-9Mc" secondAttribute="bottom" constant="60" id="5Lx-Pa-iQS"/>
+                            <constraint firstItem="GKj-SZ-9Mc" firstAttribute="leading" secondItem="EMc-dL-Cdb" secondAttribute="leading" constant="20" id="Gxc-gf-yqZ"/>
+                            <constraint firstItem="hcH-sV-g3U" firstAttribute="leading" secondItem="EMc-dL-Cdb" secondAttribute="leading" constant="20" id="XFd-Rs-G3J"/>
+                            <constraint firstItem="EMc-dL-Cdb" firstAttribute="trailing" secondItem="GKj-SZ-9Mc" secondAttribute="trailing" constant="20" id="Yjg-kL-i1X"/>
+                            <constraint firstItem="hcH-sV-g3U" firstAttribute="top" secondItem="EMc-dL-Cdb" secondAttribute="top" constant="22" id="cCQ-6H-Koe"/>
+                            <constraint firstItem="EMc-dL-Cdb" firstAttribute="trailing" secondItem="hcH-sV-g3U" secondAttribute="trailing" constant="20" id="g77-rR-vSO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EMc-dL-Cdb"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="x0M-3z-QiO">
+                        <barButtonItem key="rightBarButtonItem" title="投稿" style="done" id="gPl-Zm-L1A">
+                            <connections>
+                                <action selector="stickButtonAction:" destination="Dhi-BN-Cbu" id="2OQ-gd-XeG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="detailTextView" destination="hcH-sV-g3U" id="L8H-Ll-TOh"/>
+                        <outlet property="stickImageView" destination="GKj-SZ-9Mc" id="Ewi-PK-TgW"/>
+                        <segue destination="Q8d-wf-gJR" kind="show" identifier="tab" id="ejO-kt-SWi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vjK-Pr-GDh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785.50724637681162" y="32.8125"/>
+        </scene>
+        <!--Tab-->
+        <scene sceneID="ghZ-hy-JAt">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Tab" id="Q8d-wf-gJR" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="7xC-ie-NWF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OHM-Sa-AMQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1349" y="33"/>
+        </scene>
+    </scenes>
+</document>
