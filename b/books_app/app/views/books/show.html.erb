@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>投稿時間:</strong>
+  <%= l @book.created_at, format: :short %>
+</p>
+
+<p>
+  <strong>タイトル:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>メモ:</strong>
+  <%= @book.memo %>
+</p>
+
+<p>
+  <strong>著者:</strong>
+  <%= @book.auther %>
+</p>
+
+<p>
+  <strong>写真:</strong>
+  <%= image_tag(@book.picture_url) if @book.picture.present? %>
+</p>
+
+<%= link_to '編集', edit_book_path(@book) %> |
+<%= link_to '戻る', books_path %>
